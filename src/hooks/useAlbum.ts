@@ -107,10 +107,20 @@ export function useAlbum() {
       .map(([id, s]) => ({ id: Number(id), count: s.count - 1 }));
   }, [state]);
 
+  const resetSticker = useCallback((id: number) => {
+    setState((prev) => {
+      const copy = { ...prev };
+      delete copy[id];
+      saveState(copy);
+      return copy;
+    });
+  }, []);
+
   return {
     state,
     getStickerState,
     cycleSticker,
+    resetSticker,
     setSticker,
     stats,
     getMissingIds,

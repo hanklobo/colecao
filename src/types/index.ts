@@ -18,6 +18,7 @@ export interface Section {
   name: string;
   flag?: string;
   group?: string;
+  flagCode?: string;
   stickers: Sticker[];
 }
 

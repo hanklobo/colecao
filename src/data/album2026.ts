@@ -119,6 +119,7 @@ function buildSections(): Section[] {
       id: team.id,
       name: team.name,
       flag: team.flag,
+      flagCode: team.id,
       group: team.group,
       stickers: teamStickers(id, team.id),
     });
