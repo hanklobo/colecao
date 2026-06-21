@@ -5,8 +5,8 @@ export default {
     extend: {
       colors: {
         copa: {
-          green: '#1a6b3a',
-          gold: '#c9a84c',
+          green: '#065f46',
+          gold: '#d97706',
           blue: '#003087',
         },
       },
