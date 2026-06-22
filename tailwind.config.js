@@ -38,10 +38,25 @@ export default {
           '0%': { transform: 'translateY(-8px)', opacity: '0' },
           '100%': { transform: 'translateY(0)', opacity: '1' },
         },
+        'fade-in': {
+          '0%': { opacity: '0', transform: 'translateY(8px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+        float: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-7px)' },
+        },
+        shimmer: {
+          '0%': { backgroundPosition: '-200% 0' },
+          '100%': { backgroundPosition: '200% 0' },
+        },
       },
       animation: {
         'bounce-in': 'bounce-in 0.4s cubic-bezier(0.34,1.56,0.64,1)',
         'slide-down': 'slide-down 0.22s ease-out',
+        'fade-in': 'fade-in 0.5s ease-out both',
+        float: 'float 3.5s ease-in-out infinite',
+        shimmer: 'shimmer 2.5s linear infinite',
       },
     },
   },

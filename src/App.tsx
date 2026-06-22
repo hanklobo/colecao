@@ -87,9 +87,9 @@ export default function App() {
 
       {/* Toast notification */}
       {toast && (
-        <div className="absolute top-[120px] left-4 right-4 z-50 max-w-lg mx-auto">
-          <div className="bg-emerald-700 text-white text-sm font-semibold px-4 py-3 rounded-2xl shadow-lg flex items-center gap-2 animate-bounce-in">
-            <span>🎉</span>
+        <div className="absolute top-[124px] left-4 right-4 z-50 max-w-lg mx-auto pointer-events-none">
+          <div className="bg-emerald-600 text-white text-sm font-semibold px-4 py-3 rounded-2xl shadow-card-lg flex items-center gap-2.5 animate-bounce-in">
+            <span className="text-lg leading-none">🎉</span>
             <span>{toast}</span>
           </div>
         </div>
