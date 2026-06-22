@@ -10,22 +10,32 @@ export function ProgressBar({ have, duplicates }: Props) {
   const missing = TOTAL_STICKERS - have;
 
   return (
-    <div className="px-4 pb-3 pt-1">
-      <div className="flex justify-between text-xs text-white/80 mb-1.5">
-        <span>
-          <span className="font-bold text-white text-sm">{have}</span> / {TOTAL_STICKERS} figurinhas
-        </span>
-        <span className="font-semibold text-copa-gold">{Math.round(pct)}%</span>
-      </div>
-      <div className="h-2 bg-white/20 rounded-full overflow-hidden">
+    <div className="px-4 pb-3 pt-0.5">
+      {/* Bar */}
+      <div className="h-1.5 bg-white/10 rounded-full overflow-hidden mb-2">
         <div
-          className="h-full bg-copa-gold rounded-full transition-all duration-500"
-          style={{ width: `${pct}%` }}
+          className="h-full rounded-full transition-all duration-500"
+          style={{
+            width: `${pct}%`,
+            background: 'linear-gradient(90deg, #C9A84C, #e8c86a)',
+          }}
         />
       </div>
-      <div className="flex gap-4 mt-1.5 text-[10px] text-white/60">
-        <span>Faltam <span className="text-white/90 font-semibold">{missing}</span></span>
-        <span>Repetidas <span className="text-white/90 font-semibold">{duplicates}</span></span>
+
+      {/* Stats row */}
+      <div className="flex items-center gap-3 text-[10px]">
+        <span className="text-white/50 font-medium">
+          <span className="text-white font-bold text-xs">{have}</span>
+          <span className="text-white/30"> / {TOTAL_STICKERS}</span>
+        </span>
+        <span className="text-white/20">·</span>
+        <span className="text-white/50">
+          Faltam <span className="text-white/80 font-semibold">{missing}</span>
+        </span>
+        <span className="text-white/20">·</span>
+        <span className="text-white/50">
+          Repetidas <span className="text-copa-gold font-semibold">{duplicates}</span>
+        </span>
       </div>
     </div>
   );

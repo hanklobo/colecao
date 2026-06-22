@@ -5,10 +5,13 @@ export default {
     extend: {
       colors: {
         copa: {
-          green: '#065f46',
-          gold: '#d97706',
-          blue: '#003087',
+          green: '#1B5E35',
+          gold:  '#C9A84C',
+          navy:  '#0D1B2A',
         },
+      },
+      fontFamily: {
+        sans: ['-apple-system', 'BlinkMacSystemFont', '"SF Pro Display"', '"Segoe UI"', 'sans-serif'],
       },
     },
   },
