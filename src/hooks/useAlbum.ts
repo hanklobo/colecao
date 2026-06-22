@@ -116,12 +116,19 @@ export function useAlbum() {
     });
   }, []);
 
+  // Replace the whole album (used by backup import)
+  const replaceState = useCallback((next: AlbumState) => {
+    saveState(next);
+    setState(next);
+  }, []);
+
   return {
     state,
     getStickerState,
     cycleSticker,
     resetSticker,
     setSticker,
+    replaceState,
     stats,
     getMissingIds,
     getRepeatedIds,

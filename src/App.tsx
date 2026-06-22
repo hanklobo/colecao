@@ -24,7 +24,7 @@ const TABS: { id: Tab; label: string; Icon: ComponentType<{ className?: string; 
 
 export default function App() {
   const [tab, setTab] = useState<Tab>('album');
-  const { state, cycleSticker, resetSticker, stats } = useAlbum();
+  const { state, cycleSticker, resetSticker, replaceState, stats } = useAlbum();
   const { partners, myName, updateMyName, addPartner, removePartner } = useTradePartners();
   const [toast, setToast] = useState<string | null>(null);
   const [showHelp, setShowHelp] = useState(false);
@@ -132,7 +132,7 @@ export default function App() {
         {tab === 'album' && (
           <AlbumView state={state} onCycle={cycleSticker} onReset={resetSticker} />
         )}
-        {tab === 'stats' && <StatsView state={state} myName={myName} />}
+        {tab === 'stats' && <StatsView state={state} myName={myName} onImport={replaceState} />}
         {tab === 'trading' && (
           <TradingView
             state={state}
