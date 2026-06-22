@@ -1,7 +1,7 @@
-import { useMemo, useState } from 'react';
+import { Fragment, useMemo, useState } from 'react';
 import type { AlbumState, Section } from '../types';
 import type { TradePartner } from '../hooks/useTradePartners';
-import { STICKER_MAP, TOTAL_STICKERS } from '../data/album2026';
+import { STICKER_MAP } from '../data/album2026';
 import {
   encodeTradeCode,
   calculateTrade,
@@ -38,6 +38,12 @@ const totalHave = (state: AlbumState) =>
 
 const initial = (name: string) => name.trim().charAt(0).toUpperCase() || '?';
 
+const SHARE_STEPS = [
+  { emoji: '🔗', label: 'Compartilhe seu link' },
+  { emoji: '📲', label: 'O amigo abre' },
+  { emoji: '🤝', label: 'As trocas aparecem' },
+];
+
 export function TradingView({
   state,
   myName,
@@ -61,8 +67,6 @@ export function TradingView({
 
   const myCode = encodeTradeCode(state);
   const myHave = totalHave(state);
-  const myDuplicates = Object.values(state).filter((s) => s.status === 'repeated').length;
-  const myMissing = TOTAL_STICKERS - myHave;
 
   // Keep selection valid as partners change
   const selectedPartner =
@@ -162,11 +166,24 @@ export function TradingView({
           </div>
         )}
 
-        {/* Stats */}
-        <div className="grid grid-cols-3 gap-2.5 mb-4">
-          <Stat value={myHave} label="tenho" tone="text-white" />
-          <Stat value={myDuplicates} label="repetidas" tone="text-copa-gold" />
-          <Stat value={myMissing} label="faltam" tone="text-rose-300" />
+        {/* How link-trading works — the fun part */}
+        <div className="flex items-start mb-5">
+          {SHARE_STEPS.map((s, idx) => (
+            <Fragment key={s.label}>
+              <div className="flex-1 flex flex-col items-center text-center px-1">
+                <div
+                  className="w-14 h-14 rounded-2xl bg-white/15 flex items-center justify-center text-3xl animate-float"
+                  style={{ animationDelay: `${idx * 0.45}s` }}
+                >
+                  {s.emoji}
+                </div>
+                <p className="text-white/75 text-[10px] font-semibold mt-2 leading-tight">{s.label}</p>
+              </div>
+              {idx < SHARE_STEPS.length - 1 && (
+                <span className="text-white/30 text-xl font-bold pt-4">›</span>
+              )}
+            </Fragment>
+          ))}
         </div>
 
         {/* Share button */}
@@ -308,17 +325,6 @@ export function TradingView({
           </>
         )}
       </div>
-    </div>
-  );
-}
-
-// ── Small stat tile (share hero) ────────────────────────────────────────────
-
-function Stat({ value, label, tone }: { value: number; label: string; tone: string }) {
-  return (
-    <div className="bg-white/10 rounded-xl py-2.5 text-center">
-      <p className={`font-display font-extrabold text-lg leading-none tabular-nums ${tone}`}>{value}</p>
-      <p className="text-white/50 text-[10px] font-medium mt-1">{label}</p>
     </div>
   );
 }

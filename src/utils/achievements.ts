@@ -41,6 +41,14 @@ export function computeAchievements(state: AlbumState): Achievement[] {
 
   const introDone = sectionComplete(state, 'INTRO');
   const stadiumsDone = sectionComplete(state, 'EST');
+
+  // Special sections
+  const lendDone = sectionComplete(state, 'LEND');
+  const craqDone = sectionComplete(state, 'CRAQ');
+  const brilDone = sectionComplete(state, 'BRIL');
+  const fifaDone = sectionComplete(state, 'FIFA');
+  const specialsDone = [lendDone, craqDone, brilDone, fifaDone].filter(Boolean).length;
+
   const half = Math.ceil(TOTAL_STICKERS / 2);
 
   const defs: Omit<Achievement, 'earned'>[] = [
@@ -53,6 +61,12 @@ export function computeAchievements(state: AlbumState): Achievement[] {
     { id: 'half',     icon: '🌗', title: 'Meio caminho',      desc: 'Complete metade do álbum',    current: have,            target: half },
     { id: 'intro',    icon: '🎏', title: 'Abertura',          desc: 'Complete a seção de abertura', current: introDone ? 1 : 0, target: 1 },
     { id: 'stadiums', icon: '🏟️', title: 'Anfitriões',        desc: 'Complete todos os estádios',  current: stadiumsDone ? 1 : 0, target: 1 },
+    // Special sections
+    { id: 'lendas',   icon: '👑', title: 'Lendas',            desc: 'Complete as Lendas da Copa',          current: lendDone ? 1 : 0, target: 1 },
+    { id: 'craques',  icon: '⭐', title: 'Craques',           desc: 'Complete os Craques da Copa',         current: craqDone ? 1 : 0, target: 1 },
+    { id: 'brilho',   icon: '✨', title: 'Brilhantes',        desc: 'Complete as Especiais Brilhantes',    current: brilDone ? 1 : 0, target: 1 },
+    { id: 'fanfest',  icon: '🎪', title: 'Fã da Copa',        desc: 'Complete o FIFA Fan Festival',        current: fifaDone ? 1 : 0, target: 1 },
+    { id: 'special',  icon: '🔮', title: 'Colecionador especial', desc: 'Complete todas as seções especiais', current: specialsDone, target: 4 },
     { id: 'trader',   icon: '🔁', title: 'Pronto pra trocar', desc: 'Tenha 20 repetidas',          current: repeated,        target: 20 },
     { id: 'allgroups',icon: '🌍', title: 'Todos os grupos',   desc: 'Complete os 12 grupos',       current: completedGroups, target: groups.length },
     { id: 'champion', icon: '🏆', title: 'Campeão!',          desc: 'Complete o álbum inteiro',    current: have,            target: TOTAL_STICKERS },
