@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import type { AlbumState } from '../types';
+import { useMemo, useState } from 'react';
+import type { AlbumState, Section } from '../types';
 import type { TradePartner } from '../hooks/useTradePartners';
 import { STICKER_MAP, TOTAL_STICKERS } from '../data/album2026';
 import {
@@ -7,9 +7,20 @@ import {
   calculateTrade,
   getPartnerStats,
   generateShareUrl,
+  decodeTradeCode,
 } from '../utils/trading';
-import { decodeTradeCode } from '../utils/trading';
-import { ShareIcon, CheckIcon, TradeIcon, HelpIcon } from '../components/Icons';
+import { getFlagUrl } from '../utils/flags';
+import {
+  ShareIcon,
+  CheckIcon,
+  HelpIcon,
+  PlusIcon,
+  EditIcon,
+  TrashIcon,
+  GiveIcon,
+  ReceiveIcon,
+  CloseIcon,
+} from '../components/Icons';
 
 interface Props {
   state: AlbumState;
@@ -24,6 +35,8 @@ interface Props {
 
 const totalHave = (state: AlbumState) =>
   Object.values(state).filter((s) => s.status !== 'missing').length;
+
+const initial = (name: string) => name.trim().charAt(0).toUpperCase() || '?';
 
 export function TradingView({
   state,
@@ -51,7 +64,9 @@ export function TradingView({
   const myDuplicates = Object.values(state).filter((s) => s.status === 'repeated').length;
   const myMissing = TOTAL_STICKERS - myHave;
 
-  const selectedPartner = partners.find((p) => p.id === selectedPartnerId) ?? null;
+  // Keep selection valid as partners change
+  const selectedPartner =
+    partners.find((p) => p.id === selectedPartnerId) ?? partners[0] ?? null;
 
   function saveName() {
     if (!nameInput.trim()) return;
@@ -91,7 +106,6 @@ export function TradingView({
     setAddName('');
     setAddCode('');
     setAddError('');
-    // select newly added (will be last in array after re-render)
   }
 
   return (
@@ -102,7 +116,7 @@ export function TradingView({
         className="px-5 pt-5 pb-6 shadow-card-lg"
         style={{ backgroundImage: 'linear-gradient(120deg, #0b2e6b 0%, #1a73e8 100%)' }}
       >
-        <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center justify-between mb-4">
           <p className="text-white/70 text-xs font-semibold uppercase tracking-widest">Meu link de troca</p>
           <button
             onClick={onShowHelp}
@@ -123,143 +137,150 @@ export function TradingView({
               onChange={(e) => setNameInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && saveName()}
               placeholder="Seu nome..."
-              className="flex-1 px-3 py-2 rounded-xl bg-white/10 text-white placeholder-white/30 text-sm focus:outline-none focus:bg-white/20"
+              className="flex-1 px-3 py-2.5 rounded-xl bg-white/15 text-white placeholder-white/40 text-sm font-medium focus:outline-none focus:bg-white/25"
             />
             <button
               onClick={saveName}
               disabled={!nameInput.trim()}
-              className="px-4 py-2 bg-copa-gold text-gray-900 rounded-xl font-bold text-sm disabled:opacity-40"
+              className="px-5 py-2.5 bg-copa-gold text-copa-navy rounded-xl font-bold text-sm disabled:opacity-40 active:scale-95 transition"
             >
               OK
             </button>
           </div>
         ) : (
-          <button
-            onClick={() => { setNameInput(myName); setEditingName(true); }}
-            className="flex items-center gap-2 mb-4 group"
-          >
-            <p className="text-white font-black text-xl">{myName}</p>
-            <span className="text-white/30 text-xs group-hover:text-white/60 transition-colors">✎</span>
-          </button>
+          <div className="flex items-center gap-3 mb-4">
+            <div className="w-11 h-11 rounded-full bg-white/15 flex items-center justify-center font-display font-extrabold text-lg text-white flex-shrink-0">
+              {initial(myName)}
+            </div>
+            <button
+              onClick={() => { setNameInput(myName); setEditingName(true); }}
+              className="flex items-center gap-2 group min-w-0"
+            >
+              <p className="text-white font-display font-extrabold text-xl truncate">{myName}</p>
+              <EditIcon className="w-3.5 h-3.5 text-white/40 group-hover:text-white/80 transition-colors flex-shrink-0" />
+            </button>
+          </div>
         )}
 
         {/* Stats */}
-        <div className="flex gap-3 mb-4">
-          <div className="bg-white/10 rounded-xl px-4 py-2 text-center flex-1">
-            <p className="text-white font-bold">{myHave}</p>
-            <p className="text-white/40 text-[10px]">tenho</p>
-          </div>
-          <div className="bg-white/10 rounded-xl px-4 py-2 text-center flex-1">
-            <p className="text-copa-gold font-bold">{myDuplicates}</p>
-            <p className="text-white/40 text-[10px]">repetidas</p>
-          </div>
-          <div className="bg-white/10 rounded-xl px-4 py-2 text-center flex-1">
-            <p className="text-red-400 font-bold">{myMissing}</p>
-            <p className="text-white/40 text-[10px]">faltam</p>
-          </div>
+        <div className="grid grid-cols-3 gap-2.5 mb-4">
+          <Stat value={myHave} label="tenho" tone="text-white" />
+          <Stat value={myDuplicates} label="repetidas" tone="text-copa-gold" />
+          <Stat value={myMissing} label="faltam" tone="text-rose-300" />
         </div>
 
         {/* Share button */}
         <button
           onClick={shareLink}
           disabled={!myName && !nameInput.trim()}
-          className={`w-full py-3 rounded-xl font-bold text-sm transition-all active:scale-95 flex items-center justify-center gap-2 ${
+          className={`w-full py-3.5 rounded-2xl font-bold text-sm transition-all active:scale-95 flex items-center justify-center gap-2 ${
             shared
               ? 'bg-emerald-500 text-white'
-              : 'bg-copa-gold text-gray-900 hover:brightness-110 disabled:opacity-40'
+              : 'bg-copa-gold text-copa-navy hover:brightness-110 disabled:opacity-40 shadow-card'
           }`}
         >
           {shared ? (
             <><CheckIcon className="w-4 h-4" /> Link copiado!</>
           ) : (
-            <><ShareIcon className="w-4 h-4" /> Compartilhar meu link de troca</>
+            <><ShareIcon className="w-4 h-4" /> Compartilhar meu link</>
           )}
         </button>
-        {!myName && (
-          <p className="text-white/40 text-[10px] text-center mt-2">
-            Digite seu nome acima para gerar o link
-          </p>
-        )}
+        <p className="text-white/50 text-[11px] text-center mt-2.5 leading-snug">
+          {myName
+            ? 'Envie para um amigo. Quando ele abrir, vira parceiro de troca aqui.'
+            : 'Digite seu nome acima para gerar o link.'}
+        </p>
       </div>
 
       {/* ── Partners section ── */}
       <div className="px-4 pt-5">
         <div className="flex items-center justify-between mb-3">
-          <p className="text-gray-700 font-bold text-sm uppercase tracking-wide">
-            Parceiros de troca
-          </p>
+          <h2 className="text-gray-900 font-display font-extrabold text-base tracking-tight">
+            Parceiros
+          </h2>
           <button
             onClick={() => { setShowAddForm((v) => !v); setAddError(''); }}
-            className="text-xs font-semibold text-blue-600 bg-blue-50 px-3 py-1.5 rounded-full hover:bg-blue-100 transition-colors"
+            className={`flex items-center gap-1 text-xs font-bold px-3 py-1.5 rounded-full transition-colors ${
+              showAddForm
+                ? 'bg-gray-200 text-gray-700'
+                : 'bg-copa-blue/10 text-copa-blue hover:bg-copa-blue/20'
+            }`}
           >
-            {showAddForm ? '✕ Cancelar' : '+ Adicionar'}
+            {showAddForm
+              ? (<><CloseIcon className="w-3.5 h-3.5" /> Cancelar</>)
+              : (<><PlusIcon className="w-3.5 h-3.5" /> Adicionar</>)}
           </button>
         </div>
 
         {/* Manual add form */}
         {showAddForm && (
-          <div className="bg-white rounded-2xl shadow-sm p-4 mb-4 space-y-3">
-            <p className="text-sm font-semibold text-gray-700">Adicionar amigo manualmente</p>
+          <div className="bg-white rounded-2xl shadow-card p-4 mb-4 space-y-3 animate-slide-down">
+            <p className="text-sm font-bold text-gray-800">Adicionar amigo manualmente</p>
             <input
               value={addName}
               onChange={(e) => setAddName(e.target.value)}
-              placeholder="Nome do amigo..."
-              className="w-full px-3 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-gray-400"
+              placeholder="Nome do amigo"
+              className="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm font-medium focus:outline-none focus:border-copa-blue focus:ring-2 focus:ring-copa-blue/15 transition"
             />
             <textarea
               value={addCode}
               onChange={(e) => setAddCode(e.target.value)}
-              placeholder="Cole o link ou código de troca aqui..."
+              placeholder="Cole aqui o link ou código de troca dele"
               rows={3}
-              className="w-full px-3 py-2 border border-gray-200 rounded-xl text-xs font-mono resize-none focus:outline-none focus:border-gray-400"
+              className="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-xs font-mono resize-none focus:outline-none focus:border-copa-blue focus:ring-2 focus:ring-copa-blue/15 transition"
             />
-            {addError && <p className="text-red-500 text-xs">{addError}</p>}
+            {addError && <p className="text-rose-500 text-xs font-medium">{addError}</p>}
             <button
               onClick={submitAddPartner}
-              className="w-full py-2.5 bg-gray-900 text-white rounded-xl font-bold text-sm"
+              className="w-full py-2.5 bg-copa-ink text-white rounded-xl font-bold text-sm active:scale-95 transition"
             >
-              Adicionar
+              Adicionar parceiro
             </button>
           </div>
         )}
 
         {/* No partners yet */}
         {partners.length === 0 && !showAddForm && (
-          <div className="bg-white rounded-2xl shadow-sm p-6 text-center">
-            <p className="text-3xl mb-2">📤</p>
-            <p className="font-semibold text-gray-700 text-sm">Nenhum parceiro ainda</p>
-            <p className="text-gray-400 text-xs mt-1">
-              Compartilhe seu link acima com amigos. Quando eles clicarem, aparecerão aqui automaticamente.
+          <div className="bg-white rounded-2xl shadow-card p-7 text-center">
+            <div className="w-14 h-14 rounded-2xl bg-copa-blue/10 text-copa-blue flex items-center justify-center mx-auto mb-3">
+              <ShareIcon className="w-7 h-7" />
+            </div>
+            <p className="font-bold text-gray-800 text-sm">Nenhum parceiro ainda</p>
+            <p className="text-gray-400 text-xs mt-1 leading-snug">
+              Compartilhe seu link acima. Quando um amigo abrir, ele aparece aqui e o app
+              mostra na hora o que vale a pena trocar.
             </p>
           </div>
         )}
 
-        {/* Partner tabs + analysis */}
+        {/* Partner selector + analysis */}
         {partners.length > 0 && (
           <>
-            {/* Horizontal partner list */}
             <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide -mx-4 px-4">
               {partners.map((p) => {
                 const trade = calculateTrade(state, p.code);
                 const tradeCount = (trade?.give.length ?? 0) + (trade?.receive.length ?? 0);
-                const isActive = p.id === selectedPartnerId;
+                const isActive = p.id === selectedPartner?.id;
                 return (
                   <button
                     key={p.id}
                     onClick={() => setSelectedPartnerId(p.id)}
-                    className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-semibold whitespace-nowrap border transition-all ${
+                    className={`flex-shrink-0 flex items-center gap-2 pl-2 pr-3.5 py-2 rounded-full text-xs font-bold whitespace-nowrap border transition-all active:scale-95 ${
                       isActive
-                        ? 'bg-gray-900 text-white border-transparent'
+                        ? 'bg-copa-ink text-white border-transparent shadow-card'
                         : 'bg-white text-gray-700 border-gray-200 hover:border-gray-400'
                     }`}
                   >
+                    <span className={`w-6 h-6 rounded-full flex items-center justify-center text-[11px] font-extrabold ${
+                      isActive ? 'bg-white/20 text-white' : 'bg-gray-100 text-gray-600'
+                    }`}>
+                      {initial(p.name)}
+                    </span>
                     <span>{p.name}</span>
                     {tradeCount > 0 && (
                       <span
-                        className={`text-[9px] font-bold rounded-full px-1.5 py-0.5 leading-none ${
-                          isActive
-                            ? 'bg-copa-gold text-gray-900'
-                            : 'bg-emerald-100 text-emerald-700'
+                        className={`text-[9px] font-extrabold rounded-full px-1.5 py-0.5 leading-none tabular-nums ${
+                          isActive ? 'bg-copa-gold text-copa-navy' : 'bg-emerald-100 text-emerald-700'
                         }`}
                       >
                         {tradeCount}
@@ -270,9 +291,9 @@ export function TradingView({
               })}
             </div>
 
-            {/* Selected partner analysis */}
             {selectedPartner && (
               <PartnerAnalysis
+                key={selectedPartner.id}
                 partner={selectedPartner}
                 myState={state}
                 myHave={myHave}
@@ -291,7 +312,18 @@ export function TradingView({
   );
 }
 
-// ── Partner analysis card ──────────────────────────────────────────────────
+// ── Small stat tile (share hero) ────────────────────────────────────────────
+
+function Stat({ value, label, tone }: { value: number; label: string; tone: string }) {
+  return (
+    <div className="bg-white/10 rounded-xl py-2.5 text-center">
+      <p className={`font-display font-extrabold text-lg leading-none tabular-nums ${tone}`}>{value}</p>
+      <p className="text-white/50 text-[10px] font-medium mt-1">{label}</p>
+    </div>
+  );
+}
+
+// ── Partner analysis card ───────────────────────────────────────────────────
 
 interface AnalysisProps {
   partner: TradePartner;
@@ -306,30 +338,38 @@ function PartnerAnalysis({ partner, myState, myHave, onRemove, onGoToAlbum }: An
   const trade = calculateTrade(myState, partner.code);
   const stats = getPartnerStats(partner.code);
 
+  const give = trade?.give ?? [];
+  const receive = trade?.receive ?? [];
+  const hasTrade = give.length > 0 || receive.length > 0;
+  const diff = give.length - receive.length;
+
   return (
     <div className="mt-3 space-y-3">
       {/* Partner header */}
-      <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
-        <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
-          <div>
-            <p className="font-bold text-gray-800">{partner.name}</p>
-            <p className="text-gray-400 text-[10px]">
+      <div className="bg-white rounded-2xl shadow-card overflow-hidden">
+        <div className="flex items-center gap-3 px-4 py-3">
+          <div className="w-11 h-11 rounded-full bg-copa-blue/10 text-copa-blue flex items-center justify-center font-display font-extrabold text-lg flex-shrink-0">
+            {initial(partner.name)}
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="font-bold text-gray-900 truncate">{partner.name}</p>
+            <p className="text-gray-400 text-[11px] font-medium">
               {stats
-                ? `${stats.have} figurinhas · ${stats.duplicates} repetidas`
+                ? `${stats.have} tem · ${stats.duplicates} repetidas`
                 : 'Dados indisponíveis'}
             </p>
           </div>
           {confirmRemove ? (
-            <div className="flex gap-2">
+            <div className="flex gap-1.5 flex-shrink-0">
               <button
                 onClick={() => setConfirmRemove(false)}
-                className="text-xs text-gray-500 px-2 py-1"
+                className="text-xs font-semibold text-gray-500 px-2.5 py-1.5 rounded-lg hover:bg-gray-100"
               >
                 Cancelar
               </button>
               <button
                 onClick={onRemove}
-                className="text-xs text-red-600 font-semibold bg-red-50 px-2 py-1 rounded-lg"
+                className="text-xs text-rose-600 font-bold bg-rose-50 px-2.5 py-1.5 rounded-lg hover:bg-rose-100"
               >
                 Remover
               </button>
@@ -337,25 +377,24 @@ function PartnerAnalysis({ partner, myState, myHave, onRemove, onGoToAlbum }: An
           ) : (
             <button
               onClick={() => setConfirmRemove(true)}
-              className="text-gray-300 hover:text-red-400 transition-colors text-lg leading-none"
+              aria-label="Remover parceiro"
+              className="text-gray-300 hover:text-rose-500 transition-colors flex-shrink-0 p-1"
             >
-              ×
+              <TrashIcon className="w-5 h-5" />
             </button>
           )}
         </div>
 
         {/* Onboarding nudge for users with no stickers */}
         {myHave === 0 && (
-          <div className="px-4 py-4 bg-amber-50 border-b border-amber-100">
-            <p className="text-amber-800 font-semibold text-sm">
-              {partner.name} está esperando!
-            </p>
-            <p className="text-amber-700/70 text-xs mt-0.5">
+          <div className="px-4 py-4 bg-amber-50 border-t border-amber-100">
+            <p className="text-amber-800 font-bold text-sm">{partner.name} está esperando!</p>
+            <p className="text-amber-700/70 text-xs mt-0.5 leading-snug">
               Cadastre suas figurinhas no álbum para ver o que vocês podem trocar.
             </p>
             <button
               onClick={onGoToAlbum}
-              className="mt-3 px-4 py-2 bg-amber-500 text-white rounded-xl font-bold text-xs w-full"
+              className="mt-3 px-4 py-2.5 bg-amber-500 text-white rounded-xl font-bold text-xs w-full active:scale-95 transition"
             >
               Ir para o Álbum →
             </button>
@@ -365,104 +404,168 @@ function PartnerAnalysis({ partner, myState, myHave, onRemove, onGoToAlbum }: An
 
       {/* Trade result */}
       {!trade ? (
-        <div className="bg-white rounded-2xl shadow-sm p-6 text-center">
-          <p className="text-gray-400 text-sm">Não foi possível calcular a troca.</p>
-        </div>
-      ) : trade.give.length === 0 && trade.receive.length === 0 ? (
-        <div className="bg-white rounded-2xl shadow-sm p-6 text-center">
-          <p className="text-3xl mb-2">😕</p>
-          <p className="font-semibold text-gray-700 text-sm">Nenhuma troca possível agora</p>
-          <p className="text-gray-400 text-xs mt-1">
-            {myHave === 0
-              ? 'Cadastre suas figurinhas para ver as trocas.'
-              : `Vocês não têm o que um ao outro precisa no momento.`}
-          </p>
-        </div>
+        <EmptyCard text="Não foi possível calcular a troca." />
+      ) : !hasTrade ? (
+        <EmptyCard
+          emoji="🤝"
+          title="Nenhuma troca possível agora"
+          text={myHave === 0
+            ? 'Cadastre suas figurinhas para ver as trocas.'
+            : 'Vocês não têm o que o outro precisa no momento.'}
+        />
       ) : (
         <>
-          {/* Summary */}
+          {/* Summary + balance */}
           <div
-            className="rounded-2xl px-5 py-4 flex items-center justify-between shadow-card"
+            className="rounded-2xl px-5 py-4 shadow-card text-white"
             style={{ backgroundImage: 'linear-gradient(120deg, #0b2e6b 0%, #1a73e8 100%)' }}
           >
-            <div className="text-center">
-              <p className="text-emerald-300 font-display font-extrabold text-2xl tabular-nums">{trade.give.length}</p>
-              <p className="text-white/60 text-[10px] font-medium">você dá</p>
+            <div className="flex items-center justify-around">
+              <div className="text-center">
+                <p className="font-display font-extrabold text-3xl tabular-nums text-emerald-300">{give.length}</p>
+                <p className="text-white/60 text-[11px] font-medium mt-0.5">você dá</p>
+              </div>
+              <div className="w-px h-10 bg-white/15" />
+              <div className="text-center">
+                <p className="font-display font-extrabold text-3xl tabular-nums text-sky-300">{receive.length}</p>
+                <p className="text-white/60 text-[11px] font-medium mt-0.5">você recebe</p>
+              </div>
             </div>
-            <TradeIcon className="w-7 h-7 text-white/40" />
-            <div className="text-center">
-              <p className="text-sky-300 font-display font-extrabold text-2xl tabular-nums">{trade.receive.length}</p>
-              <p className="text-white/60 text-[10px] font-medium">você recebe</p>
+            <div className="mt-3 pt-3 border-t border-white/10 text-center">
+              {diff === 0 ? (
+                <p className="text-emerald-200 font-bold text-xs">✓ Troca equilibrada</p>
+              ) : diff > 0 ? (
+                <p className="text-amber-200 font-semibold text-xs">Você dá {diff} a mais</p>
+              ) : (
+                <p className="text-sky-200 font-semibold text-xs">Você recebe {-diff} a mais 🎉</p>
+              )}
             </div>
           </div>
 
           {/* Give */}
-          {trade.give.length > 0 && (
-            <StickerList
-              title={`Você dá para ${partner.name} (${trade.give.length})`}
-              ids={trade.give}
-              colorClass="bg-emerald-50 border-emerald-100"
-              chipClass="bg-emerald-50 border border-emerald-200 text-emerald-800"
+          {give.length > 0 && (
+            <TradeBlock
+              variant="give"
+              title="Você dá"
+              subtitle={`para ${partner.name}`}
+              ids={give}
             />
           )}
 
           {/* Receive */}
-          {trade.receive.length > 0 && (
-            <StickerList
-              title={`Você recebe de ${partner.name} (${trade.receive.length})`}
-              ids={trade.receive}
-              colorClass="bg-blue-50 border-blue-100"
-              chipClass="bg-blue-50 border border-blue-200 text-blue-800"
+          {receive.length > 0 && (
+            <TradeBlock
+              variant="receive"
+              title="Você recebe"
+              subtitle={`de ${partner.name}`}
+              ids={receive}
             />
           )}
-
-          {/* Balance */}
-          <div className="bg-white rounded-2xl shadow-sm px-4 py-3 text-center">
-            {trade.give.length === trade.receive.length ? (
-              <p className="text-emerald-700 font-semibold text-sm">✓ Troca equilibrada!</p>
-            ) : trade.give.length > trade.receive.length ? (
-              <p className="text-amber-600 font-semibold text-sm">
-                ⚠ Você dá {trade.give.length - trade.receive.length} a mais
-              </p>
-            ) : (
-              <p className="text-emerald-700 font-semibold text-sm">
-                🎉 Você recebe {trade.receive.length - trade.give.length} a mais!
-              </p>
-            )}
-          </div>
         </>
       )}
     </div>
   );
 }
 
-// ── Sticker chip list ──────────────────────────────────────────────────────
+// ── Empty / placeholder card ────────────────────────────────────────────────
 
-function StickerList({
-  title,
-  ids,
-  colorClass,
-  chipClass,
-}: {
-  title: string;
-  ids: number[];
-  colorClass: string;
-  chipClass: string;
-}) {
+function EmptyCard({ emoji, title, text }: { emoji?: string; title?: string; text: string }) {
   return (
-    <div className={`bg-white rounded-2xl shadow-sm overflow-hidden border ${colorClass}`}>
-      <p className="px-4 py-2.5 font-bold text-gray-700 text-xs border-b border-gray-100">{title}</p>
-      <div className="p-4 flex flex-wrap gap-1.5">
-        {ids.map((id) => {
-          const info = STICKER_MAP[id];
+    <div className="bg-white rounded-2xl shadow-card p-7 text-center">
+      {emoji && <p className="text-4xl mb-2">{emoji}</p>}
+      {title && <p className="font-bold text-gray-800 text-sm">{title}</p>}
+      <p className="text-gray-400 text-xs mt-1 leading-snug">{text}</p>
+    </div>
+  );
+}
+
+// ── Trade block: stickers grouped by selection ──────────────────────────────
+
+const VARIANTS = {
+  give: {
+    Icon: GiveIcon,
+    head: 'bg-emerald-500',
+    chip: 'bg-emerald-50 border-emerald-200 text-emerald-800',
+    count: 'bg-emerald-100 text-emerald-700',
+  },
+  receive: {
+    Icon: ReceiveIcon,
+    head: 'bg-sky-500',
+    chip: 'bg-sky-50 border-sky-200 text-sky-800',
+    count: 'bg-sky-100 text-sky-700',
+  },
+} as const;
+
+function groupBySection(ids: number[]): { section: Section; ids: number[] }[] {
+  const map = new Map<string, { section: Section; ids: number[] }>();
+  for (const id of ids) {
+    const info = STICKER_MAP[id];
+    if (!info) continue;
+    const entry = map.get(info.section.id);
+    if (entry) entry.ids.push(id);
+    else map.set(info.section.id, { section: info.section, ids: [id] });
+  }
+  return Array.from(map.values());
+}
+
+function TradeBlock({
+  variant,
+  title,
+  subtitle,
+  ids,
+}: {
+  variant: 'give' | 'receive';
+  title: string;
+  subtitle: string;
+  ids: number[];
+}) {
+  const v = VARIANTS[variant];
+  const groups = useMemo(() => groupBySection(ids), [ids]);
+
+  return (
+    <div className="bg-white rounded-2xl shadow-card overflow-hidden">
+      {/* Header */}
+      <div className="flex items-center gap-2.5 px-4 py-3 border-b border-gray-100">
+        <div className={`w-8 h-8 rounded-lg ${v.head} text-white flex items-center justify-center flex-shrink-0`}>
+          <v.Icon className="w-4 h-4" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="font-bold text-gray-900 text-sm leading-tight">{title}</p>
+          <p className="text-gray-400 text-[11px] font-medium leading-tight">{subtitle}</p>
+        </div>
+        <span className={`text-xs font-extrabold rounded-full px-2.5 py-1 tabular-nums ${v.count}`}>
+          {ids.length}
+        </span>
+      </div>
+
+      {/* Groups by selection */}
+      <div className="divide-y divide-gray-50">
+        {groups.map(({ section, ids: groupIds }) => {
+          const flagUrl = section.flagCode ? getFlagUrl(section.flagCode, 40) : null;
           return (
-            <span
-              key={id}
-              className={`${chipClass} text-[10px] font-semibold px-2 py-1 rounded-lg`}
-              title={`${info?.section.name} – ${info?.name}`}
-            >
-              #{id} {info?.section.flag}
-            </span>
+            <div key={section.id} className="flex items-start gap-2.5 px-4 py-2.5">
+              <div className="w-7 h-5 rounded overflow-hidden flex-shrink-0 bg-gray-100 mt-0.5 ring-1 ring-gray-200">
+                {flagUrl ? (
+                  <img src={flagUrl} alt={section.name} className="w-full h-full object-cover" loading="lazy" />
+                ) : (
+                  <span className="w-full h-full flex items-center justify-center text-xs">{section.flag ?? '⚽'}</span>
+                )}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-[11px] font-bold text-gray-700 mb-1 truncate">{section.name}</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {groupIds.map((id) => (
+                    <span
+                      key={id}
+                      className={`${v.chip} text-[11px] font-bold px-2 py-0.5 rounded-md border tabular-nums`}
+                      title={STICKER_MAP[id]?.name}
+                    >
+                      #{id}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
           );
         })}
       </div>
