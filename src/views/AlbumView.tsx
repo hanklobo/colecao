@@ -13,17 +13,21 @@ interface Props {
   onReset: (id: number) => void;
 }
 
-const GROUPS = ['INTRO', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'EST'];
+const GROUPS = [
+  'INTRO', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'EST',
+  'LEND', 'CRAQ', 'BRIL', 'FIFA',
+];
 const GROUP_LABELS: Record<string, string> = {
   INTRO: '★', EST: '🏟',
   A:'A', B:'B', C:'C', D:'D', E:'E', F:'F',
   G:'G', H:'H', I:'I', J:'J', K:'K', L:'L',
+  LEND: '👑', CRAQ: '⭐', BRIL: '✨', FIFA: '🎪',
 };
 
 function scrollToGroup(groupId: string) {
+  // A jump target is either a section id (INTRO, EST, extras) or a group letter.
   const targetId =
-    groupId === 'INTRO' ? 'INTRO' :
-    groupId === 'EST'   ? 'EST'   :
+    SECTIONS.find((s) => s.id === groupId)?.id ??
     SECTIONS.find((s) => s.group === groupId)?.id;
   if (!targetId) return;
   document.getElementById(`section-${targetId}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
