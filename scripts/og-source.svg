@@ -1,0 +1,41 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b2e6b"/>
+      <stop offset="1" stop-color="#1a73e8"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+
+  <!-- decorative ball on the right -->
+  <g transform="translate(905,300)">
+    <circle r="250" fill="#ffffff" opacity="0.06"/>
+    <circle r="150" fill="#f4b400"/>
+    <circle r="92" fill="none" stroke="#0b2e6b" stroke-width="10"/>
+    <polygon points="0,-46 43,-15 26,36 -26,36 -43,-15" fill="#0b2e6b"/>
+    <g stroke="#0b2e6b" stroke-width="9" stroke-linecap="round">
+      <line x1="0" y1="-46" x2="0" y2="-92"/>
+      <line x1="43" y1="-15" x2="87" y2="-30"/>
+      <line x1="26" y1="36" x2="54" y2="74"/>
+      <line x1="-26" y1="36" x2="-54" y2="74"/>
+      <line x1="-43" y1="-15" x2="-87" y2="-30"/>
+    </g>
+  </g>
+
+  <!-- text -->
+  <text x="80" y="225" font-family="DejaVu Sans" font-weight="bold" font-size="34" letter-spacing="8" fill="#f4b400">COLEÇÃO</text>
+  <text x="76" y="330" font-family="DejaVu Sans" font-weight="bold" font-size="120" fill="#ffffff">Copa 2026</text>
+  <text x="80" y="400" font-family="DejaVu Sans" font-size="34" fill="#dbe6fb">Álbum de figurinhas · organize e troque</text>
+
+  <!-- flag chips -->
+  <g transform="translate(80,470)">
+    <rect width="60" height="40" rx="6" fill="#009739"/>
+    <rect x="74" width="60" height="40" rx="6" fill="#75aadb"/>
+    <rect x="148" width="60" height="40" rx="6" fill="#002395"/>
+    <rect x="222" width="60" height="40" rx="6" fill="#aa151b"/>
+    <rect x="296" width="60" height="40" rx="6" fill="#000000"/>
+    <rect x="370" width="60" height="40" rx="6" fill="#c8102e"/>
+  </g>
+
+  <text x="80" y="575" font-family="DejaVu Sans" font-weight="bold" font-size="30" fill="#ffffff" opacity="0.85">albumcopa.xyz</text>
+</svg>

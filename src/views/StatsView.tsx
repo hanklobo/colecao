@@ -1,17 +1,37 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState } from 'react';
 import type { AlbumState } from '../types';
 import { SECTIONS, TOTAL_STICKERS, STICKER_MAP } from '../data/album2026';
 import { getFlagUrl } from '../utils/flags';
 import { computeAchievements } from '../utils/achievements';
 import { shareProgressCard } from '../utils/shareCard';
-import { CheckIcon, ShareIcon } from '../components/Icons';
+import { exportAlbum, parseAlbumFile } from '../utils/backup';
+import { CheckIcon, ShareIcon, DownloadIcon, UploadIcon } from '../components/Icons';
 
 interface Props {
   state: AlbumState;
   myName: string;
+  onImport: (state: AlbumState) => void;
 }
 
-export function StatsView({ state, myName }: Props) {
+export function StatsView({ state, myName, onImport }: Props) {
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  function handleImportFile(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    e.target.value = '';
+    if (!file) return;
+    file.text().then((text) => {
+      const parsed = parseAlbumFile(text);
+      if (!parsed) {
+        window.alert('Arquivo inválido. Selecione um backup exportado pelo app.');
+        return;
+      }
+      const count = Object.keys(parsed).length;
+      if (window.confirm(`Importar ${count} figurinhas? Isso substitui sua coleção atual.`)) {
+        onImport(parsed);
+      }
+    });
+  }
   const totalHave = Object.values(state).filter((s) => s.status !== 'missing').length;
   const totalMissing = TOTAL_STICKERS - totalHave;
   const totalDuplicates = Object.values(state)
@@ -201,6 +221,46 @@ export function StatsView({ state, myName }: Props) {
           </div>
         </div>
       )}
+
+      {/* Backup */}
+      <div className="px-4 mt-6">
+        <h2 className="font-display font-extrabold text-gray-800 text-sm mb-3 uppercase tracking-wide">Backup</h2>
+        <div className="bg-white rounded-2xl p-4 shadow-sm">
+          <p className="text-gray-500 text-xs leading-snug mb-3">
+            Sua coleção fica salva só neste navegador. Exporte um arquivo para não perder
+            o progresso ao trocar de celular ou limpar o navegador.
+          </p>
+          <div className="flex gap-2">
+            <button
+              onClick={() => exportAlbum(state, myName)}
+              className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-copa-ink text-white font-bold text-sm active:scale-95 transition"
+            >
+              <DownloadIcon className="w-4 h-4" /> Exportar
+            </button>
+            <button
+              onClick={() => fileRef.current?.click()}
+              className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-gray-100 text-gray-700 font-bold text-sm hover:bg-gray-200 active:scale-95 transition"
+            >
+              <UploadIcon className="w-4 h-4" /> Importar
+            </button>
+          </div>
+          <input
+            ref={fileRef}
+            type="file"
+            accept="application/json,.json"
+            onChange={handleImportFile}
+            className="hidden"
+          />
+        </div>
+      </div>
+
+      {/* Disclaimer */}
+      <div className="px-6 mt-6">
+        <p className="text-gray-400 text-[10px] text-center leading-relaxed">
+          App não oficial, feito por fãs. Não é afiliado, patrocinado ou endossado pela FIFA
+          ou pela Panini. Marcas, nomes e imagens pertencem aos seus respectivos donos.
+        </p>
+      </div>
     </div>
   );
 }

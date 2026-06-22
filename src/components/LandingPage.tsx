@@ -290,6 +290,9 @@ export function LandingPage({ onClose, firstTime }: Props) {
           >
             {i === last ? (firstTime ? 'Começar a colecionar' : 'Entendi!') : 'Próximo'}
           </button>
+          <p className="text-gray-400 text-[10px] text-center leading-relaxed mt-3">
+            App não oficial, feito por fãs. Sem vínculo com a FIFA ou a Panini.
+          </p>
         </div>
       </div>
     </div>
