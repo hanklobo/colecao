@@ -1,19 +1,49 @@
+import { useMemo, useState } from 'react';
 import type { AlbumState } from '../types';
 import { SECTIONS, TOTAL_STICKERS, STICKER_MAP } from '../data/album2026';
 import { getFlagUrl } from '../utils/flags';
-import { CheckIcon } from '../components/Icons';
+import { computeAchievements } from '../utils/achievements';
+import { shareProgressCard } from '../utils/shareCard';
+import { CheckIcon, ShareIcon } from '../components/Icons';
 
 interface Props {
   state: AlbumState;
+  myName: string;
 }
 
-export function StatsView({ state }: Props) {
+export function StatsView({ state, myName }: Props) {
   const totalHave = Object.values(state).filter((s) => s.status !== 'missing').length;
   const totalMissing = TOTAL_STICKERS - totalHave;
   const totalDuplicates = Object.values(state)
     .filter((s) => s.status === 'repeated')
     .reduce((sum, s) => sum + s.count - 1, 0);
   const pct = (totalHave / TOTAL_STICKERS) * 100;
+
+  const achievements = useMemo(() => computeAchievements(state), [state]);
+  const earnedCount = achievements.filter((a) => a.earned).length;
+
+  const [sharing, setSharing] = useState(false);
+  const [shareMsg, setShareMsg] = useState<string | null>(null);
+
+  async function handleShare() {
+    setSharing(true);
+    const result = await shareProgressCard({
+      name: myName,
+      have: totalHave,
+      total: TOTAL_STICKERS,
+      duplicates: totalDuplicates,
+      missing: totalMissing,
+      badges: earnedCount,
+    });
+    setSharing(false);
+    if (result === 'downloaded') {
+      setShareMsg('Imagem salva!');
+      setTimeout(() => setShareMsg(null), 2500);
+    } else if (result === 'error') {
+      setShareMsg('Não foi possível compartilhar.');
+      setTimeout(() => setShareMsg(null), 2500);
+    }
+  }
 
   const sectionStats = SECTIONS.map((sec) => {
     const have = sec.stickers.filter((st) => {
@@ -56,6 +86,56 @@ export function StatsView({ state }: Props) {
             <p className="text-copa-gold font-bold text-lg tabular-nums">{totalDuplicates}</p>
             <p className="text-white/60 text-xs font-medium">repetidas</p>
           </div>
+        </div>
+
+        {/* Share progress */}
+        <button
+          onClick={handleShare}
+          disabled={sharing}
+          className="mt-5 w-full py-3 rounded-2xl bg-white/15 hover:bg-white/25 text-white font-bold text-sm flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-60"
+        >
+          <ShareIcon className="w-4 h-4" />
+          {sharing ? 'Gerando imagem...' : shareMsg ?? 'Compartilhar meu progresso'}
+        </button>
+      </div>
+
+      {/* Achievements */}
+      <div className="px-4 pt-5">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="font-display font-extrabold text-gray-800 text-sm uppercase tracking-wide">Conquistas</h2>
+          <span className="text-xs font-bold text-copa-blue bg-copa-blue/10 px-2.5 py-1 rounded-full tabular-nums">
+            {earnedCount}/{achievements.length}
+          </span>
+        </div>
+        <div className="grid grid-cols-3 gap-2.5">
+          {achievements.map((a) => {
+            const progressPct = Math.min(100, Math.round((a.current / a.target) * 100));
+            return (
+              <div
+                key={a.id}
+                className={`rounded-2xl p-3 text-center border transition-all ${
+                  a.earned
+                    ? 'bg-white border-copa-gold/40 shadow-card'
+                    : 'bg-gray-100 border-gray-200'
+                }`}
+                title={a.desc}
+              >
+                <div className={`text-3xl leading-none mb-1.5 ${a.earned ? '' : 'grayscale opacity-40'}`}>
+                  {a.icon}
+                </div>
+                <p className={`text-[10px] font-bold leading-tight ${a.earned ? 'text-gray-800' : 'text-gray-400'}`}>
+                  {a.title}
+                </p>
+                {a.earned ? (
+                  <p className="text-[9px] font-semibold text-emerald-600 mt-1">✓ desbloqueada</p>
+                ) : (
+                  <div className="mt-1.5 h-1 bg-gray-200 rounded-full overflow-hidden">
+                    <div className="h-full bg-copa-blue/60 rounded-full" style={{ width: `${progressPct}%` }} />
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
 
