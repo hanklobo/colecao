@@ -7,7 +7,7 @@ import { AlbumView } from './views/AlbumView';
 import { TradingView } from './views/TradingView';
 import { StatsView } from './views/StatsView';
 import { LandingPage } from './components/LandingPage';
-import { AlbumIcon, StatsIcon, TradeIcon, BallIcon } from './components/Icons';
+import { AlbumIcon, StatsIcon, TradeIcon, BallIcon, HelpIcon } from './components/Icons';
 import { computeAchievements } from './utils/achievements';
 import { Analytics } from '@vercel/analytics/react';
 
@@ -97,7 +97,7 @@ export default function App() {
           <div className="bg-copa-gold rounded-xl w-10 h-10 flex items-center justify-center flex-shrink-0 shadow-card text-copa-navy">
             <BallIcon className="w-6 h-6" />
           </div>
-          <div className="min-w-0">
+          <div className="min-w-0 flex-1">
             <h1 className="text-white font-display font-extrabold text-lg leading-tight tracking-tight">
               Coleção Copa 2026
             </h1>
@@ -105,6 +105,14 @@ export default function App() {
               Álbum Panini · FIFA World Cup
             </p>
           </div>
+          <button
+            onClick={() => setShowHelp(true)}
+            aria-label="Como funciona"
+            className="flex-shrink-0 flex items-center gap-1.5 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 rounded-full pl-2.5 pr-3 py-1.5 text-xs font-semibold transition-colors self-start"
+          >
+            <HelpIcon className="w-4 h-4" />
+            Ajuda
+          </button>
         </div>
         <ProgressBar have={stats.have} duplicates={stats.duplicateCount} />
       </header>
@@ -134,7 +142,6 @@ export default function App() {
             onAddPartner={addPartner}
             onRemovePartner={removePartner}
             onGoToAlbum={() => setTab('album')}
-            onShowHelp={() => setShowHelp(true)}
           />
         )}
       </main>
