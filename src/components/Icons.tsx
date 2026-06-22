@@ -148,15 +148,64 @@ export function ShareIcon({ className }: IconProps) {
   );
 }
 
+export function HelpIcon({ className }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      className={base(className)}
+      stroke="currentColor"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <circle cx="12" cy="12" r="9.5" />
+      <path d="M9.2 9a2.8 2.8 0 0 1 5.4 1c0 1.8-2.6 2.2-2.6 4" />
+      <path d="M12 17.5h.01" />
+    </svg>
+  );
+}
+
+export function CloseIcon({ className }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      className={base(className)}
+      stroke="currentColor"
+      strokeWidth={2.2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M6 6l12 12M18 6 6 18" />
+    </svg>
+  );
+}
+
+export function TapIcon({ className }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      className={base(className)}
+      stroke="currentColor"
+      strokeWidth={1.9}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M9 11V6a2 2 0 0 1 4 0v5" />
+      <path d="M13 11V8.5a2 2 0 0 1 4 0V13" />
+      <path d="M17 11.5a2 2 0 0 1 4 0V16a5 5 0 0 1-5 5h-2.3a4 4 0 0 1-2.9-1.2L5 14.5a1.8 1.8 0 0 1 2.6-2.5L9 13.3" />
+    </svg>
+  );
+}
+
 export function BallIcon({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="none" className={base(className)}>
       <circle cx="12" cy="12" r="9.5" fill="currentColor" opacity="0.18" />
       <circle cx="12" cy="12" r="9.5" stroke="currentColor" strokeWidth="1.6" />
-      <path
-        d="M12 7.2 9.2 9.3l1.1 3.4h3.4l1.1-3.4z"
-        fill="currentColor"
-      />
+      <path d="M12 7.2 9.2 9.3l1.1 3.4h3.4l1.1-3.4z" fill="currentColor" />
       <path
         d="M12 7.2 9.2 9.3l1.1 3.4h3.4l1.1-3.4zM12 7.2V4M9.2 9.3 6.4 8M14.8 9.3 17.6 8M10.3 12.7 8.3 15.6M13.7 12.7l2 2.9"
         stroke="currentColor"

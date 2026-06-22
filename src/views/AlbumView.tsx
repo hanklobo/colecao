@@ -33,7 +33,7 @@ export function AlbumView({ state, onCycle, onReset }: Props) {
   const [filter, setFilter]   = useState<Filter>('all');
   const [search, setSearch]   = useState('');
   const [activeGroup, setActiveGroup] = useState('INTRO');
-  const [showFilters, setShowFilters] = useState(true);
+  const [showFilters, setShowFilters] = useState(false);
 
   // Collapsed state for all sections, keyed by section id
   const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
@@ -77,6 +77,18 @@ export function AlbumView({ state, onCycle, onReset }: Props) {
     })).filter((s) => s.stickers.length > 0),
   [lowerSearch]);
 
+  function toggleFilters() {
+    setShowFilters((v) => {
+      // Clear active search/filter when hiding so the list isn't
+      // filtered by controls the user can no longer see.
+      if (v) {
+        setSearch('');
+        setFilter('all');
+      }
+      return !v;
+    });
+  }
+
   function handleGroupClick(g: string) {
     setActiveGroup(g);
     setSearch('');
@@ -89,27 +101,18 @@ export function AlbumView({ state, onCycle, onReset }: Props) {
       {/* ── Toolbar (fixed, does not scroll) ── */}
       <div className="flex-shrink-0 bg-white border-b border-gray-200 shadow-card">
 
-        {/* Search + filters toggle */}
-        <div className="flex items-center gap-2 px-4 py-2.5 bg-gray-50/80">
-          <div className="relative flex-1">
-            <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
-            <input
-              type="search"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Buscar seleção ou figurinha..."
-              className="w-full pl-9 pr-3 py-2 rounded-xl border border-gray-200 text-sm bg-white font-medium placeholder:text-gray-400 focus:outline-none focus:border-copa-blue focus:ring-2 focus:ring-copa-blue/15 transition"
-            />
-          </div>
+        {/* Top bar: title + filters toggle (top-right corner) */}
+        <div className="flex items-center justify-between px-4 py-2.5">
+          <p className="font-display font-extrabold text-gray-900 text-base tracking-tight">Álbum</p>
           <button
-            onClick={() => setShowFilters((v) => !v)}
+            onClick={toggleFilters}
             aria-pressed={showFilters}
-            className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold transition-all active:scale-95 flex-shrink-0 ${
+            className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all active:scale-95 flex-shrink-0 ${
               showFilters
                 ? 'bg-copa-ink text-white shadow-card'
-                : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50'
+                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
             }`}
-            title={showFilters ? 'Ocultar filtros' : 'Exibir filtros'}
+            title={showFilters ? 'Ocultar filtros e busca' : 'Exibir filtros e busca'}
           >
             <FilterIcon className="w-3.5 h-3.5" />
             <span>Filtros</span>
@@ -117,9 +120,23 @@ export function AlbumView({ state, onCycle, onReset }: Props) {
           </button>
         </div>
 
-        {/* Collapsible filter region: group jump + status filters */}
+        {/* Collapsible region: search + group jump + status filters */}
         {showFilters && (
-          <div className="animate-slide-down">
+          <div className="animate-slide-down border-t border-gray-100">
+            {/* Search */}
+            <div className="px-4 py-2.5 bg-gray-50/80">
+              <div className="relative">
+                <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+                <input
+                  type="search"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                  placeholder="Buscar seleção ou figurinha..."
+                  className="w-full pl-9 pr-3 py-2 rounded-xl border border-gray-200 text-sm bg-white font-medium placeholder:text-gray-400 focus:outline-none focus:border-copa-blue focus:ring-2 focus:ring-copa-blue/15 transition"
+                />
+              </div>
+            </div>
+
             {/* Group quick-jump */}
             {!search && (
               <div className="flex gap-1.5 px-4 py-2 overflow-x-auto border-t border-gray-100 scrollbar-hide">
