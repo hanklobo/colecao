@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import type { AlbumState } from '../types';
 import { SECTIONS, TOTAL_STICKERS } from '../data/album2026';
 import { SectionBlock } from '../components/SectionBlock';
@@ -12,7 +12,6 @@ interface Props {
   onReset: (id: number) => void;
 }
 
-// Group quick-jump anchors
 const GROUPS = ['INTRO', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'EST'];
 const GROUP_LABELS: Record<string, string> = {
   INTRO: '★', EST: '🏟',
@@ -21,20 +20,18 @@ const GROUP_LABELS: Record<string, string> = {
 };
 
 function scrollToGroup(groupId: string) {
-  const firstSectionInGroup =
+  const targetId =
     groupId === 'INTRO' ? 'INTRO' :
-    groupId === 'EST' ? 'EST' :
+    groupId === 'EST'   ? 'EST' :
     SECTIONS.find((s) => s.group === groupId)?.id;
-  if (!firstSectionInGroup) return;
-  const el = document.getElementById(`section-${firstSectionInGroup}`);
-  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (!targetId) return;
+  document.getElementById(`section-${targetId}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 export function AlbumView({ state, onCycle, onReset }: Props) {
   const [filter, setFilter] = useState<Filter>('all');
   const [search, setSearch] = useState('');
   const [activeGroup, setActiveGroup] = useState('INTRO');
-  const groupBarRef = useRef<HTMLDivElement>(null);
 
   let missingCount = 0;
   let repeatedCount = 0;
@@ -59,33 +56,33 @@ export function AlbumView({ state, onCycle, onReset }: Props) {
   function handleGroupClick(g: string) {
     setActiveGroup(g);
     setSearch('');
-    scrollToGroup(g);
+    // small delay to allow re-render after search clear
+    setTimeout(() => scrollToGroup(g), 50);
   }
 
   return (
-    <div>
-      {/* Sticky toolbar */}
-      <div className="sticky top-[104px] z-20 bg-white shadow-sm">
+    // Full-height flex column — toolbar fixed at top, sections scroll below
+    <div className="flex flex-col h-full">
+
+      {/* ── Toolbar (does NOT scroll) ── */}
+      <div className="flex-shrink-0 bg-white shadow-sm">
         {/* Search */}
         <div className="px-4 py-2 bg-gray-50 border-b border-gray-100">
           <div className="relative">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm">🔍</span>
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-sm pointer-events-none">🔍</span>
             <input
               type="search"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Buscar seleção ou figurinha..."
-              className="w-full pl-8 pr-3 py-2 rounded-lg border border-gray-200 text-sm bg-white focus:outline-none focus:border-gray-400"
+              className="w-full pl-9 pr-3 py-2 rounded-lg border border-gray-200 text-sm bg-white focus:outline-none focus:border-gray-400"
             />
           </div>
         </div>
 
-        {/* Group quick-jump */}
+        {/* Group quick-jump — hidden during search */}
         {!search && (
-          <div
-            ref={groupBarRef}
-            className="flex gap-1.5 px-4 py-2 overflow-x-auto border-b border-gray-100 bg-white scrollbar-hide"
-          >
+          <div className="flex gap-1.5 px-4 py-2 overflow-x-auto border-b border-gray-100 scrollbar-hide">
             {GROUPS.map((g) => (
               <button
                 key={g}
@@ -111,19 +108,20 @@ export function AlbumView({ state, onCycle, onReset }: Props) {
         />
       </div>
 
-      {/* Sticker sections */}
-      <div className="pb-20 bg-gray-50">
-        {filteredSections.map((sec) => (
-          <SectionBlock
-            key={sec.id}
-            section={sec}
-            state={state}
-            onCycle={onCycle}
-            onReset={onReset}
-            filter={filter}
-          />
-        ))}
-        {filteredSections.length === 0 && (
+      {/* ── Scrollable section list ── */}
+      <div className="flex-1 overflow-y-auto bg-gray-50 pb-4">
+        {filteredSections.length > 0 ? (
+          filteredSections.map((sec) => (
+            <SectionBlock
+              key={sec.id}
+              section={sec}
+              state={state}
+              onCycle={onCycle}
+              onReset={onReset}
+              filter={filter}
+            />
+          ))
+        ) : (
           <div className="flex flex-col items-center justify-center py-24 text-gray-400">
             <span className="text-5xl mb-3">🔍</span>
             <p className="text-sm font-medium">Nenhuma figurinha encontrada</p>

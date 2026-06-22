@@ -38,7 +38,7 @@ export function SectionBlock({ section, state, onCycle, onReset, filter }: Props
       {/* Section header — tap to collapse */}
       <button
         onClick={() => setCollapsed((c) => !c)}
-        className="w-full flex items-center gap-3 px-4 py-3 bg-gray-900 text-white sticky top-[148px] z-10"
+        className="w-full flex items-center gap-3 px-4 py-3 bg-gray-900 text-white sticky top-0 z-10"
       >
         {/* Flag image */}
         <div className="w-12 h-8 rounded overflow-hidden shadow flex-shrink-0 bg-gray-700">
