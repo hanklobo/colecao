@@ -152,6 +152,8 @@ function TradeArt() {
 
 interface Slide {
   art: () => JSX.Element;
+  /** optional real screenshot; shown over the mockup once it loads */
+  image?: string;
   badge: string;
   title: string;
   text: string;
@@ -160,29 +162,54 @@ interface Slide {
 const SLIDES: Slide[] = [
   {
     art: HeroArt,
+    image: '/onboarding/hero.png',
     badge: 'FIFA World Cup 2026',
     title: 'Seu álbum da Copa, no bolso',
     text: 'Todas as 48 seleções e seus jogadores num só lugar. Organize, acompanhe e troque — de graça e sem complicação.',
   },
   {
     art: StickerGridArt,
+    image: '/onboarding/collect.png',
     badge: 'Colecione',
     title: 'Marque com um toque',
     text: 'Toque numa figurinha para alternar entre faltando, tenho e repetida. As cores e a bandeira de cada seleção deixam tudo fácil de achar.',
   },
   {
     art: ProgressArt,
+    image: '/onboarding/progress.png',
     badge: 'Acompanhe',
     title: 'Veja o quanto falta',
     text: 'Acompanhe sua completude geral e por seleção. Saiba na hora quais figurinhas ainda faltam para fechar o álbum.',
   },
   {
     art: TradeArt,
+    image: '/onboarding/trade.png',
     badge: 'Troque',
     title: 'Troque com os amigos',
     text: 'Compartilhe seu link. Ao abrir o de um amigo, o app mostra na hora o que vale trocar — agrupado por seleção.',
   },
 ];
+
+// Shows the real screenshot when it successfully loads, otherwise keeps the
+// in-app mockup (no flicker, no broken-image icon if the file is absent).
+function SlideArt({ slide }: { slide: Slide }) {
+  const [loaded, setLoaded] = useState(false);
+  return (
+    <div className="relative h-44">
+      <div className={loaded ? 'invisible' : ''}>
+        <slide.art />
+      </div>
+      {slide.image && (
+        <img
+          src={slide.image}
+          alt=""
+          onLoad={() => setLoaded(true)}
+          className={`absolute inset-0 w-full h-full object-contain ${loaded ? '' : 'hidden'}`}
+        />
+      )}
+    </div>
+  );
+}
 
 export function LandingPage({ onClose, firstTime }: Props) {
   const [i, setI] = useState(0);
@@ -229,7 +256,7 @@ export function LandingPage({ onClose, firstTime }: Props) {
                   className="rounded-3xl mb-5 py-2"
                   style={{ background: 'radial-gradient(120% 100% at 50% 0%, #eef4ff 0%, #ffffff 70%)' }}
                 >
-                  <s.art />
+                  <SlideArt slide={s} />
                 </div>
                 <span className="self-start text-[11px] font-bold uppercase tracking-wider text-copa-blue bg-copa-blue/10 px-2.5 py-1 rounded-full mb-2.5">
                   {s.badge}

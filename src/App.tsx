@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import type { ComponentType } from 'react';
 import { useAlbum } from './hooks/useAlbum';
 import { useTradePartners } from './hooks/useTradePartners';
@@ -8,8 +8,10 @@ import { TradingView } from './views/TradingView';
 import { StatsView } from './views/StatsView';
 import { LandingPage } from './components/LandingPage';
 import { AlbumIcon, StatsIcon, TradeIcon, BallIcon } from './components/Icons';
+import { computeAchievements } from './utils/achievements';
 
 const ONBOARD_KEY = 'copa2026_onboarded';
+const BADGES_KEY = 'copa2026_badges';
 
 type Tab = 'album' | 'stats' | 'trading';
 
@@ -62,6 +64,27 @@ export default function App() {
     return () => clearTimeout(t);
   }, [toast]);
 
+  // Celebrate newly unlocked achievements
+  const achievements = useMemo(() => computeAchievements(state), [state]);
+  const earnedKey = achievements.filter((a) => a.earned).map((a) => a.id).join('|');
+  useEffect(() => {
+    const earned = achievements.filter((a) => a.earned);
+    const raw = localStorage.getItem(BADGES_KEY);
+    if (raw === null) {
+      // First run with this feature — set baseline silently
+      localStorage.setItem(BADGES_KEY, JSON.stringify(earned.map((a) => a.id)));
+      return;
+    }
+    const seen: string[] = JSON.parse(raw);
+    const fresh = earned.filter((a) => !seen.includes(a.id));
+    if (fresh.length > 0) {
+      const a = fresh[fresh.length - 1];
+      setToast(`${a.icon} Conquista desbloqueada: ${a.title}!`);
+      localStorage.setItem(BADGES_KEY, JSON.stringify(earned.map((x) => x.id)));
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [earnedKey]);
+
   return (
     <div className="flex flex-col bg-gray-50 max-w-lg mx-auto" style={{ height: '100dvh' }}>
       {/* Header */}
@@ -100,7 +123,7 @@ export default function App() {
         {tab === 'album' && (
           <AlbumView state={state} onCycle={cycleSticker} onReset={resetSticker} />
         )}
-        {tab === 'stats' && <StatsView state={state} />}
+        {tab === 'stats' && <StatsView state={state} myName={myName} />}
         {tab === 'trading' && (
           <TradingView
             state={state}
