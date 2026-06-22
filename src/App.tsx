@@ -42,7 +42,7 @@ export default function App() {
   }, [toast]);
 
   return (
-    <div className="flex flex-col h-screen bg-gray-50 max-w-lg mx-auto">
+    <div className="flex flex-col bg-gray-50 max-w-lg mx-auto" style={{ height: '100dvh' }}>
       {/* Header */}
       <header className="flex-shrink-0 bg-gray-900 z-30">
         <div className="flex items-center gap-3 px-4 pt-4 pb-2">

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import type { AlbumState } from '../types';
 import { SECTIONS, TOTAL_STICKERS } from '../data/album2026';
 import { SectionBlock } from '../components/SectionBlock';
@@ -22,50 +22,71 @@ const GROUP_LABELS: Record<string, string> = {
 function scrollToGroup(groupId: string) {
   const targetId =
     groupId === 'INTRO' ? 'INTRO' :
-    groupId === 'EST'   ? 'EST' :
+    groupId === 'EST'   ? 'EST'   :
     SECTIONS.find((s) => s.group === groupId)?.id;
   if (!targetId) return;
   document.getElementById(`section-${targetId}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 export function AlbumView({ state, onCycle, onReset }: Props) {
-  const [filter, setFilter] = useState<Filter>('all');
-  const [search, setSearch] = useState('');
+  const [filter, setFilter]   = useState<Filter>('all');
+  const [search, setSearch]   = useState('');
   const [activeGroup, setActiveGroup] = useState('INTRO');
 
-  let missingCount = 0;
-  let repeatedCount = 0;
-  for (let i = 1; i <= TOTAL_STICKERS; i++) {
-    const s = state[i];
-    if (!s || s.status === 'missing') missingCount++;
-    else if (s.status === 'repeated') repeatedCount++;
+  // Collapsed state for all sections, keyed by section id
+  const [collapsed, setCollapsed] = useState<Record<string, boolean>>({});
+
+  const allSectionIds = SECTIONS.map((s) => s.id);
+  const areAllCollapsed = allSectionIds.every((id) => collapsed[id]);
+
+  const toggleSection = useCallback((id: string) => {
+    setCollapsed((prev) => ({ ...prev, [id]: !prev[id] }));
+  }, []);
+
+  function collapseAll() {
+    setCollapsed(Object.fromEntries(allSectionIds.map((id) => [id, true])));
   }
 
+  function expandAll() {
+    setCollapsed({});
+  }
+
+  const counts = useMemo(() => {
+    let missing = 0, repeated = 0;
+    for (let i = 1; i <= TOTAL_STICKERS; i++) {
+      const s = state[i];
+      if (!s || s.status === 'missing') missing++;
+      else if (s.status === 'repeated') repeated++;
+    }
+    return { missing, repeated };
+  }, [state]);
+
   const lowerSearch = search.toLowerCase();
-  const filteredSections = SECTIONS.map((sec) => ({
-    ...sec,
-    stickers: sec.stickers.filter(
-      (st) =>
-        !lowerSearch ||
-        sec.name.toLowerCase().includes(lowerSearch) ||
-        st.name.toLowerCase().includes(lowerSearch) ||
-        String(st.id).includes(lowerSearch),
-    ),
-  })).filter((s) => s.stickers.length > 0);
+  const filteredSections = useMemo(() =>
+    SECTIONS.map((sec) => ({
+      ...sec,
+      stickers: sec.stickers.filter(
+        (st) =>
+          !lowerSearch ||
+          sec.name.toLowerCase().includes(lowerSearch) ||
+          st.name.toLowerCase().includes(lowerSearch) ||
+          String(st.id).includes(lowerSearch),
+      ),
+    })).filter((s) => s.stickers.length > 0),
+  [lowerSearch]);
 
   function handleGroupClick(g: string) {
     setActiveGroup(g);
     setSearch('');
-    // small delay to allow re-render after search clear
     setTimeout(() => scrollToGroup(g), 50);
   }
 
   return (
-    // Full-height flex column — toolbar fixed at top, sections scroll below
     <div className="flex flex-col h-full">
 
-      {/* ── Toolbar (does NOT scroll) ── */}
+      {/* ── Toolbar (fixed, does not scroll) ── */}
       <div className="flex-shrink-0 bg-white shadow-sm">
+
         {/* Search */}
         <div className="px-4 py-2 bg-gray-50 border-b border-gray-100">
           <div className="relative">
@@ -80,7 +101,7 @@ export function AlbumView({ state, onCycle, onReset }: Props) {
           </div>
         </div>
 
-        {/* Group quick-jump — hidden during search */}
+        {/* Group quick-jump */}
         {!search && (
           <div className="flex gap-1.5 px-4 py-2 overflow-x-auto border-b border-gray-100 scrollbar-hide">
             {GROUPS.map((g) => (
@@ -99,17 +120,31 @@ export function AlbumView({ state, onCycle, onReset }: Props) {
           </div>
         )}
 
-        {/* Filter bar */}
-        <FilterBar
-          active={filter}
-          onChange={setFilter}
-          missingCount={missingCount}
-          repeatedCount={repeatedCount}
-        />
+        {/* Filter bar + collapse-all toggle */}
+        <div className="flex items-center border-b border-gray-100">
+          <div className="flex-1 overflow-x-hidden">
+            <FilterBar
+              active={filter}
+              onChange={setFilter}
+              missingCount={counts.missing}
+              repeatedCount={counts.repeated}
+            />
+          </div>
+          <button
+            onClick={areAllCollapsed ? expandAll : collapseAll}
+            className="flex-shrink-0 px-3 py-2 text-xs font-semibold text-gray-500 hover:text-gray-800 border-l border-gray-100 transition-colors bg-white h-full flex items-center gap-1"
+            title={areAllCollapsed ? 'Expandir tudo' : 'Recolher tudo'}
+          >
+            <span className={`text-base leading-none transition-transform ${areAllCollapsed ? 'rotate-0' : 'rotate-180'}`}>
+              ⌃
+            </span>
+            <span className="hidden sm:inline">{areAllCollapsed ? 'Expandir' : 'Recolher'}</span>
+          </button>
+        </div>
       </div>
 
-      {/* ── Scrollable section list ── */}
-      <div className="flex-1 overflow-y-auto bg-gray-50 pb-4">
+      {/* ── Scrollable sections ── */}
+      <div className="flex-1 overflow-y-auto bg-gray-100">
         {filteredSections.length > 0 ? (
           filteredSections.map((sec) => (
             <SectionBlock
@@ -119,6 +154,8 @@ export function AlbumView({ state, onCycle, onReset }: Props) {
               onCycle={onCycle}
               onReset={onReset}
               filter={filter}
+              isCollapsed={!!collapsed[sec.id]}
+              onToggle={() => toggleSection(sec.id)}
             />
           ))
         ) : (
