@@ -10,9 +10,9 @@ interface Props {
 }
 
 const CARD_BG: Record<string, string> = {
-  missing: 'bg-white border-gray-200 text-gray-400',
-  have: 'bg-emerald-50 border-emerald-400 text-emerald-900',
-  repeated: 'bg-amber-50 border-amber-400 text-amber-900',
+  missing:  'bg-white border-gray-200',
+  have:     'bg-emerald-50 border-emerald-400',
+  repeated: 'bg-amber-50 border-amber-400',
 };
 
 export function StickerCard({ id, name, flagUrl, stickerState, onPress, onReset }: Props) {
@@ -20,50 +20,58 @@ export function StickerCard({ id, name, flagUrl, stickerState, onPress, onReset 
   const marked = status !== 'missing';
 
   return (
-    <div className="relative">
-      <button
-        onClick={onPress}
-        className={`relative w-full rounded-xl border-2 overflow-hidden active:scale-95 transition-transform select-none ${CARD_BG[status]}`}
-        aria-label={`Figurinha ${id}: ${name}`}
-        style={{ minHeight: 88 }}
-      >
-        {/* Flag wash background on marked cards */}
-        {marked && flagUrl && (
-          <img
-            src={flagUrl}
-            aria-hidden
-            className="absolute inset-0 w-full h-full object-cover opacity-[0.08] pointer-events-none"
-          />
-        )}
+    <button
+      onClick={onPress}
+      className={`relative w-full rounded-xl border-2 overflow-hidden active:scale-95 transition-transform select-none text-left ${CARD_BG[status]}`}
+      aria-label={`Figurinha ${id}: ${name}`}
+      style={{ minHeight: 88 }}
+    >
+      {/* Flag wash background */}
+      {marked && flagUrl && (
+        <img
+          src={flagUrl}
+          aria-hidden
+          className="absolute inset-0 w-full h-full object-cover opacity-[0.07] pointer-events-none"
+        />
+      )}
 
-        <div className="relative flex flex-col items-center gap-1 px-1.5 py-2">
-          {/* Sticker number */}
-          <span className="self-start text-[9px] font-bold opacity-50 leading-none">
-            #{id}
-          </span>
+      <div className="relative flex flex-col h-full p-2 gap-1">
+        {/* Top row: number + reset button (INSIDE card, no overflow) */}
+        <div className="flex items-center justify-between">
+          <span className="text-[9px] font-bold text-gray-400 leading-none">#{id}</span>
+          {marked && (
+            <button
+              onClick={(e) => { e.stopPropagation(); onReset(); }}
+              className="w-4 h-4 rounded-full bg-gray-400 hover:bg-red-500 active:bg-red-600 text-white text-[10px] font-bold flex items-center justify-center leading-none transition-colors flex-shrink-0"
+              aria-label="Remover marcação"
+            >
+              ×
+            </button>
+          )}
+        </div>
 
-          {/* Flag thumbnail or placeholder */}
-          <div className="w-10 h-6 rounded overflow-hidden shadow-sm flex items-center justify-center bg-gray-100">
+        {/* Flag thumbnail */}
+        <div className="flex-1 flex items-center justify-center">
+          <div className="w-10 h-6 rounded overflow-hidden shadow-sm flex items-center justify-center bg-gray-100 flex-shrink-0">
             {flagUrl ? (
-              <img
-                src={flagUrl}
-                alt=""
-                className="w-full h-full object-cover"
-                loading="lazy"
-              />
+              <img src={flagUrl} alt="" className="w-full h-full object-cover" loading="lazy" />
             ) : (
-              <span className="text-base leading-none opacity-40">⚽</span>
+              <span className="text-sm leading-none text-gray-300">⚽</span>
             )}
           </div>
+        </div>
 
-          {/* Name */}
-          <span className="text-[9px] font-semibold text-center leading-tight line-clamp-2 px-0.5">
-            {name}
-          </span>
+        {/* Name */}
+        <p className={`text-[9px] font-semibold text-center leading-tight line-clamp-2 ${
+          marked ? 'text-gray-700' : 'text-gray-400'
+        }`}>
+          {name}
+        </p>
 
-          {/* Status indicator */}
+        {/* Status badge */}
+        <div className="flex justify-center">
           {status === 'have' && (
-            <span className="text-[10px] font-bold text-emerald-600">✓ tenho</span>
+            <span className="text-[9px] font-bold text-emerald-600">✓ tenho</span>
           )}
           {status === 'repeated' && (
             <span className="bg-amber-500 text-white text-[9px] font-bold rounded-full px-2 py-0.5 leading-none">
@@ -71,18 +79,7 @@ export function StickerCard({ id, name, flagUrl, stickerState, onPress, onReset 
             </span>
           )}
         </div>
-      </button>
-
-      {/* Reset button — removes the sticker mark */}
-      {marked && (
-        <button
-          onClick={(e) => { e.stopPropagation(); onReset(); }}
-          className="absolute -top-1.5 -right-1.5 z-10 w-5 h-5 rounded-full bg-gray-400 hover:bg-red-500 active:bg-red-600 text-white text-[11px] font-bold flex items-center justify-center shadow-md transition-colors leading-none"
-          aria-label="Remover marcação"
-        >
-          ×
-        </button>
-      )}
-    </div>
+      </div>
+    </button>
   );
 }
