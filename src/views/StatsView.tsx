@@ -61,7 +61,7 @@ export function StatsView({ state }: Props) {
 
       {/* Per-section */}
       <div className="px-4 pt-4">
-        <h2 className="font-bold text-gray-700 text-sm mb-3 uppercase tracking-wide">Por seleção</h2>
+        <h2 className="font-display font-extrabold text-gray-800 text-sm mb-3 uppercase tracking-wide">Por seleção</h2>
         <div className="bg-white rounded-2xl overflow-hidden shadow-sm divide-y divide-gray-100">
           {sectionStats.map(({ section, have, total }) => {
             const spct = Math.round((have / total) * 100);
@@ -100,7 +100,7 @@ export function StatsView({ state }: Props) {
       {/* Missing list */}
       {missingStickers.length > 0 && (
         <div className="px-4 mt-6">
-          <h2 className="font-bold text-gray-700 text-sm mb-3 uppercase tracking-wide">
+          <h2 className="font-display font-extrabold text-gray-800 text-sm mb-3 uppercase tracking-wide">
             Faltam ({missingStickers.length})
           </h2>
           <div className="bg-white rounded-2xl p-4 shadow-sm">
