@@ -73,3 +73,22 @@ export function calculateTrade(
 
   return { give, receive };
 }
+
+export interface PartnerStats {
+  have: number;
+  missing: number;
+  duplicates: number;
+}
+
+export function getPartnerStats(code: string): PartnerStats | null {
+  const decoded = decodeTradeCode(code);
+  if (!decoded) return null;
+  const have = TOTAL_STICKERS - decoded.missing.length;
+  const duplicates = decoded.duplicates.reduce((s, d) => s + d.extra, 0);
+  return { have, missing: decoded.missing.length, duplicates };
+}
+
+export function generateShareUrl(name: string, code: string): string {
+  const params = new URLSearchParams({ troca: code, de: name });
+  return `${window.location.origin}/?${params.toString()}`;
+}

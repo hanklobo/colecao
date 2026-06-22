@@ -28,7 +28,7 @@ export function StatsView({ state }: Props) {
     .sort((a, b) => a - b);
 
   return (
-    <div className="pb-24 bg-gray-50">
+    <div className="h-full overflow-y-auto pb-24 bg-gray-50">
       {/* Hero card */}
       <div className="bg-gray-900 px-5 pt-5 pb-8">
         <p className="text-white/60 text-xs mb-1">Completude do álbum</p>
