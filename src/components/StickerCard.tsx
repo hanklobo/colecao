@@ -1,4 +1,5 @@
 import type { StickerState } from '../types';
+import { CheckIcon } from './Icons';
 
 interface Props {
   id: number;
@@ -10,9 +11,9 @@ interface Props {
 }
 
 const CARD_BG: Record<string, string> = {
-  missing:  'bg-white border-gray-200',
-  have:     'bg-emerald-50 border-emerald-400',
-  repeated: 'bg-amber-50 border-amber-400',
+  missing:  'bg-white/80 border-gray-200 backdrop-blur-sm',
+  have:     'bg-emerald-50/90 border-emerald-400 backdrop-blur-sm',
+  repeated: 'bg-amber-50/90 border-amber-400 backdrop-blur-sm',
 };
 
 export function StickerCard({ id, name, flagUrl, stickerState, onPress, onReset }: Props) {
@@ -38,7 +39,7 @@ export function StickerCard({ id, name, flagUrl, stickerState, onPress, onReset 
       <div className="relative flex flex-col h-full p-2 gap-1">
         {/* Top row: number + reset button (INSIDE card, no overflow) */}
         <div className="flex items-center justify-between">
-          <span className="text-[9px] font-bold text-gray-400 leading-none">#{id}</span>
+          <span className="text-[9px] font-bold text-gray-400 leading-none tabular-nums">#{id}</span>
           {marked && (
             <button
               onClick={(e) => { e.stopPropagation(); onReset(); }}
@@ -63,18 +64,20 @@ export function StickerCard({ id, name, flagUrl, stickerState, onPress, onReset 
 
         {/* Name */}
         <p className={`text-[9px] font-semibold text-center leading-tight line-clamp-2 ${
-          marked ? 'text-gray-700' : 'text-gray-400'
+          marked ? 'text-gray-800' : 'text-gray-400'
         }`}>
           {name}
         </p>
 
         {/* Status badge */}
-        <div className="flex justify-center">
+        <div className="flex justify-center min-h-[14px] items-center">
           {status === 'have' && (
-            <span className="text-[9px] font-bold text-emerald-600">✓ tenho</span>
+            <span className="inline-flex items-center gap-0.5 text-[9px] font-bold text-emerald-600">
+              <CheckIcon className="w-2.5 h-2.5" /> tenho
+            </span>
           )}
           {status === 'repeated' && (
-            <span className="bg-amber-500 text-white text-[9px] font-bold rounded-full px-2 py-0.5 leading-none">
+            <span className="bg-amber-500 text-white text-[9px] font-bold rounded-full px-2 py-0.5 leading-none tabular-nums">
               {count}×
             </span>
           )}

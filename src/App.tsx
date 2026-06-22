@@ -1,17 +1,19 @@
 import { useState, useEffect } from 'react';
+import type { ComponentType } from 'react';
 import { useAlbum } from './hooks/useAlbum';
 import { useTradePartners } from './hooks/useTradePartners';
 import { ProgressBar } from './components/ProgressBar';
 import { AlbumView } from './views/AlbumView';
 import { TradingView } from './views/TradingView';
 import { StatsView } from './views/StatsView';
+import { AlbumIcon, StatsIcon, TradeIcon, BallIcon } from './components/Icons';
 
 type Tab = 'album' | 'stats' | 'trading';
 
-const TABS: { id: Tab; label: string; icon: string }[] = [
-  { id: 'album',   label: 'Álbum',     icon: '📒' },
-  { id: 'stats',   label: 'Progresso', icon: '📊' },
-  { id: 'trading', label: 'Troca',     icon: '🔄' },
+const TABS: { id: Tab; label: string; Icon: ComponentType<{ className?: string; filled?: boolean }> }[] = [
+  { id: 'album',   label: 'Álbum',     Icon: AlbumIcon },
+  { id: 'stats',   label: 'Progresso', Icon: StatsIcon },
+  { id: 'trading', label: 'Troca',     Icon: TradeIcon },
 ];
 
 export default function App() {
@@ -44,14 +46,21 @@ export default function App() {
   return (
     <div className="flex flex-col bg-gray-50 max-w-lg mx-auto" style={{ height: '100dvh' }}>
       {/* Header */}
-      <header className="flex-shrink-0 bg-gray-900 z-30">
+      <header
+        className="flex-shrink-0 z-30 shadow-card-lg"
+        style={{ backgroundImage: 'linear-gradient(120deg, #0b2e6b 0%, #1a73e8 100%)' }}
+      >
         <div className="flex items-center gap-3 px-4 pt-4 pb-2">
-          <div className="bg-copa-gold rounded-xl w-9 h-9 flex items-center justify-center text-xl flex-shrink-0 shadow">
-            ⚽
+          <div className="bg-copa-gold rounded-xl w-10 h-10 flex items-center justify-center flex-shrink-0 shadow-card text-copa-navy">
+            <BallIcon className="w-6 h-6" />
           </div>
-          <div>
-            <h1 className="text-white font-black text-base leading-tight">Coleção Copa 2026</h1>
-            <p className="text-white/40 text-[10px] leading-none">Álbum Panini · FIFA World Cup</p>
+          <div className="min-w-0">
+            <h1 className="text-white font-display font-extrabold text-lg leading-tight tracking-tight">
+              Coleção Copa 2026
+            </h1>
+            <p className="text-white/60 text-[11px] font-medium leading-none mt-0.5">
+              Álbum Panini · FIFA World Cup
+            </p>
           </div>
         </div>
         <ProgressBar have={stats.have} duplicates={stats.duplicateCount} />
@@ -87,24 +96,29 @@ export default function App() {
       </main>
 
       {/* Bottom nav */}
-      <nav className="flex-shrink-0 bg-white border-t border-gray-200 flex safe-area-bottom z-30">
-        {TABS.map(({ id, label, icon }) => (
-          <button
-            key={id}
-            onClick={() => setTab(id)}
-            className={`flex-1 flex flex-col items-center pt-2 pb-3 text-[11px] font-semibold transition-colors relative ${
-              tab === id ? 'text-gray-900' : 'text-gray-400'
-            }`}
-          >
-            {tab === id && (
-              <span className="absolute top-0 left-1/2 -translate-x-1/2 w-8 h-0.5 bg-gray-900 rounded-full" />
-            )}
-            <span className={`text-xl mb-0.5 transition-transform ${tab === id ? 'scale-110' : ''}`}>
-              {icon}
-            </span>
-            {label}
-          </button>
-        ))}
+      <nav className="flex-shrink-0 bg-white/95 backdrop-blur border-t border-gray-200 flex safe-area-bottom z-30">
+        {TABS.map(({ id, label, Icon }) => {
+          const active = tab === id;
+          return (
+            <button
+              key={id}
+              onClick={() => setTab(id)}
+              aria-current={active ? 'page' : undefined}
+              className={`flex-1 flex flex-col items-center pt-2.5 pb-3 text-[11px] font-bold transition-colors relative ${
+                active ? 'text-copa-blue' : 'text-gray-400 hover:text-gray-600'
+              }`}
+            >
+              {active && (
+                <span className="absolute top-0 left-1/2 -translate-x-1/2 w-10 h-1 bg-copa-blue rounded-b-full" />
+              )}
+              <Icon
+                className={`w-6 h-6 mb-0.5 transition-transform ${active ? 'scale-110' : ''}`}
+                filled={active}
+              />
+              {label}
+            </button>
+          );
+        })}
       </nav>
     </div>
   );

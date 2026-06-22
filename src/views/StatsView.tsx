@@ -1,6 +1,7 @@
 import type { AlbumState } from '../types';
 import { SECTIONS, TOTAL_STICKERS, STICKER_MAP } from '../data/album2026';
 import { getFlagUrl } from '../utils/flags';
+import { CheckIcon } from '../components/Icons';
 
 interface Props {
   state: AlbumState;
@@ -30,9 +31,12 @@ export function StatsView({ state }: Props) {
   return (
     <div className="h-full overflow-y-auto pb-24 bg-gray-50">
       {/* Hero card */}
-      <div className="bg-gray-900 px-5 pt-5 pb-8">
-        <p className="text-white/60 text-xs mb-1">Completude do álbum</p>
-        <p className="text-6xl font-black text-white">{Math.round(pct)}<span className="text-3xl text-copa-gold">%</span></p>
+      <div
+        className="px-5 pt-5 pb-8 shadow-card-lg"
+        style={{ backgroundImage: 'linear-gradient(120deg, #0b2e6b 0%, #1a73e8 100%)' }}
+      >
+        <p className="text-white/70 text-xs font-semibold uppercase tracking-widest mb-1">Completude do álbum</p>
+        <p className="text-6xl font-display font-extrabold text-white tabular-nums">{Math.round(pct)}<span className="text-3xl text-copa-gold">%</span></p>
         <div className="mt-3 h-2.5 bg-white/10 rounded-full overflow-hidden">
           <div
             className="h-full bg-copa-gold rounded-full transition-all duration-700"
@@ -41,16 +45,16 @@ export function StatsView({ state }: Props) {
         </div>
         <div className="flex gap-6 mt-3">
           <div>
-            <p className="text-white font-bold">{totalHave}</p>
-            <p className="text-white/50 text-xs">tenho</p>
+            <p className="text-white font-bold text-lg tabular-nums">{totalHave}</p>
+            <p className="text-white/60 text-xs font-medium">tenho</p>
           </div>
           <div>
-            <p className="text-white font-bold">{totalMissing}</p>
-            <p className="text-white/50 text-xs">faltam</p>
+            <p className="text-white font-bold text-lg tabular-nums">{totalMissing}</p>
+            <p className="text-white/60 text-xs font-medium">faltam</p>
           </div>
           <div>
-            <p className="text-copa-gold font-bold">{totalDuplicates}</p>
-            <p className="text-white/50 text-xs">repetidas</p>
+            <p className="text-copa-gold font-bold text-lg tabular-nums">{totalDuplicates}</p>
+            <p className="text-white/60 text-xs font-medium">repetidas</p>
           </div>
         </div>
       </div>
@@ -86,7 +90,7 @@ export function StatsView({ state }: Props) {
                     />
                   </div>
                 </div>
-                {isComplete && <span className="text-emerald-500 text-sm flex-shrink-0">✓</span>}
+                {isComplete && <CheckIcon className="w-4 h-4 text-emerald-500 flex-shrink-0" />}
               </div>
             );
           })}

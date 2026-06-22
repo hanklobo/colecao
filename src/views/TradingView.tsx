@@ -9,6 +9,7 @@ import {
   generateShareUrl,
 } from '../utils/trading';
 import { decodeTradeCode } from '../utils/trading';
+import { ShareIcon, CheckIcon, TradeIcon } from '../components/Icons';
 
 interface Props {
   state: AlbumState;
@@ -95,8 +96,11 @@ export function TradingView({
     <div className="h-full overflow-y-auto bg-gray-50 pb-24">
 
       {/* ── Share section ── */}
-      <div className="bg-gray-900 px-5 pt-5 pb-6">
-        <p className="text-white/50 text-xs uppercase tracking-widest mb-3">Meu link de troca</p>
+      <div
+        className="px-5 pt-5 pb-6 shadow-card-lg"
+        style={{ backgroundImage: 'linear-gradient(120deg, #0b2e6b 0%, #1a73e8 100%)' }}
+      >
+        <p className="text-white/70 text-xs font-semibold uppercase tracking-widest mb-3">Meu link de troca</p>
 
         {/* Name */}
         {editingName ? (
@@ -154,9 +158,9 @@ export function TradingView({
           }`}
         >
           {shared ? (
-            <>✓ Link copiado!</>
+            <><CheckIcon className="w-4 h-4" /> Link copiado!</>
           ) : (
-            <><span>🔗</span> Compartilhar meu link de troca</>
+            <><ShareIcon className="w-4 h-4" /> Compartilhar meu link de troca</>
           )}
         </button>
         {!myName && (
@@ -365,15 +369,18 @@ function PartnerAnalysis({ partner, myState, myHave, onRemove, onGoToAlbum }: An
       ) : (
         <>
           {/* Summary */}
-          <div className="bg-gray-900 rounded-2xl px-5 py-4 flex items-center justify-between">
+          <div
+            className="rounded-2xl px-5 py-4 flex items-center justify-between shadow-card"
+            style={{ backgroundImage: 'linear-gradient(120deg, #0b2e6b 0%, #1a73e8 100%)' }}
+          >
             <div className="text-center">
-              <p className="text-emerald-400 font-black text-2xl">{trade.give.length}</p>
-              <p className="text-white/50 text-[10px]">você dá</p>
+              <p className="text-emerald-300 font-display font-extrabold text-2xl tabular-nums">{trade.give.length}</p>
+              <p className="text-white/60 text-[10px] font-medium">você dá</p>
             </div>
-            <div className="text-white/20 text-3xl font-thin">⇄</div>
+            <TradeIcon className="w-7 h-7 text-white/40" />
             <div className="text-center">
-              <p className="text-blue-400 font-black text-2xl">{trade.receive.length}</p>
-              <p className="text-white/50 text-[10px]">você recebe</p>
+              <p className="text-sky-300 font-display font-extrabold text-2xl tabular-nums">{trade.receive.length}</p>
+              <p className="text-white/60 text-[10px] font-medium">você recebe</p>
             </div>
           </div>
 
