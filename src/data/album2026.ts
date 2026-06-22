@@ -166,6 +166,62 @@ function buildSections(): Section[] {
     name: 'Estádios',
     stickers: makeStickers(id, 'EST', stadiumNames),
   });
+  id += stadiumNames.length;
+
+  // ── Extra / special sticker sections ──────────────────────────────────────
+  const EXTRAS: { id: string; name: string; flag: string; names: string[] }[] = [
+    {
+      id: 'LEND',
+      name: 'Lendas da Copa',
+      flag: '👑',
+      names: [
+        'Pelé', 'Diego Maradona', 'Zinedine Zidane', 'Ronaldo Fenômeno',
+        'Franz Beckenbauer', 'Johan Cruyff', 'Garrincha', 'Romário',
+        'Ronaldinho Gaúcho', 'Paolo Maldini', 'Lothar Matthäus', 'Bobby Charlton',
+      ],
+    },
+    {
+      id: 'CRAQ',
+      name: 'Craques da Copa',
+      flag: '⭐',
+      names: [
+        'Lionel Messi', 'Kylian Mbappé', 'Erling Haaland', 'Vinícius Júnior',
+        'Jude Bellingham', 'Harry Kane', 'Neymar Jr', 'Kevin De Bruyne',
+        'Rodri', 'Lautaro Martínez', 'Pedri', 'Jamal Musiala',
+      ],
+    },
+    {
+      id: 'BRIL',
+      name: 'Especiais Brilhantes',
+      flag: '✨',
+      names: [
+        'Bola de Ouro', 'Chuteira de Ouro', 'Luva de Ouro', 'Bola de Prata',
+        'Bola de Bronze', 'Melhor Jovem', 'Prêmio Fair Play',
+        'Seleção do Torneio I', 'Seleção do Torneio II',
+        'Seleção do Torneio III', 'Seleção do Torneio IV',
+      ],
+    },
+    {
+      id: 'FIFA',
+      name: 'FIFA Fan Festival',
+      flag: '🎪',
+      names: [
+        'Logo FIFA', 'Troféu da Copa', 'Mascote Maple', 'Mascote Zayu',
+        'Mascote Clutch', 'Bola Trionda', 'Árbitros da Copa', 'Pôster Oficial',
+        'FIFA Fan Festival', 'Ingresso Oficial', 'Voluntários', 'Hino da Copa',
+      ],
+    },
+  ];
+
+  for (const ex of EXTRAS) {
+    sections.push({
+      id: ex.id,
+      name: ex.name,
+      flag: ex.flag,
+      stickers: makeStickers(id, ex.id, ex.names),
+    });
+    id += ex.names.length;
+  }
 
   return sections;
 }

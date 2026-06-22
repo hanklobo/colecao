@@ -9,6 +9,7 @@ import { StatsView } from './views/StatsView';
 import { LandingPage } from './components/LandingPage';
 import { AlbumIcon, StatsIcon, TradeIcon, BallIcon } from './components/Icons';
 import { computeAchievements } from './utils/achievements';
+import { Analytics } from '@vercel/analytics/react';
 
 const ONBOARD_KEY = 'copa2026_onboarded';
 const BADGES_KEY = 'copa2026_badges';
@@ -166,6 +167,8 @@ export default function App() {
           );
         })}
       </nav>
+
+      <Analytics />
     </div>
   );
 }

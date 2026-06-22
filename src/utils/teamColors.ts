@@ -12,6 +12,12 @@ const TEAM_COLORS: Record<string, TeamColor> = {
   INTRO: { from: '#003087', to: '#d97706' },
   EST:   { from: '#1e293b', to: '#475569' },
 
+  // Extras / specials
+  LEND:  { from: '#92600c', to: '#f4b400' },
+  CRAQ:  { from: '#5b21b6', to: '#2563eb' },
+  BRIL:  { from: '#6d28d9', to: '#a78bfa' },
+  FIFA:  { from: '#0f766e', to: '#14b8a6' },
+
   // Grupo A
   USA: { from: '#0a3161', to: '#b31942' },
   URU: { from: '#2a5fa0', to: '#75aadb' },
