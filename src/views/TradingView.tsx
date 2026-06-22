@@ -9,7 +9,7 @@ import {
   generateShareUrl,
 } from '../utils/trading';
 import { decodeTradeCode } from '../utils/trading';
-import { ShareIcon, CheckIcon, TradeIcon } from '../components/Icons';
+import { ShareIcon, CheckIcon, TradeIcon, HelpIcon } from '../components/Icons';
 
 interface Props {
   state: AlbumState;
@@ -19,6 +19,7 @@ interface Props {
   onAddPartner: (name: string, code: string) => boolean;
   onRemovePartner: (id: string) => void;
   onGoToAlbum: () => void;
+  onShowHelp: () => void;
 }
 
 const totalHave = (state: AlbumState) =>
@@ -32,6 +33,7 @@ export function TradingView({
   onAddPartner,
   onRemovePartner,
   onGoToAlbum,
+  onShowHelp,
 }: Props) {
   const [selectedPartnerId, setSelectedPartnerId] = useState<string | null>(
     partners[0]?.id ?? null,
@@ -100,7 +102,17 @@ export function TradingView({
         className="px-5 pt-5 pb-6 shadow-card-lg"
         style={{ backgroundImage: 'linear-gradient(120deg, #0b2e6b 0%, #1a73e8 100%)' }}
       >
-        <p className="text-white/70 text-xs font-semibold uppercase tracking-widest mb-3">Meu link de troca</p>
+        <div className="flex items-center justify-between mb-3">
+          <p className="text-white/70 text-xs font-semibold uppercase tracking-widest">Meu link de troca</p>
+          <button
+            onClick={onShowHelp}
+            aria-label="Como funciona"
+            className="flex items-center gap-1.5 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 rounded-full pl-2.5 pr-3 py-1.5 text-xs font-semibold transition-colors"
+          >
+            <HelpIcon className="w-4 h-4" />
+            Ajuda
+          </button>
+        </div>
 
         {/* Name */}
         {editingName ? (

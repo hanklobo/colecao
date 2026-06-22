@@ -6,7 +6,10 @@ import { ProgressBar } from './components/ProgressBar';
 import { AlbumView } from './views/AlbumView';
 import { TradingView } from './views/TradingView';
 import { StatsView } from './views/StatsView';
+import { LandingPage } from './components/LandingPage';
 import { AlbumIcon, StatsIcon, TradeIcon, BallIcon } from './components/Icons';
+
+const ONBOARD_KEY = 'copa2026_onboarded';
 
 type Tab = 'album' | 'stats' | 'trading';
 
@@ -21,6 +24,22 @@ export default function App() {
   const { state, cycleSticker, resetSticker, stats } = useAlbum();
   const { partners, myName, updateMyName, addPartner, removePartner } = useTradePartners();
   const [toast, setToast] = useState<string | null>(null);
+  const [showHelp, setShowHelp] = useState(false);
+  const [firstTime, setFirstTime] = useState(false);
+
+  // Show landing page on first ever visit
+  useEffect(() => {
+    if (!localStorage.getItem(ONBOARD_KEY)) {
+      setFirstTime(true);
+      setShowHelp(true);
+    }
+  }, []);
+
+  function closeHelp() {
+    setShowHelp(false);
+    setFirstTime(false);
+    localStorage.setItem(ONBOARD_KEY, '1');
+  }
 
   // Parse incoming trade link on first load
   useEffect(() => {
@@ -91,9 +110,13 @@ export default function App() {
             onAddPartner={addPartner}
             onRemovePartner={removePartner}
             onGoToAlbum={() => setTab('album')}
+            onShowHelp={() => setShowHelp(true)}
           />
         )}
       </main>
+
+      {/* Landing / help overlay */}
+      {showHelp && <LandingPage onClose={closeHelp} firstTime={firstTime} />}
 
       {/* Bottom nav */}
       <nav className="flex-shrink-0 bg-white/95 backdrop-blur border-t border-gray-200 flex safe-area-bottom z-30">
