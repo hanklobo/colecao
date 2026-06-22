@@ -46,7 +46,7 @@ export default function App() {
   // Parse incoming trade link on first load
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const code = params.get('troca');
+    const code = params.get('t') ?? params.get('troca');
     const fromName = params.get('de');
     if (code && fromName) {
       addPartner(fromName, code);

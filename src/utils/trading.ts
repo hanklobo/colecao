@@ -6,27 +6,67 @@ interface TradingPayload {
   duplicates: { id: number; extra: number }[];
 }
 
-export function encodeTradeCode(state: AlbumState): string {
-  const missing: number[] = [];
-  const duplicates: { id: number; extra: number }[] = [];
+// ── Compact binary encoding (v2) ────────────────────────────────────────────
+// 2 bits per sticker: 0 = missing, 1 = have, 2 = repeated.
+// Packed into bytes and base64url-encoded → fixed, small payload that keeps
+// the share link short. Legacy JSON codes (no '~' prefix) still decode below.
 
+const V2_PREFIX = '~';
+
+function bytesToB64url(bytes: Uint8Array): string {
+  let bin = '';
+  for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+  return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+function b64urlToBytes(s: string): Uint8Array {
+  let str = s.replace(/-/g, '+').replace(/_/g, '/');
+  while (str.length % 4) str += '=';
+  const bin = atob(str);
+  const out = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+  return out;
+}
+
+export function encodeTradeCode(state: AlbumState): string {
+  const bytes = new Uint8Array(Math.ceil(TOTAL_STICKERS / 4));
   for (let i = 1; i <= TOTAL_STICKERS; i++) {
     const s = state[i];
-    if (!s || s.status === 'missing') {
-      missing.push(i);
-    } else if (s.status === 'repeated') {
-      duplicates.push({ id: i, extra: s.count - 1 });
+    let code = 0;
+    if (s) {
+      if (s.status === 'have') code = 1;
+      else if (s.status === 'repeated') code = 2;
     }
+    const idx = i - 1;
+    bytes[idx >> 2] |= code << ((idx & 3) * 2);
   }
-
-  const payload: TradingPayload = { missing, duplicates };
-  const json = JSON.stringify(payload);
-  return btoa(unescape(encodeURIComponent(json)));
+  return V2_PREFIX + bytesToB64url(bytes);
 }
 
 export function decodeTradeCode(code: string): TradingPayload | null {
+  const c = code.trim();
+
+  // v2 — compact bitmask
+  if (c.startsWith(V2_PREFIX)) {
+    try {
+      const bytes = b64urlToBytes(c.slice(1));
+      const missing: number[] = [];
+      const duplicates: { id: number; extra: number }[] = [];
+      for (let i = 1; i <= TOTAL_STICKERS; i++) {
+        const idx = i - 1;
+        const status = (bytes[idx >> 2] >> ((idx & 3) * 2)) & 3;
+        if (status === 0) missing.push(i);
+        else if (status === 2) duplicates.push({ id: i, extra: 1 });
+      }
+      return { missing, duplicates };
+    } catch {
+      return null;
+    }
+  }
+
+  // legacy — JSON + base64
   try {
-    const json = decodeURIComponent(escape(atob(code.trim())));
+    const json = decodeURIComponent(escape(atob(c)));
     const payload = JSON.parse(json) as TradingPayload;
     if (!Array.isArray(payload.missing) || !Array.isArray(payload.duplicates)) {
       return null;
@@ -89,6 +129,7 @@ export function getPartnerStats(code: string): PartnerStats | null {
 }
 
 export function generateShareUrl(name: string, code: string): string {
-  const params = new URLSearchParams({ troca: code, de: name });
-  return `${window.location.origin}/?${params.toString()}`;
+  // Build manually: the code uses only URL-safe chars (base64url + '~'),
+  // so we skip URLSearchParams to avoid bloating it with percent-escapes.
+  return `${window.location.origin}/?t=${code}&de=${encodeURIComponent(name)}`;
 }
