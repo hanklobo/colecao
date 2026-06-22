@@ -13,7 +13,6 @@ import { getFlagUrl } from '../utils/flags';
 import {
   ShareIcon,
   CheckIcon,
-  HelpIcon,
   PlusIcon,
   EditIcon,
   TrashIcon,
@@ -30,7 +29,6 @@ interface Props {
   onAddPartner: (name: string, code: string) => boolean;
   onRemovePartner: (id: string) => void;
   onGoToAlbum: () => void;
-  onShowHelp: () => void;
 }
 
 const totalHave = (state: AlbumState) =>
@@ -52,7 +50,6 @@ export function TradingView({
   onAddPartner,
   onRemovePartner,
   onGoToAlbum,
-  onShowHelp,
 }: Props) {
   const [selectedPartnerId, setSelectedPartnerId] = useState<string | null>(
     partners[0]?.id ?? null,
@@ -120,27 +117,32 @@ export function TradingView({
         className="px-5 pt-5 pb-6 shadow-card-lg"
         style={{ backgroundImage: 'linear-gradient(120deg, #0b2e6b 0%, #1a73e8 100%)' }}
       >
-        <div className="flex items-center justify-between mb-4">
+        {/* Header row: label + compact name (where Ajuda used to be) */}
+        <div className="flex items-center justify-between gap-3 mb-4 min-h-[34px]">
           <p className="text-white/70 text-xs font-semibold uppercase tracking-widest">Meu link de troca</p>
-          <button
-            onClick={onShowHelp}
-            aria-label="Como funciona"
-            className="flex items-center gap-1.5 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 rounded-full pl-2.5 pr-3 py-1.5 text-xs font-semibold transition-colors"
-          >
-            <HelpIcon className="w-4 h-4" />
-            Ajuda
-          </button>
+          {myName && !editingName && (
+            <button
+              onClick={() => { setNameInput(myName); setEditingName(true); }}
+              className="flex items-center gap-2 group min-w-0 bg-white/10 hover:bg-white/20 rounded-full pl-1 pr-3 py-1 transition-colors"
+            >
+              <span className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center font-display font-extrabold text-sm text-white flex-shrink-0">
+                {initial(myName)}
+              </span>
+              <span className="text-white font-bold text-sm truncate max-w-[130px]">{myName}</span>
+              <EditIcon className="w-3.5 h-3.5 text-white/60 group-hover:text-white transition-colors flex-shrink-0" />
+            </button>
+          )}
         </div>
 
-        {/* Name */}
-        {editingName ? (
+        {/* Name input — only when empty or editing */}
+        {(!myName || editingName) && (
           <div className="flex gap-2 mb-4">
             <input
               autoFocus
               value={nameInput}
               onChange={(e) => setNameInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && saveName()}
-              placeholder="Seu nome..."
+              placeholder="Digite seu nome..."
               className="flex-1 px-3 py-2.5 rounded-xl bg-white/15 text-white placeholder-white/40 text-sm font-medium focus:outline-none focus:bg-white/25"
             />
             <button
@@ -149,19 +151,6 @@ export function TradingView({
               className="px-5 py-2.5 bg-copa-gold text-copa-navy rounded-xl font-bold text-sm disabled:opacity-40 active:scale-95 transition"
             >
               OK
-            </button>
-          </div>
-        ) : (
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-11 h-11 rounded-full bg-white/15 flex items-center justify-center font-display font-extrabold text-lg text-white flex-shrink-0">
-              {initial(myName)}
-            </div>
-            <button
-              onClick={() => { setNameInput(myName); setEditingName(true); }}
-              className="flex items-center gap-2 group min-w-0"
-            >
-              <p className="text-white font-display font-extrabold text-xl truncate">{myName}</p>
-              <EditIcon className="w-3.5 h-3.5 text-white/40 group-hover:text-white/80 transition-colors flex-shrink-0" />
             </button>
           </div>
         )}
@@ -186,27 +175,32 @@ export function TradingView({
           ))}
         </div>
 
-        {/* Share button */}
-        <button
-          onClick={shareLink}
-          disabled={!myName && !nameInput.trim()}
-          className={`w-full py-3.5 rounded-2xl font-bold text-sm transition-all active:scale-95 flex items-center justify-center gap-2 ${
-            shared
-              ? 'bg-emerald-500 text-white'
-              : 'bg-copa-gold text-copa-navy hover:brightness-110 disabled:opacity-40 shadow-card'
-          }`}
-        >
-          {shared ? (
-            <><CheckIcon className="w-4 h-4" /> Link copiado!</>
-          ) : (
-            <><ShareIcon className="w-4 h-4" /> Compartilhar meu link</>
-          )}
-        </button>
-        <p className="text-white/50 text-[11px] text-center mt-2.5 leading-snug">
-          {myName
-            ? 'Envie para um amigo. Quando ele abrir, vira parceiro de troca aqui.'
-            : 'Digite seu nome acima para gerar o link.'}
-        </p>
+        {/* Share button — only after the name is filled */}
+        {myName && !editingName ? (
+          <>
+            <button
+              onClick={shareLink}
+              className={`w-full py-3.5 rounded-2xl font-bold text-sm transition-all active:scale-95 flex items-center justify-center gap-2 ${
+                shared
+                  ? 'bg-emerald-500 text-white'
+                  : 'bg-copa-gold text-copa-navy hover:brightness-110 shadow-card'
+              }`}
+            >
+              {shared ? (
+                <><CheckIcon className="w-4 h-4" /> Link copiado!</>
+              ) : (
+                <><ShareIcon className="w-4 h-4" /> Compartilhar meu link</>
+              )}
+            </button>
+            <p className="text-white/50 text-[11px] text-center mt-2.5 leading-snug">
+              Envie para um amigo. Quando ele abrir, vira parceiro de troca aqui.
+            </p>
+          </>
+        ) : (
+          <p className="text-white/60 text-[11px] text-center leading-snug">
+            ☝️ Preencha seu nome para gerar e compartilhar seu link de troca.
+          </p>
+        )}
       </div>
 
       {/* ── Partners section ── */}
