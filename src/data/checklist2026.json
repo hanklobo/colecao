@@ -4,32 +4,92 @@
    "id": "INTRO",
    "name": "Abertura",
    "stickers": [
-    "Logo Panini",
-    "Emblema Oficial",
-    "Emblema Oficial II",
-    "Mascotes Oficiais",
-    "Slogan Oficial",
-    "Bola Oficial",
-    "Sede: Canadá",
-    "Sede: México",
-    "Sede: EUA"
+    {
+     "name": "Logo Panini",
+     "special": true
+    },
+    {
+     "name": "Emblema Oficial",
+     "special": true
+    },
+    {
+     "name": "Emblema Oficial II",
+     "special": true
+    },
+    {
+     "name": "Mascotes Oficiais",
+     "special": true
+    },
+    {
+     "name": "Slogan Oficial",
+     "special": true
+    },
+    {
+     "name": "Bola Oficial",
+     "special": true
+    },
+    {
+     "name": "Sede: Canadá",
+     "special": true
+    },
+    {
+     "name": "Sede: México",
+     "special": true
+    },
+    {
+     "name": "Sede: EUA",
+     "special": true
+    }
    ]
   },
   {
    "id": "MUSEU",
    "name": "FIFA Museum",
    "stickers": [
-    "Itália 1934",
-    "Uruguai 1950",
-    "Alemanha Ocidental 1954",
-    "Brasil 1962",
-    "Alemanha Ocidental 1974",
-    "Argentina 1986",
-    "Brasil 1994",
-    "Brasil 2002",
-    "Itália 2006",
-    "Alemanha 2014",
-    "Argentina 2022"
+    {
+     "name": "Itália 1934",
+     "special": true
+    },
+    {
+     "name": "Uruguai 1950",
+     "special": true
+    },
+    {
+     "name": "Alemanha Ocidental 1954",
+     "special": true
+    },
+    {
+     "name": "Brasil 1962",
+     "special": true
+    },
+    {
+     "name": "Alemanha Ocidental 1974",
+     "special": true
+    },
+    {
+     "name": "Argentina 1986",
+     "special": true
+    },
+    {
+     "name": "Brasil 1994",
+     "special": true
+    },
+    {
+     "name": "Brasil 2002",
+     "special": true
+    },
+    {
+     "name": "Itália 2006",
+     "special": true
+    },
+    {
+     "name": "Alemanha 2014",
+     "special": true
+    },
+    {
+     "name": "Argentina 2022",
+     "special": true
+    }
    ]
   },
   {
@@ -37,26 +97,67 @@
    "name": "México",
    "flagCode": "mx",
    "stickers": [
-    "Escudo",
-    "Luis Malagón",
-    "Johan Vasquez",
-    "Jorge Sánchez",
-    "Cesar Montes",
-    "Jesus Gallardo",
-    "Israel Reyes",
-    "Diego Lainez",
-    "Carlos Rodriguez",
-    "Edson Alvarez",
-    "Orbelin Pineda",
-    "Marcel Ruiz",
-    "Foto da equipe",
-    "Érick Sánchez",
-    "Hirving Lozano",
-    "Santiago Giménez",
-    "Raúl Jiménez",
-    "Alexis Vega",
-    "Roberto Alvarado",
-    "Cesar Huerta"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Luis Malagón"
+    },
+    {
+     "name": "Johan Vasquez"
+    },
+    {
+     "name": "Jorge Sánchez"
+    },
+    {
+     "name": "Cesar Montes"
+    },
+    {
+     "name": "Jesus Gallardo"
+    },
+    {
+     "name": "Israel Reyes"
+    },
+    {
+     "name": "Diego Lainez"
+    },
+    {
+     "name": "Carlos Rodriguez"
+    },
+    {
+     "name": "Edson Alvarez"
+    },
+    {
+     "name": "Orbelin Pineda"
+    },
+    {
+     "name": "Marcel Ruiz"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Érick Sánchez"
+    },
+    {
+     "name": "Hirving Lozano"
+    },
+    {
+     "name": "Santiago Giménez"
+    },
+    {
+     "name": "Raúl Jiménez"
+    },
+    {
+     "name": "Alexis Vega"
+    },
+    {
+     "name": "Roberto Alvarado"
+    },
+    {
+     "name": "Cesar Huerta"
+    }
    ]
   },
   {
@@ -64,26 +165,67 @@
    "name": "África do Sul",
    "flagCode": "za",
    "stickers": [
-    "Escudo",
-    "Ronwen Williams",
-    "Sipho Chaine",
-    "Aubrey Modiba",
-    "Samukele Kabini",
-    "Mbekezeli Mbokazi",
-    "Khulumani Ndamane",
-    "Siyabonga Ngezana",
-    "Khuliso Mudau",
-    "Nkosinathi Sibisi",
-    "Teboho Mokoena",
-    "Thalente Mbatha",
-    "Foto da equipe",
-    "Bathasi Aubaas",
-    "Yaya Sithole",
-    "Sipho Mbule",
-    "Lyle Foster",
-    "Iqraam Rayners",
-    "Mohau Nkota",
-    "Oswin Appollis"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Ronwen Williams"
+    },
+    {
+     "name": "Sipho Chaine"
+    },
+    {
+     "name": "Aubrey Modiba"
+    },
+    {
+     "name": "Samukele Kabini"
+    },
+    {
+     "name": "Mbekezeli Mbokazi"
+    },
+    {
+     "name": "Khulumani Ndamane"
+    },
+    {
+     "name": "Siyabonga Ngezana"
+    },
+    {
+     "name": "Khuliso Mudau"
+    },
+    {
+     "name": "Nkosinathi Sibisi"
+    },
+    {
+     "name": "Teboho Mokoena"
+    },
+    {
+     "name": "Thalente Mbatha"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Bathasi Aubaas"
+    },
+    {
+     "name": "Yaya Sithole"
+    },
+    {
+     "name": "Sipho Mbule"
+    },
+    {
+     "name": "Lyle Foster"
+    },
+    {
+     "name": "Iqraam Rayners"
+    },
+    {
+     "name": "Mohau Nkota"
+    },
+    {
+     "name": "Oswin Appollis"
+    }
    ]
   },
   {
@@ -91,26 +233,67 @@
    "name": "Coreia do Sul",
    "flagCode": "kr",
    "stickers": [
-    "Escudo",
-    "Hyeon-woo Jo",
-    "Seung-Gyu Kim",
-    "Min-jae Kim",
-    "Yu-min Cho",
-    "Young-woo Seol",
-    "Han-beom Lee",
-    "Tae-seok Lee",
-    "Myung-jae Lee",
-    "Jae-sung Lee",
-    "In-beom Hwang",
-    "Kang-in Lee",
-    "Foto da equipe",
-    "Seung-ho Paik",
-    "Jens Castrop",
-    "Dongg-yeong Lee",
-    "Gue-sung Cho",
-    "Heung-min Son",
-    "Hee-chan Hwang",
-    "Hyeon-Gyu Oh"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Hyeon-woo Jo"
+    },
+    {
+     "name": "Seung-Gyu Kim"
+    },
+    {
+     "name": "Min-jae Kim"
+    },
+    {
+     "name": "Yu-min Cho"
+    },
+    {
+     "name": "Young-woo Seol"
+    },
+    {
+     "name": "Han-beom Lee"
+    },
+    {
+     "name": "Tae-seok Lee"
+    },
+    {
+     "name": "Myung-jae Lee"
+    },
+    {
+     "name": "Jae-sung Lee"
+    },
+    {
+     "name": "In-beom Hwang"
+    },
+    {
+     "name": "Kang-in Lee"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Seung-ho Paik"
+    },
+    {
+     "name": "Jens Castrop"
+    },
+    {
+     "name": "Dongg-yeong Lee"
+    },
+    {
+     "name": "Gue-sung Cho"
+    },
+    {
+     "name": "Heung-min Son"
+    },
+    {
+     "name": "Hee-chan Hwang"
+    },
+    {
+     "name": "Hyeon-Gyu Oh"
+    }
    ]
   },
   {
@@ -118,26 +301,67 @@
    "name": "Chéquia",
    "flagCode": "cz",
    "stickers": [
-    "Escudo",
-    "Matej Kovar",
-    "Jindrich Stanek",
-    "Ladislav Krejci",
-    "Vladimir Coufal",
-    "Jaroslav Zeleny",
-    "Tomas Holes",
-    "David Zima",
-    "Michal Sadilek",
-    "Lukas Provod",
-    "Lukas Cerv",
-    "Tomas Soucek",
-    "Foto da equipe",
-    "Pavel Sulc",
-    "Matej Vydra",
-    "Vasil Kusej",
-    "Tomas Chory",
-    "Vaclav Cerny",
-    "Adam Hlozek",
-    "Patrik Schick"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Matej Kovar"
+    },
+    {
+     "name": "Jindrich Stanek"
+    },
+    {
+     "name": "Ladislav Krejci"
+    },
+    {
+     "name": "Vladimir Coufal"
+    },
+    {
+     "name": "Jaroslav Zeleny"
+    },
+    {
+     "name": "Tomas Holes"
+    },
+    {
+     "name": "David Zima"
+    },
+    {
+     "name": "Michal Sadilek"
+    },
+    {
+     "name": "Lukas Provod"
+    },
+    {
+     "name": "Lukas Cerv"
+    },
+    {
+     "name": "Tomas Soucek"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Pavel Sulc"
+    },
+    {
+     "name": "Matej Vydra"
+    },
+    {
+     "name": "Vasil Kusej"
+    },
+    {
+     "name": "Tomas Chory"
+    },
+    {
+     "name": "Vaclav Cerny"
+    },
+    {
+     "name": "Adam Hlozek"
+    },
+    {
+     "name": "Patrik Schick"
+    }
    ]
   },
   {
@@ -145,26 +369,67 @@
    "name": "Canadá",
    "flagCode": "ca",
    "stickers": [
-    "Escudo",
-    "Dayne St.Clair",
-    "Alphonso Davies",
-    "Alistair Johnston",
-    "Samuel Adekugbe",
-    "Riche Larvea",
-    "Derek Cornelius",
-    "Moïse Bombito",
-    "Kamal Miller",
-    "Stephen Eustáquio",
-    "Ismaël Koné",
-    "Jonathan Osorio",
-    "Foto da equipe",
-    "Jacob Shaffelburg",
-    "Mathieu Choinière",
-    "Niko Sigur",
-    "Tajon Buchanan",
-    "Liam Millar",
-    "Cyle Larin",
-    "Jonathan David"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Dayne St.Clair"
+    },
+    {
+     "name": "Alphonso Davies"
+    },
+    {
+     "name": "Alistair Johnston"
+    },
+    {
+     "name": "Samuel Adekugbe"
+    },
+    {
+     "name": "Riche Larvea"
+    },
+    {
+     "name": "Derek Cornelius"
+    },
+    {
+     "name": "Moïse Bombito"
+    },
+    {
+     "name": "Kamal Miller"
+    },
+    {
+     "name": "Stephen Eustáquio"
+    },
+    {
+     "name": "Ismaël Koné"
+    },
+    {
+     "name": "Jonathan Osorio"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Jacob Shaffelburg"
+    },
+    {
+     "name": "Mathieu Choinière"
+    },
+    {
+     "name": "Niko Sigur"
+    },
+    {
+     "name": "Tajon Buchanan"
+    },
+    {
+     "name": "Liam Millar"
+    },
+    {
+     "name": "Cyle Larin"
+    },
+    {
+     "name": "Jonathan David"
+    }
    ]
   },
   {
@@ -172,26 +437,67 @@
    "name": "Bósnia e Herzegovina",
    "flagCode": "ba",
    "stickers": [
-    "Escudo",
-    "Nikola Vasilj",
-    "Amer Dedic",
-    "Sead Kolasinac",
-    "Tarik Muharemovic",
-    "Nihad Mujakic",
-    "Nikola Katic",
-    "Amir Hadziahmetovic",
-    "Benjamin Tahirovic",
-    "Armin Gigovic",
-    "Ivan Sunjic",
-    "Ivan Basic",
-    "Foto da equipe",
-    "Dzenis Burnic",
-    "Esmir Bajraktarevic",
-    "Amar Memic",
-    "Ermedin Demirovic",
-    "Edin Dzeko",
-    "Samed Bazdar",
-    "Haris Tabakovic"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Nikola Vasilj"
+    },
+    {
+     "name": "Amer Dedic"
+    },
+    {
+     "name": "Sead Kolasinac"
+    },
+    {
+     "name": "Tarik Muharemovic"
+    },
+    {
+     "name": "Nihad Mujakic"
+    },
+    {
+     "name": "Nikola Katic"
+    },
+    {
+     "name": "Amir Hadziahmetovic"
+    },
+    {
+     "name": "Benjamin Tahirovic"
+    },
+    {
+     "name": "Armin Gigovic"
+    },
+    {
+     "name": "Ivan Sunjic"
+    },
+    {
+     "name": "Ivan Basic"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Dzenis Burnic"
+    },
+    {
+     "name": "Esmir Bajraktarevic"
+    },
+    {
+     "name": "Amar Memic"
+    },
+    {
+     "name": "Ermedin Demirovic"
+    },
+    {
+     "name": "Edin Dzeko"
+    },
+    {
+     "name": "Samed Bazdar"
+    },
+    {
+     "name": "Haris Tabakovic"
+    }
    ]
   },
   {
@@ -199,26 +505,67 @@
    "name": "Catar",
    "flagCode": "qa",
    "stickers": [
-    "Escudo",
-    "Meshaal Barsham",
-    "Sultan Albrake",
-    "Lucas Mendes",
-    "Homam Ahmed",
-    "Boualem Khoukhi",
-    "Pedro Miguel",
-    "Tarek Salman",
-    "Mohamed Al-Mannai",
-    "Karim Boudiaf",
-    "Assim Madibo",
-    "Ahmed Fatehi",
-    "Foto da equipe",
-    "Mohammed Waad",
-    "Abdulaziz Hatem",
-    "Hassan Al-Haydos",
-    "Edmilson Junior",
-    "Akram Hassan Afif",
-    "Ahmed Al Ganehi",
-    "Almoez Ali"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Meshaal Barsham"
+    },
+    {
+     "name": "Sultan Albrake"
+    },
+    {
+     "name": "Lucas Mendes"
+    },
+    {
+     "name": "Homam Ahmed"
+    },
+    {
+     "name": "Boualem Khoukhi"
+    },
+    {
+     "name": "Pedro Miguel"
+    },
+    {
+     "name": "Tarek Salman"
+    },
+    {
+     "name": "Mohamed Al-Mannai"
+    },
+    {
+     "name": "Karim Boudiaf"
+    },
+    {
+     "name": "Assim Madibo"
+    },
+    {
+     "name": "Ahmed Fatehi"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Mohammed Waad"
+    },
+    {
+     "name": "Abdulaziz Hatem"
+    },
+    {
+     "name": "Hassan Al-Haydos"
+    },
+    {
+     "name": "Edmilson Junior"
+    },
+    {
+     "name": "Akram Hassan Afif"
+    },
+    {
+     "name": "Ahmed Al Ganehi"
+    },
+    {
+     "name": "Almoez Ali"
+    }
    ]
   },
   {
@@ -226,26 +573,67 @@
    "name": "Suíça",
    "flagCode": "ch",
    "stickers": [
-    "Escudo",
-    "Gregor Kobel",
-    "Yvon Mvogo",
-    "Manuel Akanji",
-    "Ricardo Rodriguez",
-    "Nico Elvedi",
-    "Aurèle Amenda",
-    "Silvan Widmer",
-    "Granit Xhaka",
-    "Denis Zakaria",
-    "Remo Freuler",
-    "Fabian Rieder",
-    "Foto da equipe",
-    "Ardon Jashari",
-    "Johan Manzambi",
-    "Michel Aebischer",
-    "Breel Embolo",
-    "Ruben Vargas",
-    "Dan Ndoye",
-    "Zeki Amdouni"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Gregor Kobel"
+    },
+    {
+     "name": "Yvon Mvogo"
+    },
+    {
+     "name": "Manuel Akanji"
+    },
+    {
+     "name": "Ricardo Rodriguez"
+    },
+    {
+     "name": "Nico Elvedi"
+    },
+    {
+     "name": "Aurèle Amenda"
+    },
+    {
+     "name": "Silvan Widmer"
+    },
+    {
+     "name": "Granit Xhaka"
+    },
+    {
+     "name": "Denis Zakaria"
+    },
+    {
+     "name": "Remo Freuler"
+    },
+    {
+     "name": "Fabian Rieder"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Ardon Jashari"
+    },
+    {
+     "name": "Johan Manzambi"
+    },
+    {
+     "name": "Michel Aebischer"
+    },
+    {
+     "name": "Breel Embolo"
+    },
+    {
+     "name": "Ruben Vargas"
+    },
+    {
+     "name": "Dan Ndoye"
+    },
+    {
+     "name": "Zeki Amdouni"
+    }
    ]
   },
   {
@@ -253,26 +641,67 @@
    "name": "Brasil",
    "flagCode": "br",
    "stickers": [
-    "Escudo",
-    "Alisson",
-    "Bento",
-    "Marquinhos",
-    "Éder Militão",
-    "Gabriel Magalhães",
-    "Danilo",
-    "Wesley",
-    "Lucas Paquetá",
-    "Casemiro",
-    "Bruno Guimarães",
-    "Luiz Henrique",
-    "Foto da equipe",
-    "Vinicius Júnior",
-    "Rodrygo",
-    "João Pedro",
-    "Matheus Cunha",
-    "Gabriel Martinelli",
-    "Raphinha",
-    "Estévão"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Alisson"
+    },
+    {
+     "name": "Bento"
+    },
+    {
+     "name": "Marquinhos"
+    },
+    {
+     "name": "Éder Militão"
+    },
+    {
+     "name": "Gabriel Magalhães"
+    },
+    {
+     "name": "Danilo"
+    },
+    {
+     "name": "Wesley"
+    },
+    {
+     "name": "Lucas Paquetá"
+    },
+    {
+     "name": "Casemiro"
+    },
+    {
+     "name": "Bruno Guimarães"
+    },
+    {
+     "name": "Luiz Henrique"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Vinicius Júnior"
+    },
+    {
+     "name": "Rodrygo"
+    },
+    {
+     "name": "João Pedro"
+    },
+    {
+     "name": "Matheus Cunha"
+    },
+    {
+     "name": "Gabriel Martinelli"
+    },
+    {
+     "name": "Raphinha"
+    },
+    {
+     "name": "Estévão"
+    }
    ]
   },
   {
@@ -280,26 +709,67 @@
    "name": "Marrocos",
    "flagCode": "ma",
    "stickers": [
-    "Escudo",
-    "Yassine Bounou",
-    "Munir El Kajoui",
-    "Achraf Hakimi",
-    "Noussair Mazraoui",
-    "Nayef Aguerd",
-    "Roman Saiss",
-    "Jawad El Yamio",
-    "Adam Masina",
-    "Sofyan Amrabat",
-    "Azzedine Ounahi",
-    "Eliesse Ben Seghir",
-    "Foto da equipe",
-    "Bilal El Khannouss",
-    "Ismael Saibari",
-    "Youssef En-Nesyri",
-    "Abde Ezzalzouli",
-    "Soufiane Rahimi",
-    "Brahim Diaz",
-    "Ayoub El Kaabi"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Yassine Bounou"
+    },
+    {
+     "name": "Munir El Kajoui"
+    },
+    {
+     "name": "Achraf Hakimi"
+    },
+    {
+     "name": "Noussair Mazraoui"
+    },
+    {
+     "name": "Nayef Aguerd"
+    },
+    {
+     "name": "Roman Saiss"
+    },
+    {
+     "name": "Jawad El Yamio"
+    },
+    {
+     "name": "Adam Masina"
+    },
+    {
+     "name": "Sofyan Amrabat"
+    },
+    {
+     "name": "Azzedine Ounahi"
+    },
+    {
+     "name": "Eliesse Ben Seghir"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Bilal El Khannouss"
+    },
+    {
+     "name": "Ismael Saibari"
+    },
+    {
+     "name": "Youssef En-Nesyri"
+    },
+    {
+     "name": "Abde Ezzalzouli"
+    },
+    {
+     "name": "Soufiane Rahimi"
+    },
+    {
+     "name": "Brahim Diaz"
+    },
+    {
+     "name": "Ayoub El Kaabi"
+    }
    ]
   },
   {
@@ -307,26 +777,67 @@
    "name": "Haiti",
    "flagCode": "ht",
    "stickers": [
-    "Escudo",
-    "Johny Placide",
-    "Carlens Arcus",
-    "Martin Expérience",
-    "Jean-Kevin Duverne",
-    "Ricardo Adé",
-    "Duke Lacroix",
-    "Garven Metusala",
-    "Hannes Delcroix",
-    "Leverton Pierre",
-    "Danley Jean Jacques",
-    "Jean-Ricner Bellegarde",
-    "Foto da equipe",
-    "Christopher Attys",
-    "Derrick Etienne Jr",
-    "Josue Casimir",
-    "Ruben Providence",
-    "Duckens Nazon",
-    "Louicius Deedson",
-    "Frantzdy Pierrot"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Johny Placide"
+    },
+    {
+     "name": "Carlens Arcus"
+    },
+    {
+     "name": "Martin Expérience"
+    },
+    {
+     "name": "Jean-Kevin Duverne"
+    },
+    {
+     "name": "Ricardo Adé"
+    },
+    {
+     "name": "Duke Lacroix"
+    },
+    {
+     "name": "Garven Metusala"
+    },
+    {
+     "name": "Hannes Delcroix"
+    },
+    {
+     "name": "Leverton Pierre"
+    },
+    {
+     "name": "Danley Jean Jacques"
+    },
+    {
+     "name": "Jean-Ricner Bellegarde"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Christopher Attys"
+    },
+    {
+     "name": "Derrick Etienne Jr"
+    },
+    {
+     "name": "Josue Casimir"
+    },
+    {
+     "name": "Ruben Providence"
+    },
+    {
+     "name": "Duckens Nazon"
+    },
+    {
+     "name": "Louicius Deedson"
+    },
+    {
+     "name": "Frantzdy Pierrot"
+    }
    ]
   },
   {
@@ -334,26 +845,67 @@
    "name": "Escócia",
    "flagCode": "gb-sct",
    "stickers": [
-    "Escudo",
-    "Angus Gunn",
-    "Jack Hendry",
-    "Kieran Tierney",
-    "Aaron Hickey",
-    "Andrew Robertson",
-    "Scott McKenna",
-    "John Souttar",
-    "Anthony Ralston",
-    "Grant Hanley",
-    "Scott McTominay",
-    "Billy Gilmour",
-    "Foto da equipe",
-    "Lewis Ferguson",
-    "Ryan Christie",
-    "Kenny McLean",
-    "John McGinn",
-    "Lyndon Dykes",
-    "Che Adams",
-    "Ben Gannon-Doak"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Angus Gunn"
+    },
+    {
+     "name": "Jack Hendry"
+    },
+    {
+     "name": "Kieran Tierney"
+    },
+    {
+     "name": "Aaron Hickey"
+    },
+    {
+     "name": "Andrew Robertson"
+    },
+    {
+     "name": "Scott McKenna"
+    },
+    {
+     "name": "John Souttar"
+    },
+    {
+     "name": "Anthony Ralston"
+    },
+    {
+     "name": "Grant Hanley"
+    },
+    {
+     "name": "Scott McTominay"
+    },
+    {
+     "name": "Billy Gilmour"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Lewis Ferguson"
+    },
+    {
+     "name": "Ryan Christie"
+    },
+    {
+     "name": "Kenny McLean"
+    },
+    {
+     "name": "John McGinn"
+    },
+    {
+     "name": "Lyndon Dykes"
+    },
+    {
+     "name": "Che Adams"
+    },
+    {
+     "name": "Ben Gannon-Doak"
+    }
    ]
   },
   {
@@ -361,26 +913,67 @@
    "name": "Estados Unidos",
    "flagCode": "us",
    "stickers": [
-    "Escudo",
-    "Math Freese",
-    "Chris Richards",
-    "Tim Ream",
-    "Mark McKenzie",
-    "Alex Freeman",
-    "Antonee Robinson",
-    "Tyler Adams",
-    "Tanner Tessmann",
-    "Weston McKenny",
-    "Christian Roldan",
-    "Timothy Weah",
-    "Foto da equipe",
-    "Diego Luna",
-    "Malik Tillman",
-    "Christian Pulisic",
-    "Brenden Aaronson",
-    "Ricardo Pepi",
-    "Haji Wright",
-    "Folarin Balogun"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Math Freese"
+    },
+    {
+     "name": "Chris Richards"
+    },
+    {
+     "name": "Tim Ream"
+    },
+    {
+     "name": "Mark McKenzie"
+    },
+    {
+     "name": "Alex Freeman"
+    },
+    {
+     "name": "Antonee Robinson"
+    },
+    {
+     "name": "Tyler Adams"
+    },
+    {
+     "name": "Tanner Tessmann"
+    },
+    {
+     "name": "Weston McKenny"
+    },
+    {
+     "name": "Christian Roldan"
+    },
+    {
+     "name": "Timothy Weah"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Diego Luna"
+    },
+    {
+     "name": "Malik Tillman"
+    },
+    {
+     "name": "Christian Pulisic"
+    },
+    {
+     "name": "Brenden Aaronson"
+    },
+    {
+     "name": "Ricardo Pepi"
+    },
+    {
+     "name": "Haji Wright"
+    },
+    {
+     "name": "Folarin Balogun"
+    }
    ]
   },
   {
@@ -388,26 +981,67 @@
    "name": "Paraguai",
    "flagCode": "py",
    "stickers": [
-    "Escudo",
-    "Roberto Fernandez",
-    "Orlando Gill",
-    "Gustavo Gomez",
-    "Fabián Balbuena",
-    "Juan José Cáceres",
-    "Omar Alderete",
-    "Junior Alonso",
-    "Mathías Villasanti",
-    "Diego Gomez",
-    "Damián Bobadilla",
-    "Andres Cubas",
-    "Foto da equipe",
-    "Matias Galarza Fonda",
-    "Julio Enciso",
-    "Alejandro Romero Gamarra",
-    "Miguel Almirón",
-    "Ramon Sosa",
-    "Angel Romero",
-    "Antonio Sanabria"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Roberto Fernandez"
+    },
+    {
+     "name": "Orlando Gill"
+    },
+    {
+     "name": "Gustavo Gomez"
+    },
+    {
+     "name": "Fabián Balbuena"
+    },
+    {
+     "name": "Juan José Cáceres"
+    },
+    {
+     "name": "Omar Alderete"
+    },
+    {
+     "name": "Junior Alonso"
+    },
+    {
+     "name": "Mathías Villasanti"
+    },
+    {
+     "name": "Diego Gomez"
+    },
+    {
+     "name": "Damián Bobadilla"
+    },
+    {
+     "name": "Andres Cubas"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Matias Galarza Fonda"
+    },
+    {
+     "name": "Julio Enciso"
+    },
+    {
+     "name": "Alejandro Romero Gamarra"
+    },
+    {
+     "name": "Miguel Almirón"
+    },
+    {
+     "name": "Ramon Sosa"
+    },
+    {
+     "name": "Angel Romero"
+    },
+    {
+     "name": "Antonio Sanabria"
+    }
    ]
   },
   {
@@ -415,26 +1049,67 @@
    "name": "Austrália",
    "flagCode": "au",
    "stickers": [
-    "Escudo",
-    "Mathew Ryan",
-    "Joe Gauci",
-    "Harry Souttar",
-    "Alessandro Circati",
-    "Jordan Bos",
-    "Aziz Behich",
-    "Cameron Burgess",
-    "Lewis Miller",
-    "Milos Degenek",
-    "Jackson Irvine",
-    "Riley McGree",
-    "Foto da equipe",
-    "Aiden O'Neill",
-    "Connor Metcalfe",
-    "Patrick Yazbek",
-    "Craig Goodwin",
-    "Kusini Vengi",
-    "Nestory Irankunda",
-    "Mohamed Touré"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Mathew Ryan"
+    },
+    {
+     "name": "Joe Gauci"
+    },
+    {
+     "name": "Harry Souttar"
+    },
+    {
+     "name": "Alessandro Circati"
+    },
+    {
+     "name": "Jordan Bos"
+    },
+    {
+     "name": "Aziz Behich"
+    },
+    {
+     "name": "Cameron Burgess"
+    },
+    {
+     "name": "Lewis Miller"
+    },
+    {
+     "name": "Milos Degenek"
+    },
+    {
+     "name": "Jackson Irvine"
+    },
+    {
+     "name": "Riley McGree"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Aiden O'Neill"
+    },
+    {
+     "name": "Connor Metcalfe"
+    },
+    {
+     "name": "Patrick Yazbek"
+    },
+    {
+     "name": "Craig Goodwin"
+    },
+    {
+     "name": "Kusini Vengi"
+    },
+    {
+     "name": "Nestory Irankunda"
+    },
+    {
+     "name": "Mohamed Touré"
+    }
    ]
   },
   {
@@ -442,26 +1117,67 @@
    "name": "Turquia",
    "flagCode": "tr",
    "stickers": [
-    "Escudo",
-    "Ugurcan Cakir",
-    "Mert Muldur",
-    "Zeki Celik",
-    "Abdulkerim Bardakci",
-    "Caglar Soyuncu",
-    "Merih Demiral",
-    "Ferdi Kadioglu",
-    "Kaan Ayhan",
-    "Ismail Yuksek",
-    "Hakan Calhanoglu",
-    "Orkun Kokcu",
-    "Foto da equipe",
-    "Arda Guler",
-    "Irfan Can Kahveci",
-    "Yunus Akgun",
-    "Can Uzun",
-    "Baris Alper Yilmaz",
-    "Kerem Akturkoglu",
-    "Kenan Yildiz"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Ugurcan Cakir"
+    },
+    {
+     "name": "Mert Muldur"
+    },
+    {
+     "name": "Zeki Celik"
+    },
+    {
+     "name": "Abdulkerim Bardakci"
+    },
+    {
+     "name": "Caglar Soyuncu"
+    },
+    {
+     "name": "Merih Demiral"
+    },
+    {
+     "name": "Ferdi Kadioglu"
+    },
+    {
+     "name": "Kaan Ayhan"
+    },
+    {
+     "name": "Ismail Yuksek"
+    },
+    {
+     "name": "Hakan Calhanoglu"
+    },
+    {
+     "name": "Orkun Kokcu"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Arda Guler"
+    },
+    {
+     "name": "Irfan Can Kahveci"
+    },
+    {
+     "name": "Yunus Akgun"
+    },
+    {
+     "name": "Can Uzun"
+    },
+    {
+     "name": "Baris Alper Yilmaz"
+    },
+    {
+     "name": "Kerem Akturkoglu"
+    },
+    {
+     "name": "Kenan Yildiz"
+    }
    ]
   },
   {
@@ -469,26 +1185,67 @@
    "name": "Alemanha",
    "flagCode": "de",
    "stickers": [
-    "Escudo",
-    "Marc-André ter Stegen",
-    "Jonathan Tah",
-    "David Raum",
-    "Nico Schlotterbeck",
-    "Antonio Rüdiger",
-    "Waldemar Anton",
-    "Ridle Baku",
-    "Maximilian Mittelstadt",
-    "Joshua Kimmich",
-    "Florian Wirtz",
-    "Felix Nmecha",
-    "Foto da equipe",
-    "Leon Goretzka",
-    "Jamal Musiala",
-    "Serge Gnabry",
-    "Kai Havertz",
-    "Leroy Sane",
-    "Karim Adeyemi",
-    "Nick Woltemade"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Marc-André ter Stegen"
+    },
+    {
+     "name": "Jonathan Tah"
+    },
+    {
+     "name": "David Raum"
+    },
+    {
+     "name": "Nico Schlotterbeck"
+    },
+    {
+     "name": "Antonio Rüdiger"
+    },
+    {
+     "name": "Waldemar Anton"
+    },
+    {
+     "name": "Ridle Baku"
+    },
+    {
+     "name": "Maximilian Mittelstadt"
+    },
+    {
+     "name": "Joshua Kimmich"
+    },
+    {
+     "name": "Florian Wirtz"
+    },
+    {
+     "name": "Felix Nmecha"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Leon Goretzka"
+    },
+    {
+     "name": "Jamal Musiala"
+    },
+    {
+     "name": "Serge Gnabry"
+    },
+    {
+     "name": "Kai Havertz"
+    },
+    {
+     "name": "Leroy Sane"
+    },
+    {
+     "name": "Karim Adeyemi"
+    },
+    {
+     "name": "Nick Woltemade"
+    }
    ]
   },
   {
@@ -496,26 +1253,67 @@
    "name": "Curaçao",
    "flagCode": "cw",
    "stickers": [
-    "Escudo",
-    "Eloy Room",
-    "Armando Obispo",
-    "Sherel Floranus",
-    "Jurien Gaari",
-    "Joshua Brenet",
-    "Roshon Van Eijma",
-    "Shurandy Sambo",
-    "Livano Comenencia",
-    "Godfried Roemeratoe",
-    "Juninho Bacuna",
-    "Leandro Bacuna",
-    "Foto da equipe",
-    "Tahith Chong",
-    "Kenji Gorre",
-    "Jearl Margaritha",
-    "Jurgen Locadia",
-    "Jeremy Antonisse",
-    "Gervane Kastaneer",
-    "Sontje Hansen"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Eloy Room"
+    },
+    {
+     "name": "Armando Obispo"
+    },
+    {
+     "name": "Sherel Floranus"
+    },
+    {
+     "name": "Jurien Gaari"
+    },
+    {
+     "name": "Joshua Brenet"
+    },
+    {
+     "name": "Roshon Van Eijma"
+    },
+    {
+     "name": "Shurandy Sambo"
+    },
+    {
+     "name": "Livano Comenencia"
+    },
+    {
+     "name": "Godfried Roemeratoe"
+    },
+    {
+     "name": "Juninho Bacuna"
+    },
+    {
+     "name": "Leandro Bacuna"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Tahith Chong"
+    },
+    {
+     "name": "Kenji Gorre"
+    },
+    {
+     "name": "Jearl Margaritha"
+    },
+    {
+     "name": "Jurgen Locadia"
+    },
+    {
+     "name": "Jeremy Antonisse"
+    },
+    {
+     "name": "Gervane Kastaneer"
+    },
+    {
+     "name": "Sontje Hansen"
+    }
    ]
   },
   {
@@ -523,26 +1321,67 @@
    "name": "Costa do Marfim",
    "flagCode": "ci",
    "stickers": [
-    "Escudo",
-    "Yahia Fofana",
-    "Ghislain Konan",
-    "Wilfried Singo",
-    "Odilon Kossounou",
-    "Evan Ndicka",
-    "Willy Boly",
-    "Emmanuel Agbadou",
-    "Ousmane Diomande",
-    "Franck Kessie",
-    "Seko Fofana",
-    "Ibrahim Sangare",
-    "Foto da equipe",
-    "Jean-Philippe Gbamin",
-    "Amad Diallo",
-    "Sébastien Haller",
-    "Simon Adingra",
-    "Yan Diomande",
-    "Evann Guessand",
-    "Oumar Diakite"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Yahia Fofana"
+    },
+    {
+     "name": "Ghislain Konan"
+    },
+    {
+     "name": "Wilfried Singo"
+    },
+    {
+     "name": "Odilon Kossounou"
+    },
+    {
+     "name": "Evan Ndicka"
+    },
+    {
+     "name": "Willy Boly"
+    },
+    {
+     "name": "Emmanuel Agbadou"
+    },
+    {
+     "name": "Ousmane Diomande"
+    },
+    {
+     "name": "Franck Kessie"
+    },
+    {
+     "name": "Seko Fofana"
+    },
+    {
+     "name": "Ibrahim Sangare"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Jean-Philippe Gbamin"
+    },
+    {
+     "name": "Amad Diallo"
+    },
+    {
+     "name": "Sébastien Haller"
+    },
+    {
+     "name": "Simon Adingra"
+    },
+    {
+     "name": "Yan Diomande"
+    },
+    {
+     "name": "Evann Guessand"
+    },
+    {
+     "name": "Oumar Diakite"
+    }
    ]
   },
   {
@@ -550,26 +1389,67 @@
    "name": "Equador",
    "flagCode": "ec",
    "stickers": [
-    "Escudo",
-    "Hernán Galíndez",
-    "Gonzalo Valle",
-    "Piero Hincapié",
-    "Pervis Estupiñán",
-    "Willian Pacho",
-    "Ángelo Preciado",
-    "Joel Ordóñez",
-    "Moises Caicedo",
-    "Alan Franco",
-    "Kendry Paez",
-    "Pedro Vite",
-    "Foto da equipe",
-    "John Veboah",
-    "Leonardo Campana",
-    "Gonzalo Plata",
-    "Nilson Angulo",
-    "Alan Minda",
-    "Kevin Rodriguez",
-    "Enner Valencia"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Hernán Galíndez"
+    },
+    {
+     "name": "Gonzalo Valle"
+    },
+    {
+     "name": "Piero Hincapié"
+    },
+    {
+     "name": "Pervis Estupiñán"
+    },
+    {
+     "name": "Willian Pacho"
+    },
+    {
+     "name": "Ángelo Preciado"
+    },
+    {
+     "name": "Joel Ordóñez"
+    },
+    {
+     "name": "Moises Caicedo"
+    },
+    {
+     "name": "Alan Franco"
+    },
+    {
+     "name": "Kendry Paez"
+    },
+    {
+     "name": "Pedro Vite"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "John Veboah"
+    },
+    {
+     "name": "Leonardo Campana"
+    },
+    {
+     "name": "Gonzalo Plata"
+    },
+    {
+     "name": "Nilson Angulo"
+    },
+    {
+     "name": "Alan Minda"
+    },
+    {
+     "name": "Kevin Rodriguez"
+    },
+    {
+     "name": "Enner Valencia"
+    }
    ]
   },
   {
@@ -577,26 +1457,67 @@
    "name": "Holanda",
    "flagCode": "nl",
    "stickers": [
-    "Escudo",
-    "Bart Verbruggen",
-    "Virgil van Dijk",
-    "Micky van de Ven",
-    "Jurrien Timber",
-    "Denzel Dumfries",
-    "Nathan Aké",
-    "Jeremie Frimpong",
-    "Jan Paul van Hecke",
-    "Tijjani Reijnders",
-    "Ryan Gravenberch",
-    "Teun Koopmeiners",
-    "Foto da equipe",
-    "Frenkie de Jong",
-    "Xavi Simons",
-    "Justin Kluivert",
-    "Memphis Depay",
-    "Donyell Malen",
-    "Wout Weghorst",
-    "Cody Gakpo"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Bart Verbruggen"
+    },
+    {
+     "name": "Virgil van Dijk"
+    },
+    {
+     "name": "Micky van de Ven"
+    },
+    {
+     "name": "Jurrien Timber"
+    },
+    {
+     "name": "Denzel Dumfries"
+    },
+    {
+     "name": "Nathan Aké"
+    },
+    {
+     "name": "Jeremie Frimpong"
+    },
+    {
+     "name": "Jan Paul van Hecke"
+    },
+    {
+     "name": "Tijjani Reijnders"
+    },
+    {
+     "name": "Ryan Gravenberch"
+    },
+    {
+     "name": "Teun Koopmeiners"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Frenkie de Jong"
+    },
+    {
+     "name": "Xavi Simons"
+    },
+    {
+     "name": "Justin Kluivert"
+    },
+    {
+     "name": "Memphis Depay"
+    },
+    {
+     "name": "Donyell Malen"
+    },
+    {
+     "name": "Wout Weghorst"
+    },
+    {
+     "name": "Cody Gakpo"
+    }
    ]
   },
   {
@@ -604,26 +1525,67 @@
    "name": "Japão",
    "flagCode": "jp",
    "stickers": [
-    "Escudo",
-    "Zion Suzuki",
-    "Henry Heroki Mochizuki",
-    "Ayumu Seko",
-    "Junnosuke Suzuki",
-    "Shogo Taniguchi",
-    "Tsuyoshi Watanabe",
-    "Kaishu Sano",
-    "Yuki Soma",
-    "Ao Tanaka",
-    "Daichi Kamada",
-    "Takefusa Kubo",
-    "Foto da equipe",
-    "Ritsu Doan",
-    "Keito Nakamura",
-    "Takumi Minamino",
-    "Shuto Machino",
-    "Junya Ito",
-    "Koki Ogawa",
-    "Ayase Ueda"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Zion Suzuki"
+    },
+    {
+     "name": "Henry Heroki Mochizuki"
+    },
+    {
+     "name": "Ayumu Seko"
+    },
+    {
+     "name": "Junnosuke Suzuki"
+    },
+    {
+     "name": "Shogo Taniguchi"
+    },
+    {
+     "name": "Tsuyoshi Watanabe"
+    },
+    {
+     "name": "Kaishu Sano"
+    },
+    {
+     "name": "Yuki Soma"
+    },
+    {
+     "name": "Ao Tanaka"
+    },
+    {
+     "name": "Daichi Kamada"
+    },
+    {
+     "name": "Takefusa Kubo"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Ritsu Doan"
+    },
+    {
+     "name": "Keito Nakamura"
+    },
+    {
+     "name": "Takumi Minamino"
+    },
+    {
+     "name": "Shuto Machino"
+    },
+    {
+     "name": "Junya Ito"
+    },
+    {
+     "name": "Koki Ogawa"
+    },
+    {
+     "name": "Ayase Ueda"
+    }
    ]
   },
   {
@@ -631,26 +1593,67 @@
    "name": "Suécia",
    "flagCode": "se",
    "stickers": [
-    "Escudo",
-    "Victor Johansson",
-    "Isak Hien",
-    "Gabriel Gudmundsson",
-    "Emil Holm",
-    "Victor Nilsson Lindelöf",
-    "Gustaf Lagerbielke",
-    "Lucas Bergvall",
-    "Hugo Larsson",
-    "Jesper Karlström",
-    "Yasin Ayari",
-    "Mattias Svanberg",
-    "Foto da equipe",
-    "Daniel Svensson",
-    "Ken Sema",
-    "Roony Bardghji",
-    "Dejan Kulusevski",
-    "Anthony Elanga",
-    "Alexander Isak",
-    "Viktor Gyökeres"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Victor Johansson"
+    },
+    {
+     "name": "Isak Hien"
+    },
+    {
+     "name": "Gabriel Gudmundsson"
+    },
+    {
+     "name": "Emil Holm"
+    },
+    {
+     "name": "Victor Nilsson Lindelöf"
+    },
+    {
+     "name": "Gustaf Lagerbielke"
+    },
+    {
+     "name": "Lucas Bergvall"
+    },
+    {
+     "name": "Hugo Larsson"
+    },
+    {
+     "name": "Jesper Karlström"
+    },
+    {
+     "name": "Yasin Ayari"
+    },
+    {
+     "name": "Mattias Svanberg"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Daniel Svensson"
+    },
+    {
+     "name": "Ken Sema"
+    },
+    {
+     "name": "Roony Bardghji"
+    },
+    {
+     "name": "Dejan Kulusevski"
+    },
+    {
+     "name": "Anthony Elanga"
+    },
+    {
+     "name": "Alexander Isak"
+    },
+    {
+     "name": "Viktor Gyökeres"
+    }
    ]
   },
   {
@@ -658,26 +1661,67 @@
    "name": "Tunísia",
    "flagCode": "tn",
    "stickers": [
-    "Escudo",
-    "Bechir Ben Said",
-    "Aymen Dahmen",
-    "Yan Valery",
-    "Montassar Talbi",
-    "Yassine Meriah",
-    "Ali Abdi",
-    "Dylan Bronn",
-    "Ellyes Skhiri",
-    "Aissa Laidouni",
-    "Ferjani Sassi",
-    "Mohamed Ali Ben Romdhane",
-    "Foto da equipe",
-    "Hannibal Mejbri",
-    "Elias Achouri",
-    "Elias Saad",
-    "Hazem Mastouri",
-    "Ismael Gharbi",
-    "Sayfallah Ltaief",
-    "Naim Sliti"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Bechir Ben Said"
+    },
+    {
+     "name": "Aymen Dahmen"
+    },
+    {
+     "name": "Yan Valery"
+    },
+    {
+     "name": "Montassar Talbi"
+    },
+    {
+     "name": "Yassine Meriah"
+    },
+    {
+     "name": "Ali Abdi"
+    },
+    {
+     "name": "Dylan Bronn"
+    },
+    {
+     "name": "Ellyes Skhiri"
+    },
+    {
+     "name": "Aissa Laidouni"
+    },
+    {
+     "name": "Ferjani Sassi"
+    },
+    {
+     "name": "Mohamed Ali Ben Romdhane"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Hannibal Mejbri"
+    },
+    {
+     "name": "Elias Achouri"
+    },
+    {
+     "name": "Elias Saad"
+    },
+    {
+     "name": "Hazem Mastouri"
+    },
+    {
+     "name": "Ismael Gharbi"
+    },
+    {
+     "name": "Sayfallah Ltaief"
+    },
+    {
+     "name": "Naim Sliti"
+    }
    ]
   },
   {
@@ -685,26 +1729,67 @@
    "name": "Bélgica",
    "flagCode": "be",
    "stickers": [
-    "Escudo",
-    "Thibaut Courtois",
-    "Arthur Theate",
-    "Timothy Castagne",
-    "Zeno Debast",
-    "Brandon Mechele",
-    "Maxim De Cuyper",
-    "Thomas Meunier",
-    "Youri Tielemans",
-    "Amadou Onana",
-    "Nicolas Raskin",
-    "Alexis Saelemaekers",
-    "Foto da equipe",
-    "Hans Vanaken",
-    "Kevin De Bruyne",
-    "Jérémy Doku",
-    "Charles De Ketelaere",
-    "Leandro Trossard",
-    "Loïs Openda",
-    "Romelu Lukaku"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Thibaut Courtois"
+    },
+    {
+     "name": "Arthur Theate"
+    },
+    {
+     "name": "Timothy Castagne"
+    },
+    {
+     "name": "Zeno Debast"
+    },
+    {
+     "name": "Brandon Mechele"
+    },
+    {
+     "name": "Maxim De Cuyper"
+    },
+    {
+     "name": "Thomas Meunier"
+    },
+    {
+     "name": "Youri Tielemans"
+    },
+    {
+     "name": "Amadou Onana"
+    },
+    {
+     "name": "Nicolas Raskin"
+    },
+    {
+     "name": "Alexis Saelemaekers"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Hans Vanaken"
+    },
+    {
+     "name": "Kevin De Bruyne"
+    },
+    {
+     "name": "Jérémy Doku"
+    },
+    {
+     "name": "Charles De Ketelaere"
+    },
+    {
+     "name": "Leandro Trossard"
+    },
+    {
+     "name": "Loïs Openda"
+    },
+    {
+     "name": "Romelu Lukaku"
+    }
    ]
   },
   {
@@ -712,26 +1797,67 @@
    "name": "Egito",
    "flagCode": "eg",
    "stickers": [
-    "Escudo",
-    "Mohamed El Shenawy",
-    "Mohamed Hany",
-    "Mohamed Hamdy",
-    "Yasser Ibrahim",
-    "Khaled Sobhi",
-    "Ramy Rabia",
-    "Hossam Abdelmaguid",
-    "Ahmed Fatouh",
-    "Marwan Attia",
-    "Zizo",
-    "Hamdy Fathy",
-    "Foto da equipe",
-    "Mohamed Lasheen",
-    "Emam Ashour",
-    "Osama Faisal",
-    "Mohamed Salah",
-    "Mostafa Mohamed",
-    "Trezeguet",
-    "Omar Marmoush"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Mohamed El Shenawy"
+    },
+    {
+     "name": "Mohamed Hany"
+    },
+    {
+     "name": "Mohamed Hamdy"
+    },
+    {
+     "name": "Yasser Ibrahim"
+    },
+    {
+     "name": "Khaled Sobhi"
+    },
+    {
+     "name": "Ramy Rabia"
+    },
+    {
+     "name": "Hossam Abdelmaguid"
+    },
+    {
+     "name": "Ahmed Fatouh"
+    },
+    {
+     "name": "Marwan Attia"
+    },
+    {
+     "name": "Zizo"
+    },
+    {
+     "name": "Hamdy Fathy"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Mohamed Lasheen"
+    },
+    {
+     "name": "Emam Ashour"
+    },
+    {
+     "name": "Osama Faisal"
+    },
+    {
+     "name": "Mohamed Salah"
+    },
+    {
+     "name": "Mostafa Mohamed"
+    },
+    {
+     "name": "Trezeguet"
+    },
+    {
+     "name": "Omar Marmoush"
+    }
    ]
   },
   {
@@ -739,26 +1865,67 @@
    "name": "Irã",
    "flagCode": "ir",
    "stickers": [
-    "Escudo",
-    "Alireza Beiranvand",
-    "Morteza Pouraliganji",
-    "Ehsan Hajsafi",
-    "Milad Mohammadi",
-    "Shojae Khalilzadeh",
-    "Ramin Rezaeian",
-    "Hossein Kanaani",
-    "Sadegh Moharrami",
-    "Saleh Hardani",
-    "Saeed Ezatolahi",
-    "Saman Ghoddos",
-    "Foto da equipe",
-    "Omid Noorafkan",
-    "Roozbeh Cheshmi",
-    "Mohammad Mohebi",
-    "Sardar Azmoun",
-    "Mehdi Taremi",
-    "Alireza Jahanbakhsh",
-    "Ali Gholizadeh"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Alireza Beiranvand"
+    },
+    {
+     "name": "Morteza Pouraliganji"
+    },
+    {
+     "name": "Ehsan Hajsafi"
+    },
+    {
+     "name": "Milad Mohammadi"
+    },
+    {
+     "name": "Shojae Khalilzadeh"
+    },
+    {
+     "name": "Ramin Rezaeian"
+    },
+    {
+     "name": "Hossein Kanaani"
+    },
+    {
+     "name": "Sadegh Moharrami"
+    },
+    {
+     "name": "Saleh Hardani"
+    },
+    {
+     "name": "Saeed Ezatolahi"
+    },
+    {
+     "name": "Saman Ghoddos"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Omid Noorafkan"
+    },
+    {
+     "name": "Roozbeh Cheshmi"
+    },
+    {
+     "name": "Mohammad Mohebi"
+    },
+    {
+     "name": "Sardar Azmoun"
+    },
+    {
+     "name": "Mehdi Taremi"
+    },
+    {
+     "name": "Alireza Jahanbakhsh"
+    },
+    {
+     "name": "Ali Gholizadeh"
+    }
    ]
   },
   {
@@ -766,26 +1933,67 @@
    "name": "Nova Zelândia",
    "flagCode": "nz",
    "stickers": [
-    "Escudo",
-    "Max Crocombe Payne",
-    "Alex Paulsen",
-    "Michael Boxall",
-    "Liberato Cacace",
-    "Tim Payne",
-    "Tyler Bindon",
-    "Francis de Vries",
-    "Finn Surman",
-    "Joe Bell",
-    "Sarpreet Singh",
-    "Ryan Thomas",
-    "Foto da equipe",
-    "Matthew Garbett",
-    "Marko Stamenić",
-    "Ben Old",
-    "Chris Wood",
-    "Elijah Just",
-    "Callum McCowatt",
-    "Kosta Barbarouses"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Max Crocombe Payne"
+    },
+    {
+     "name": "Alex Paulsen"
+    },
+    {
+     "name": "Michael Boxall"
+    },
+    {
+     "name": "Liberato Cacace"
+    },
+    {
+     "name": "Tim Payne"
+    },
+    {
+     "name": "Tyler Bindon"
+    },
+    {
+     "name": "Francis de Vries"
+    },
+    {
+     "name": "Finn Surman"
+    },
+    {
+     "name": "Joe Bell"
+    },
+    {
+     "name": "Sarpreet Singh"
+    },
+    {
+     "name": "Ryan Thomas"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Matthew Garbett"
+    },
+    {
+     "name": "Marko Stamenić"
+    },
+    {
+     "name": "Ben Old"
+    },
+    {
+     "name": "Chris Wood"
+    },
+    {
+     "name": "Elijah Just"
+    },
+    {
+     "name": "Callum McCowatt"
+    },
+    {
+     "name": "Kosta Barbarouses"
+    }
    ]
   },
   {
@@ -793,26 +2001,67 @@
    "name": "Espanha",
    "flagCode": "es",
    "stickers": [
-    "Escudo",
-    "Unai Simon",
-    "Robin Le Normand",
-    "Aymeric Laporte",
-    "Dean Huijsen",
-    "Pedro Porro",
-    "Dani Carvajal",
-    "Marc Cucurella",
-    "Martín Zubimendi",
-    "Rodri",
-    "Pedri",
-    "Fabian Ruiz",
-    "Foto da equipe",
-    "Mikel Merino",
-    "Lamine Yamal",
-    "Dani Olmo",
-    "Nico Williams",
-    "Ferran Torres",
-    "Álvaro Morata",
-    "Mikel Oyarzabal"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Unai Simon"
+    },
+    {
+     "name": "Robin Le Normand"
+    },
+    {
+     "name": "Aymeric Laporte"
+    },
+    {
+     "name": "Dean Huijsen"
+    },
+    {
+     "name": "Pedro Porro"
+    },
+    {
+     "name": "Dani Carvajal"
+    },
+    {
+     "name": "Marc Cucurella"
+    },
+    {
+     "name": "Martín Zubimendi"
+    },
+    {
+     "name": "Rodri"
+    },
+    {
+     "name": "Pedri"
+    },
+    {
+     "name": "Fabian Ruiz"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Mikel Merino"
+    },
+    {
+     "name": "Lamine Yamal"
+    },
+    {
+     "name": "Dani Olmo"
+    },
+    {
+     "name": "Nico Williams"
+    },
+    {
+     "name": "Ferran Torres"
+    },
+    {
+     "name": "Álvaro Morata"
+    },
+    {
+     "name": "Mikel Oyarzabal"
+    }
    ]
   },
   {
@@ -820,26 +2069,67 @@
    "name": "Cabo Verde",
    "flagCode": "cv",
    "stickers": [
-    "Escudo",
-    "Vozinha",
-    "Logan Costa",
-    "Pico",
-    "Diney",
-    "Steven Moreira",
-    "Wagner Pina",
-    "Joao Paulo",
-    "Yannick Semedo",
-    "Kevin Pina",
-    "Patrick Andrade",
-    "Jamiro Monteiro",
-    "Foto da equipe",
-    "Deroy Duarte",
-    "Garry Rodrigues",
-    "Jovane Cabral",
-    "Ryan Mendes",
-    "Dailon Livramento",
-    "Willy Semedo",
-    "Bebe"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Vozinha"
+    },
+    {
+     "name": "Logan Costa"
+    },
+    {
+     "name": "Pico"
+    },
+    {
+     "name": "Diney"
+    },
+    {
+     "name": "Steven Moreira"
+    },
+    {
+     "name": "Wagner Pina"
+    },
+    {
+     "name": "Joao Paulo"
+    },
+    {
+     "name": "Yannick Semedo"
+    },
+    {
+     "name": "Kevin Pina"
+    },
+    {
+     "name": "Patrick Andrade"
+    },
+    {
+     "name": "Jamiro Monteiro"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Deroy Duarte"
+    },
+    {
+     "name": "Garry Rodrigues"
+    },
+    {
+     "name": "Jovane Cabral"
+    },
+    {
+     "name": "Ryan Mendes"
+    },
+    {
+     "name": "Dailon Livramento"
+    },
+    {
+     "name": "Willy Semedo"
+    },
+    {
+     "name": "Bebe"
+    }
    ]
   },
   {
@@ -847,26 +2137,67 @@
    "name": "Arábia Saudita",
    "flagCode": "sa",
    "stickers": [
-    "Escudo",
-    "Nawaf Alaqidi",
-    "Abdulrahman Al-Sanbi",
-    "Saud Abdulhamid",
-    "Nawaf Bouwashl",
-    "Jihad Thakri",
-    "Moteb Al-Harbi",
-    "Hassan Altambakti",
-    "Musab Aljuwayr",
-    "Ziyad Aljohani",
-    "Abdullah Alkhaibari",
-    "Nasser Aldawsari",
-    "Foto da equipe",
-    "Saleh Abu Alshamat",
-    "Marwan Alsahafi",
-    "Salem Aldawsari",
-    "Abdulrahman Al-Aboud",
-    "Feras Akbrikan",
-    "Saleh Alshehri",
-    "Abdullah Al-Hamdan"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Nawaf Alaqidi"
+    },
+    {
+     "name": "Abdulrahman Al-Sanbi"
+    },
+    {
+     "name": "Saud Abdulhamid"
+    },
+    {
+     "name": "Nawaf Bouwashl"
+    },
+    {
+     "name": "Jihad Thakri"
+    },
+    {
+     "name": "Moteb Al-Harbi"
+    },
+    {
+     "name": "Hassan Altambakti"
+    },
+    {
+     "name": "Musab Aljuwayr"
+    },
+    {
+     "name": "Ziyad Aljohani"
+    },
+    {
+     "name": "Abdullah Alkhaibari"
+    },
+    {
+     "name": "Nasser Aldawsari"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Saleh Abu Alshamat"
+    },
+    {
+     "name": "Marwan Alsahafi"
+    },
+    {
+     "name": "Salem Aldawsari"
+    },
+    {
+     "name": "Abdulrahman Al-Aboud"
+    },
+    {
+     "name": "Feras Akbrikan"
+    },
+    {
+     "name": "Saleh Alshehri"
+    },
+    {
+     "name": "Abdullah Al-Hamdan"
+    }
    ]
   },
   {
@@ -874,26 +2205,67 @@
    "name": "Uruguai",
    "flagCode": "uy",
    "stickers": [
-    "Escudo",
-    "Sergio Rochet",
-    "Santiago Mele",
-    "Ronald Araujo",
-    "José María Giménez",
-    "Sebastian Caceres",
-    "Mathias Olivera",
-    "Guillermo Varela",
-    "Nahitan Nandez",
-    "Federico Valverde",
-    "Giorgian De Arrascaeta",
-    "Rodrigo Bentancur",
-    "Foto da equipe",
-    "Manuel Ugarte",
-    "Nicolás de la Cruz",
-    "Maxi Araujo",
-    "Darwin Núñez",
-    "Federico Viñas",
-    "Rodrigo Aguirre",
-    "Facundo Pellistri"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Sergio Rochet"
+    },
+    {
+     "name": "Santiago Mele"
+    },
+    {
+     "name": "Ronald Araujo"
+    },
+    {
+     "name": "José María Giménez"
+    },
+    {
+     "name": "Sebastian Caceres"
+    },
+    {
+     "name": "Mathias Olivera"
+    },
+    {
+     "name": "Guillermo Varela"
+    },
+    {
+     "name": "Nahitan Nandez"
+    },
+    {
+     "name": "Federico Valverde"
+    },
+    {
+     "name": "Giorgian De Arrascaeta"
+    },
+    {
+     "name": "Rodrigo Bentancur"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Manuel Ugarte"
+    },
+    {
+     "name": "Nicolás de la Cruz"
+    },
+    {
+     "name": "Maxi Araujo"
+    },
+    {
+     "name": "Darwin Núñez"
+    },
+    {
+     "name": "Federico Viñas"
+    },
+    {
+     "name": "Rodrigo Aguirre"
+    },
+    {
+     "name": "Facundo Pellistri"
+    }
    ]
   },
   {
@@ -901,26 +2273,67 @@
    "name": "França",
    "flagCode": "fr",
    "stickers": [
-    "Escudo",
-    "Mike Maignan",
-    "Theo Hernandez",
-    "William Saliba",
-    "Jules Kounde",
-    "Ibrahima Konate",
-    "Dayot Upamecano",
-    "Lucas Digne",
-    "Aurélien Tchouaméni",
-    "Eduardo Camavinga",
-    "Manu Kone",
-    "Adrien Rabiot",
-    "Foto da equipe",
-    "Michael Olise",
-    "Ousmane Dembele",
-    "Bradley Barcola",
-    "Désiré Doué",
-    "Kingsley Coman",
-    "Hugo Ekitike",
-    "Kylian Mbappe"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Mike Maignan"
+    },
+    {
+     "name": "Theo Hernandez"
+    },
+    {
+     "name": "William Saliba"
+    },
+    {
+     "name": "Jules Kounde"
+    },
+    {
+     "name": "Ibrahima Konate"
+    },
+    {
+     "name": "Dayot Upamecano"
+    },
+    {
+     "name": "Lucas Digne"
+    },
+    {
+     "name": "Aurélien Tchouaméni"
+    },
+    {
+     "name": "Eduardo Camavinga"
+    },
+    {
+     "name": "Manu Kone"
+    },
+    {
+     "name": "Adrien Rabiot"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Michael Olise"
+    },
+    {
+     "name": "Ousmane Dembele"
+    },
+    {
+     "name": "Bradley Barcola"
+    },
+    {
+     "name": "Désiré Doué"
+    },
+    {
+     "name": "Kingsley Coman"
+    },
+    {
+     "name": "Hugo Ekitike"
+    },
+    {
+     "name": "Kylian Mbappe"
+    }
    ]
   },
   {
@@ -928,26 +2341,67 @@
    "name": "Senegal",
    "flagCode": "sn",
    "stickers": [
-    "Escudo",
-    "Edouard Mendy",
-    "Yehvann Diouf",
-    "Moussa Niakhaté",
-    "Abdoulaye Seck",
-    "Ismail Jakobs",
-    "El Hadji Malick Diouf",
-    "Kalidou Koulibaly",
-    "Idrissa Gana Gueye",
-    "Pape Matar Sarr",
-    "Pape Gueye",
-    "Habib Diarra",
-    "Foto da equipe",
-    "Lamine Camara",
-    "Sadio Mane",
-    "Ismaïla Sarr",
-    "Boulaye Dia",
-    "Iliman Ndiaye",
-    "Nicolas Jackson",
-    "Krepin Diatta"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Edouard Mendy"
+    },
+    {
+     "name": "Yehvann Diouf"
+    },
+    {
+     "name": "Moussa Niakhaté"
+    },
+    {
+     "name": "Abdoulaye Seck"
+    },
+    {
+     "name": "Ismail Jakobs"
+    },
+    {
+     "name": "El Hadji Malick Diouf"
+    },
+    {
+     "name": "Kalidou Koulibaly"
+    },
+    {
+     "name": "Idrissa Gana Gueye"
+    },
+    {
+     "name": "Pape Matar Sarr"
+    },
+    {
+     "name": "Pape Gueye"
+    },
+    {
+     "name": "Habib Diarra"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Lamine Camara"
+    },
+    {
+     "name": "Sadio Mane"
+    },
+    {
+     "name": "Ismaïla Sarr"
+    },
+    {
+     "name": "Boulaye Dia"
+    },
+    {
+     "name": "Iliman Ndiaye"
+    },
+    {
+     "name": "Nicolas Jackson"
+    },
+    {
+     "name": "Krepin Diatta"
+    }
    ]
   },
   {
@@ -955,26 +2409,67 @@
    "name": "Iraque",
    "flagCode": "iq",
    "stickers": [
-    "Escudo",
-    "Jalal Hassan",
-    "Rebin Sulaka",
-    "Hussein Ali",
-    "Akam Hashem",
-    "Merchas Doski",
-    "Zaid Tahseen",
-    "Manaf Younis",
-    "Zidane Iqbal",
-    "Amir Al-Ammari",
-    "Ibrahim Bavesh",
-    "Ali Jasim",
-    "Foto da equipe",
-    "Youssef Amyn",
-    "Aimar Sher",
-    "Marko Farji",
-    "Osama Rashid",
-    "Ali Al-Hamadi",
-    "Aymen Hussein",
-    "Mohanad Ali"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Jalal Hassan"
+    },
+    {
+     "name": "Rebin Sulaka"
+    },
+    {
+     "name": "Hussein Ali"
+    },
+    {
+     "name": "Akam Hashem"
+    },
+    {
+     "name": "Merchas Doski"
+    },
+    {
+     "name": "Zaid Tahseen"
+    },
+    {
+     "name": "Manaf Younis"
+    },
+    {
+     "name": "Zidane Iqbal"
+    },
+    {
+     "name": "Amir Al-Ammari"
+    },
+    {
+     "name": "Ibrahim Bavesh"
+    },
+    {
+     "name": "Ali Jasim"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Youssef Amyn"
+    },
+    {
+     "name": "Aimar Sher"
+    },
+    {
+     "name": "Marko Farji"
+    },
+    {
+     "name": "Osama Rashid"
+    },
+    {
+     "name": "Ali Al-Hamadi"
+    },
+    {
+     "name": "Aymen Hussein"
+    },
+    {
+     "name": "Mohanad Ali"
+    }
    ]
   },
   {
@@ -982,26 +2477,67 @@
    "name": "Noruega",
    "flagCode": "no",
    "stickers": [
-    "Escudo",
-    "Orjan Nyland",
-    "Julian Ryerson",
-    "Leo Ostigård",
-    "Kristoffer Vassbakk Ajer",
-    "Marcus Holmgren Pedersen",
-    "David Møller Wolfe",
-    "Torbjørn Heggem",
-    "Morten Thorsby",
-    "Martin Ødegaard",
-    "Sander Berge",
-    "Andreas Schjelderup",
-    "Foto da equipe",
-    "Patrick Berg",
-    "Erling Haaland",
-    "Alexander Sørloth",
-    "Aron Dønnum",
-    "Jorgen Strand Larsen",
-    "Antonio Nusa",
-    "Oscar Bobb"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Orjan Nyland"
+    },
+    {
+     "name": "Julian Ryerson"
+    },
+    {
+     "name": "Leo Ostigård"
+    },
+    {
+     "name": "Kristoffer Vassbakk Ajer"
+    },
+    {
+     "name": "Marcus Holmgren Pedersen"
+    },
+    {
+     "name": "David Møller Wolfe"
+    },
+    {
+     "name": "Torbjørn Heggem"
+    },
+    {
+     "name": "Morten Thorsby"
+    },
+    {
+     "name": "Martin Ødegaard"
+    },
+    {
+     "name": "Sander Berge"
+    },
+    {
+     "name": "Andreas Schjelderup"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Patrick Berg"
+    },
+    {
+     "name": "Erling Haaland"
+    },
+    {
+     "name": "Alexander Sørloth"
+    },
+    {
+     "name": "Aron Dønnum"
+    },
+    {
+     "name": "Jorgen Strand Larsen"
+    },
+    {
+     "name": "Antonio Nusa"
+    },
+    {
+     "name": "Oscar Bobb"
+    }
    ]
   },
   {
@@ -1009,26 +2545,67 @@
    "name": "Argentina",
    "flagCode": "ar",
    "stickers": [
-    "Escudo",
-    "Emiliano Martinez",
-    "Nahuel Molina",
-    "Cristian Romero",
-    "Nicolas Otamendi",
-    "Nicolas Tagliafico",
-    "Leonardo Balerdi",
-    "Enzo Fernandez",
-    "Alexis Mac Allister",
-    "Rodrigo De Paul",
-    "Exequiel Palacios",
-    "Leandro Paredes",
-    "Foto da equipe",
-    "Nico Paz",
-    "Franco Mastantuono",
-    "Nico Gonzalez",
-    "Lionel Messi",
-    "Lautaro Martinez",
-    "Julian Alvarez",
-    "Giuliano Simeone"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Emiliano Martinez"
+    },
+    {
+     "name": "Nahuel Molina"
+    },
+    {
+     "name": "Cristian Romero"
+    },
+    {
+     "name": "Nicolas Otamendi"
+    },
+    {
+     "name": "Nicolas Tagliafico"
+    },
+    {
+     "name": "Leonardo Balerdi"
+    },
+    {
+     "name": "Enzo Fernandez"
+    },
+    {
+     "name": "Alexis Mac Allister"
+    },
+    {
+     "name": "Rodrigo De Paul"
+    },
+    {
+     "name": "Exequiel Palacios"
+    },
+    {
+     "name": "Leandro Paredes"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Nico Paz"
+    },
+    {
+     "name": "Franco Mastantuono"
+    },
+    {
+     "name": "Nico Gonzalez"
+    },
+    {
+     "name": "Lionel Messi"
+    },
+    {
+     "name": "Lautaro Martinez"
+    },
+    {
+     "name": "Julian Alvarez"
+    },
+    {
+     "name": "Giuliano Simeone"
+    }
    ]
   },
   {
@@ -1036,26 +2613,67 @@
    "name": "Argélia",
    "flagCode": "dz",
    "stickers": [
-    "Escudo",
-    "Alexis Guendouz",
-    "Ramy Bensebaini",
-    "Youcef Atal",
-    "Rayan Aït-Nouri",
-    "Mohamed Amine Tougai",
-    "Aïssa Mandi",
-    "Ismael Bennacer",
-    "Houssem Aquar",
-    "Hicham Boudaoui",
-    "Ramiz Zerrouki",
-    "Nabil Bentalab",
-    "Foto da equipe",
-    "Farés Chaibi",
-    "Riyad Mahrez",
-    "Said Benrahma",
-    "Anis Hadj Moussa",
-    "Amine Gouiri",
-    "Baghdad Bounedjah",
-    "Mohammed Amoura"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Alexis Guendouz"
+    },
+    {
+     "name": "Ramy Bensebaini"
+    },
+    {
+     "name": "Youcef Atal"
+    },
+    {
+     "name": "Rayan Aït-Nouri"
+    },
+    {
+     "name": "Mohamed Amine Tougai"
+    },
+    {
+     "name": "Aïssa Mandi"
+    },
+    {
+     "name": "Ismael Bennacer"
+    },
+    {
+     "name": "Houssem Aquar"
+    },
+    {
+     "name": "Hicham Boudaoui"
+    },
+    {
+     "name": "Ramiz Zerrouki"
+    },
+    {
+     "name": "Nabil Bentalab"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Farés Chaibi"
+    },
+    {
+     "name": "Riyad Mahrez"
+    },
+    {
+     "name": "Said Benrahma"
+    },
+    {
+     "name": "Anis Hadj Moussa"
+    },
+    {
+     "name": "Amine Gouiri"
+    },
+    {
+     "name": "Baghdad Bounedjah"
+    },
+    {
+     "name": "Mohammed Amoura"
+    }
    ]
   },
   {
@@ -1063,26 +2681,67 @@
    "name": "Áustria",
    "flagCode": "at",
    "stickers": [
-    "Escudo",
-    "Alexander Schlager",
-    "Patrick Pentz",
-    "David Alaba",
-    "Kevin Danso",
-    "Philipp Lienhart",
-    "Stefan Posch",
-    "Phillipp Mwene",
-    "Alexander Prass",
-    "Xaver Schlager",
-    "Marcel Sabitzer",
-    "Konrad Laimer",
-    "Foto da equipe",
-    "Florian Grillitsch",
-    "Nicolas Seiwald",
-    "Romano Schmid",
-    "Patrick Wimmer",
-    "Christoph Baumgartner",
-    "Michael Gregoritsch",
-    "Marko Arnautović"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Alexander Schlager"
+    },
+    {
+     "name": "Patrick Pentz"
+    },
+    {
+     "name": "David Alaba"
+    },
+    {
+     "name": "Kevin Danso"
+    },
+    {
+     "name": "Philipp Lienhart"
+    },
+    {
+     "name": "Stefan Posch"
+    },
+    {
+     "name": "Phillipp Mwene"
+    },
+    {
+     "name": "Alexander Prass"
+    },
+    {
+     "name": "Xaver Schlager"
+    },
+    {
+     "name": "Marcel Sabitzer"
+    },
+    {
+     "name": "Konrad Laimer"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Florian Grillitsch"
+    },
+    {
+     "name": "Nicolas Seiwald"
+    },
+    {
+     "name": "Romano Schmid"
+    },
+    {
+     "name": "Patrick Wimmer"
+    },
+    {
+     "name": "Christoph Baumgartner"
+    },
+    {
+     "name": "Michael Gregoritsch"
+    },
+    {
+     "name": "Marko Arnautović"
+    }
    ]
   },
   {
@@ -1090,26 +2749,67 @@
    "name": "Jordânia",
    "flagCode": "jo",
    "stickers": [
-    "Escudo",
-    "Yazeed Abulaila",
-    "Ihsan Haddad",
-    "Mohammad Abu Hashish",
-    "Yazan Al-Arab",
-    "Abdallah Nasib",
-    "Saleem Obaid",
-    "Mohammad Abualnadi",
-    "Ibrahim Saadeh",
-    "Nizar Al-Rashdan",
-    "Noor Al-Rawabdeh",
-    "Mohannad Abu Taha",
-    "Foto da equipe",
-    "Amer Jamous",
-    "Musa Al-Taamari",
-    "Yazan Al-Naimat",
-    "Mahmoud Al-Mardi",
-    "Ali Olwan",
-    "Mohammad Abu Zrayq",
-    "Ibrahim Sabra"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Yazeed Abulaila"
+    },
+    {
+     "name": "Ihsan Haddad"
+    },
+    {
+     "name": "Mohammad Abu Hashish"
+    },
+    {
+     "name": "Yazan Al-Arab"
+    },
+    {
+     "name": "Abdallah Nasib"
+    },
+    {
+     "name": "Saleem Obaid"
+    },
+    {
+     "name": "Mohammad Abualnadi"
+    },
+    {
+     "name": "Ibrahim Saadeh"
+    },
+    {
+     "name": "Nizar Al-Rashdan"
+    },
+    {
+     "name": "Noor Al-Rawabdeh"
+    },
+    {
+     "name": "Mohannad Abu Taha"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Amer Jamous"
+    },
+    {
+     "name": "Musa Al-Taamari"
+    },
+    {
+     "name": "Yazan Al-Naimat"
+    },
+    {
+     "name": "Mahmoud Al-Mardi"
+    },
+    {
+     "name": "Ali Olwan"
+    },
+    {
+     "name": "Mohammad Abu Zrayq"
+    },
+    {
+     "name": "Ibrahim Sabra"
+    }
    ]
   },
   {
@@ -1117,26 +2817,67 @@
    "name": "Portugal",
    "flagCode": "pt",
    "stickers": [
-    "Escudo",
-    "Diogo Costa",
-    "Jose Sa",
-    "Ruben Dias",
-    "João Cancelo",
-    "Diogo Dalot",
-    "Nuno Mendes",
-    "Gonçalo Inácio",
-    "Bernardo Silva",
-    "Bruno Fernandes",
-    "Ruben Neves",
-    "Vitinha",
-    "Foto da equipe",
-    "João Neves",
-    "Cristiano Ronaldo",
-    "Francisco Trincao",
-    "João Felix",
-    "Gonçalo Ramos",
-    "Pedro Neto",
-    "Rafael Leão"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Diogo Costa"
+    },
+    {
+     "name": "Jose Sa"
+    },
+    {
+     "name": "Ruben Dias"
+    },
+    {
+     "name": "João Cancelo"
+    },
+    {
+     "name": "Diogo Dalot"
+    },
+    {
+     "name": "Nuno Mendes"
+    },
+    {
+     "name": "Gonçalo Inácio"
+    },
+    {
+     "name": "Bernardo Silva"
+    },
+    {
+     "name": "Bruno Fernandes"
+    },
+    {
+     "name": "Ruben Neves"
+    },
+    {
+     "name": "Vitinha"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "João Neves"
+    },
+    {
+     "name": "Cristiano Ronaldo"
+    },
+    {
+     "name": "Francisco Trincao"
+    },
+    {
+     "name": "João Felix"
+    },
+    {
+     "name": "Gonçalo Ramos"
+    },
+    {
+     "name": "Pedro Neto"
+    },
+    {
+     "name": "Rafael Leão"
+    }
    ]
   },
   {
@@ -1144,26 +2885,67 @@
    "name": "Congo (RD)",
    "flagCode": "cd",
    "stickers": [
-    "Escudo",
-    "Lionel Mpasi",
-    "Aaron Wan-Bissaka",
-    "Axel Tuanzebe",
-    "Arthur Masuaku",
-    "Chancel Mbemba",
-    "Joris Kayembe",
-    "Charles Pickel",
-    "Ngal'ayel Mukau",
-    "Edo Kayembe",
-    "Samuel Moutoussamy",
-    "Noah Sadiki",
-    "Foto da equipe",
-    "Théo Bongonda",
-    "Meschak Elia",
-    "Yoane Wissa",
-    "Brian Cipenga",
-    "Fiston Mayele",
-    "Cédric Bakambu",
-    "Nathanaël Mbuku"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Lionel Mpasi"
+    },
+    {
+     "name": "Aaron Wan-Bissaka"
+    },
+    {
+     "name": "Axel Tuanzebe"
+    },
+    {
+     "name": "Arthur Masuaku"
+    },
+    {
+     "name": "Chancel Mbemba"
+    },
+    {
+     "name": "Joris Kayembe"
+    },
+    {
+     "name": "Charles Pickel"
+    },
+    {
+     "name": "Ngal'ayel Mukau"
+    },
+    {
+     "name": "Edo Kayembe"
+    },
+    {
+     "name": "Samuel Moutoussamy"
+    },
+    {
+     "name": "Noah Sadiki"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Théo Bongonda"
+    },
+    {
+     "name": "Meschak Elia"
+    },
+    {
+     "name": "Yoane Wissa"
+    },
+    {
+     "name": "Brian Cipenga"
+    },
+    {
+     "name": "Fiston Mayele"
+    },
+    {
+     "name": "Cédric Bakambu"
+    },
+    {
+     "name": "Nathanaël Mbuku"
+    }
    ]
   },
   {
@@ -1171,26 +2953,67 @@
    "name": "Uzbequistão",
    "flagCode": "uz",
    "stickers": [
-    "Escudo",
-    "Utkir Yusupov",
-    "Farrukh Savfiev",
-    "Sherzod Nasrullaev",
-    "Umar Eshmurodov",
-    "Husniddin Aliqulov",
-    "Rustamjon Ashurmatov",
-    "Khojiakbar Alijonov",
-    "Abdukodir Khusanov",
-    "Odiljon Hamrobekov",
-    "Otabek Shukurov",
-    "Jamshid Iskanderov",
-    "Foto da equipe",
-    "Azizbek Turgunboev",
-    "Khojimat Erkinov",
-    "Eldor Shomurodov",
-    "Oston Urunov",
-    "Jaloliddin Masharipov",
-    "Igor Sergeev",
-    "Abbosbek Fayzullaev"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Utkir Yusupov"
+    },
+    {
+     "name": "Farrukh Savfiev"
+    },
+    {
+     "name": "Sherzod Nasrullaev"
+    },
+    {
+     "name": "Umar Eshmurodov"
+    },
+    {
+     "name": "Husniddin Aliqulov"
+    },
+    {
+     "name": "Rustamjon Ashurmatov"
+    },
+    {
+     "name": "Khojiakbar Alijonov"
+    },
+    {
+     "name": "Abdukodir Khusanov"
+    },
+    {
+     "name": "Odiljon Hamrobekov"
+    },
+    {
+     "name": "Otabek Shukurov"
+    },
+    {
+     "name": "Jamshid Iskanderov"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Azizbek Turgunboev"
+    },
+    {
+     "name": "Khojimat Erkinov"
+    },
+    {
+     "name": "Eldor Shomurodov"
+    },
+    {
+     "name": "Oston Urunov"
+    },
+    {
+     "name": "Jaloliddin Masharipov"
+    },
+    {
+     "name": "Igor Sergeev"
+    },
+    {
+     "name": "Abbosbek Fayzullaev"
+    }
    ]
   },
   {
@@ -1198,26 +3021,67 @@
    "name": "Colômbia",
    "flagCode": "co",
    "stickers": [
-    "Escudo",
-    "Camilo Vargas",
-    "David Ospina",
-    "Dávinson Sánchez",
-    "Yerry Mina",
-    "Daniel Munoz",
-    "Johan Mojica",
-    "Jhon Lucumí",
-    "Santiago Arias",
-    "Jefferson Lerma",
-    "Kevin Castaño",
-    "Richard Rios",
-    "Foto da equipe",
-    "James Rodriguez",
-    "Juan Fernando Quintero",
-    "Jorge Carrascal",
-    "Jon Arias",
-    "Jhon Cordova",
-    "Luis Suarez",
-    "Luis Diaz"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Camilo Vargas"
+    },
+    {
+     "name": "David Ospina"
+    },
+    {
+     "name": "Dávinson Sánchez"
+    },
+    {
+     "name": "Yerry Mina"
+    },
+    {
+     "name": "Daniel Munoz"
+    },
+    {
+     "name": "Johan Mojica"
+    },
+    {
+     "name": "Jhon Lucumí"
+    },
+    {
+     "name": "Santiago Arias"
+    },
+    {
+     "name": "Jefferson Lerma"
+    },
+    {
+     "name": "Kevin Castaño"
+    },
+    {
+     "name": "Richard Rios"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "James Rodriguez"
+    },
+    {
+     "name": "Juan Fernando Quintero"
+    },
+    {
+     "name": "Jorge Carrascal"
+    },
+    {
+     "name": "Jon Arias"
+    },
+    {
+     "name": "Jhon Cordova"
+    },
+    {
+     "name": "Luis Suarez"
+    },
+    {
+     "name": "Luis Diaz"
+    }
    ]
   },
   {
@@ -1225,26 +3089,67 @@
    "name": "Inglaterra",
    "flagCode": "gb-eng",
    "stickers": [
-    "Escudo",
-    "Jordan Pickford",
-    "John Stones",
-    "Marc Guéhi",
-    "Ezri Konsa",
-    "Trent Alexander-Arnold",
-    "Reece James",
-    "Dan Burn",
-    "Jordan Henderson",
-    "Declan Rice",
-    "Jude Bellingham",
-    "Cole Palmer",
-    "Foto da equipe",
-    "Morgan Rogers",
-    "Anthony Gordon",
-    "Phil Foden",
-    "Bukayo Saka",
-    "Harry Kane",
-    "Marcus Rashford",
-    "Ollie Watkins"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Jordan Pickford"
+    },
+    {
+     "name": "John Stones"
+    },
+    {
+     "name": "Marc Guéhi"
+    },
+    {
+     "name": "Ezri Konsa"
+    },
+    {
+     "name": "Trent Alexander-Arnold"
+    },
+    {
+     "name": "Reece James"
+    },
+    {
+     "name": "Dan Burn"
+    },
+    {
+     "name": "Jordan Henderson"
+    },
+    {
+     "name": "Declan Rice"
+    },
+    {
+     "name": "Jude Bellingham"
+    },
+    {
+     "name": "Cole Palmer"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Morgan Rogers"
+    },
+    {
+     "name": "Anthony Gordon"
+    },
+    {
+     "name": "Phil Foden"
+    },
+    {
+     "name": "Bukayo Saka"
+    },
+    {
+     "name": "Harry Kane"
+    },
+    {
+     "name": "Marcus Rashford"
+    },
+    {
+     "name": "Ollie Watkins"
+    }
    ]
   },
   {
@@ -1252,26 +3157,67 @@
    "name": "Croácia",
    "flagCode": "hr",
    "stickers": [
-    "Escudo",
-    "Dominik Livaković",
-    "Duje Caleta-Car",
-    "Josko Gvardiol",
-    "Josip Stanišić",
-    "Luka Vušković",
-    "Josip Sutalo",
-    "Kristijan Jakic",
-    "Luka Modrić",
-    "Mateo Kovacic",
-    "Martin Baturina",
-    "Lovro Majer",
-    "Foto da equipe",
-    "Mario Pasalic",
-    "Petar Sucic",
-    "Ivan Perišić",
-    "Marco Pasalic",
-    "Ante Budimir",
-    "Andrej Kramarić",
-    "Franjo Ivanovic"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Dominik Livaković"
+    },
+    {
+     "name": "Duje Caleta-Car"
+    },
+    {
+     "name": "Josko Gvardiol"
+    },
+    {
+     "name": "Josip Stanišić"
+    },
+    {
+     "name": "Luka Vušković"
+    },
+    {
+     "name": "Josip Sutalo"
+    },
+    {
+     "name": "Kristijan Jakic"
+    },
+    {
+     "name": "Luka Modrić"
+    },
+    {
+     "name": "Mateo Kovacic"
+    },
+    {
+     "name": "Martin Baturina"
+    },
+    {
+     "name": "Lovro Majer"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Mario Pasalic"
+    },
+    {
+     "name": "Petar Sucic"
+    },
+    {
+     "name": "Ivan Perišić"
+    },
+    {
+     "name": "Marco Pasalic"
+    },
+    {
+     "name": "Ante Budimir"
+    },
+    {
+     "name": "Andrej Kramarić"
+    },
+    {
+     "name": "Franjo Ivanovic"
+    }
    ]
   },
   {
@@ -1279,26 +3225,67 @@
    "name": "Gana",
    "flagCode": "gh",
    "stickers": [
-    "Escudo",
-    "Lawrence Ati Zigi",
-    "Tariq Lamptey",
-    "Mohammed Salisu",
-    "Alidu Seidu",
-    "Alexander Djiku",
-    "Gideon Mensah",
-    "Caleb Yirenkyi",
-    "Abdul Issahaku Fatawu",
-    "Thomas Partey",
-    "Salis Abdul Samed",
-    "Kamaldeen Sulemana",
-    "Foto da equipe",
-    "Mohammed Kudus",
-    "Inaki Williams",
-    "Jordan Ayew",
-    "Andrew Ayew",
-    "Joseph Paintsil",
-    "Osman Bukari",
-    "Antoine Semenyo"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Lawrence Ati Zigi"
+    },
+    {
+     "name": "Tariq Lamptey"
+    },
+    {
+     "name": "Mohammed Salisu"
+    },
+    {
+     "name": "Alidu Seidu"
+    },
+    {
+     "name": "Alexander Djiku"
+    },
+    {
+     "name": "Gideon Mensah"
+    },
+    {
+     "name": "Caleb Yirenkyi"
+    },
+    {
+     "name": "Abdul Issahaku Fatawu"
+    },
+    {
+     "name": "Thomas Partey"
+    },
+    {
+     "name": "Salis Abdul Samed"
+    },
+    {
+     "name": "Kamaldeen Sulemana"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Mohammed Kudus"
+    },
+    {
+     "name": "Inaki Williams"
+    },
+    {
+     "name": "Jordan Ayew"
+    },
+    {
+     "name": "Andrew Ayew"
+    },
+    {
+     "name": "Joseph Paintsil"
+    },
+    {
+     "name": "Osman Bukari"
+    },
+    {
+     "name": "Antoine Semenyo"
+    }
    ]
   },
   {
@@ -1306,26 +3293,67 @@
    "name": "Panamá",
    "flagCode": "pa",
    "stickers": [
-    "Escudo",
-    "Orlando Mosquera",
-    "Luis Mejia",
-    "Fidel Escobar",
-    "Andres Andrade",
-    "Michael Amir Murillo",
-    "Eric Davis",
-    "Jose Cordoba",
-    "Cesar Blackman",
-    "Cristian Martinez",
-    "Aníbal Godoy",
-    "Adalberto Carrasquilla",
-    "Foto da equipe",
-    "Édgar Bárcenas",
-    "Carlos Harvey",
-    "Ismael Díaz",
-    "Jose Fajardo",
-    "Cecilio Waterman",
-    "Jose Luiz Rodriguez",
-    "Alberto Quintero"
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Orlando Mosquera"
+    },
+    {
+     "name": "Luis Mejia"
+    },
+    {
+     "name": "Fidel Escobar"
+    },
+    {
+     "name": "Andres Andrade"
+    },
+    {
+     "name": "Michael Amir Murillo"
+    },
+    {
+     "name": "Eric Davis"
+    },
+    {
+     "name": "Jose Cordoba"
+    },
+    {
+     "name": "Cesar Blackman"
+    },
+    {
+     "name": "Cristian Martinez"
+    },
+    {
+     "name": "Aníbal Godoy"
+    },
+    {
+     "name": "Adalberto Carrasquilla"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Édgar Bárcenas"
+    },
+    {
+     "name": "Carlos Harvey"
+    },
+    {
+     "name": "Ismael Díaz"
+    },
+    {
+     "name": "Jose Fajardo"
+    },
+    {
+     "name": "Cecilio Waterman"
+    },
+    {
+     "name": "Jose Luiz Rodriguez"
+    },
+    {
+     "name": "Alberto Quintero"
+    }
    ]
   }
  ]

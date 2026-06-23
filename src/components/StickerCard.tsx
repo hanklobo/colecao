@@ -5,6 +5,7 @@ interface Props {
   id: number;
   name: string;
   flagUrl: string | null;
+  special?: boolean;
   stickerState: StickerState;
   onPress: () => void;
   onReset: () => void;
@@ -16,15 +17,17 @@ const CARD_BG: Record<string, string> = {
   repeated: 'bg-amber-50/90 border-amber-400 backdrop-blur-sm',
 };
 
-export function StickerCard({ id, name, flagUrl, stickerState, onPress, onReset }: Props) {
+export function StickerCard({ id, name, flagUrl, special, stickerState, onPress, onReset }: Props) {
   const { status, count } = stickerState;
   const marked = status !== 'missing';
 
   return (
     <button
       onClick={onPress}
-      className={`relative w-full rounded-xl border-2 overflow-hidden active:scale-95 transition-transform select-none text-left ${CARD_BG[status]}`}
-      aria-label={`Figurinha ${id}: ${name}`}
+      className={`relative w-full rounded-xl border-2 overflow-hidden active:scale-95 transition-transform select-none text-left ${CARD_BG[status]} ${
+        special ? 'ring-2 ring-amber-300/70' : ''
+      }`}
+      aria-label={`Figurinha ${id}: ${name}${special ? ' (especial)' : ''}`}
       style={{ minHeight: 88 }}
     >
       {/* Flag wash background */}
@@ -36,10 +39,20 @@ export function StickerCard({ id, name, flagUrl, stickerState, onPress, onReset 
         />
       )}
 
+      {/* Foil/special shimmer corner */}
+      {special && (
+        <span
+          aria-hidden
+          className="absolute top-0 right-0 w-0 h-0 border-t-[18px] border-l-[18px] border-t-amber-300 border-l-transparent"
+        />
+      )}
+
       <div className="relative flex flex-col h-full p-2 gap-1">
         {/* Top row: number + reset button (INSIDE card, no overflow) */}
         <div className="flex items-center justify-between">
-          <span className="text-[9px] font-bold text-gray-400 leading-none tabular-nums">#{id}</span>
+          <span className="text-[9px] font-bold text-gray-400 leading-none tabular-nums">
+            #{id}{special && <span className="text-amber-500"> ✦</span>}
+          </span>
           {marked && (
             <button
               onClick={(e) => { e.stopPropagation(); onReset(); }}
