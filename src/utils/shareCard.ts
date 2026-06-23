@@ -62,29 +62,28 @@ export async function generateProgressCard(data: CardData): Promise<Blob | null>
   ctx.textAlign = 'center';
   ctx.textBaseline = 'alphabetic';
 
-  // Name (top pill)
+  // Name (inside the top banner)
   ctx.fillStyle = '#ffffff';
-  ctx.font = `700 30px ${SANS}`;
-  ctx.fillText(data.name || 'Meu álbum', 360, 60);
+  ctx.font = `700 32px ${SANS}`;
+  ctx.fillText(data.name || 'Meu álbum', 430, 80);
 
-  // Stat number chips over the four cards
+  // Stat numbers inside the empty box at the top of each card.
+  // Box centers measured on the template; numbers carry a dark outline so they
+  // read on any box colour (navy / silver / gold / holo).
   const chips: [number, string, string][] = [
-    [92, `${data.have}`, '#ffffff'],
-    [248, `${data.missing}`, '#ff9a9a'],
-    [410, `${data.duplicates}`, '#ffd54a'],
-    [572, `${data.special}`, '#ffe08a'],
+    [111, `${data.have}`, '#ffffff'],
+    [264, `${data.missing}`, '#ffb3b3'],
+    [422, `${data.duplicates}`, '#ffd54a'],
+    [577, `${data.special}`, '#ffe08a'],
   ];
+  ctx.lineJoin = 'round';
   for (const [cx, value, color] of chips) {
-    ctx.fillStyle = 'rgba(6,18,42,0.85)';
-    roundRect(ctx, cx - 46, 832, 92, 48, 13);
-    ctx.fill();
-    ctx.strokeStyle = GOLD;
-    ctx.lineWidth = 1.5;
-    roundRect(ctx, cx - 46, 832, 92, 48, 13);
-    ctx.stroke();
+    ctx.font = `800 ${value.length > 3 ? 30 : 36}px ${SANS}`;
+    ctx.lineWidth = 6;
+    ctx.strokeStyle = '#08182f';
+    ctx.strokeText(value, cx, 791);
     ctx.fillStyle = color;
-    ctx.font = `800 ${value.length > 4 ? 28 : 38}px ${SANS}`;
-    ctx.fillText(value, cx, 866);
+    ctx.fillText(value, cx, 791);
   }
 
   // Achievements banner
