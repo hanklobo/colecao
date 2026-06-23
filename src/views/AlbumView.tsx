@@ -13,12 +13,16 @@ interface Props {
   onReset: (id: number) => void;
 }
 
-// Quick-jump chips, one per section (Abertura, FIFA Museum, then each team).
+// Quick-jump chips: Abertura, FIFA Museum, then one per group (A–L), each
+// jumping to that group's first team section.
 const SPECIAL_LABEL: Record<string, string> = { INTRO: '★', MUSEU: '🏆' };
-const JUMPS = SECTIONS.map((s) => ({
-  id: s.id,
-  label: SPECIAL_LABEL[s.id] ?? s.id,
-}));
+const JUMPS = [
+  ...SECTIONS.filter((s) => SPECIAL_LABEL[s.id]).map((s) => ({ id: s.id, label: SPECIAL_LABEL[s.id] })),
+  ...Array.from(new Set(SECTIONS.map((s) => s.group).filter(Boolean) as string[])).map((g) => ({
+    id: SECTIONS.find((s) => s.group === g)!.id,
+    label: g,
+  })),
+];
 
 function scrollToSection(id: string) {
   document.getElementById(`section-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
