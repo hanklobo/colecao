@@ -13,6 +13,7 @@ interface RawSection {
   id: string;
   name: string;
   flagCode?: string;
+  group?: string;
   stickers: RawSticker[];
 }
 
@@ -32,6 +33,7 @@ function buildSections(): Section[] {
       id: raw.id,
       name: raw.name,
       flagCode: raw.flagCode,
+      group: raw.group,
       flag: SECTION_EMOJI[raw.id],
       stickers,
     });

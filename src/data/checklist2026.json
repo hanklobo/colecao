@@ -158,7 +158,8 @@
     {
      "name": "Cesar Huerta"
     }
-   ]
+   ],
+   "group": "A"
   },
   {
    "id": "RSA",
@@ -226,7 +227,8 @@
     {
      "name": "Oswin Appollis"
     }
-   ]
+   ],
+   "group": "A"
   },
   {
    "id": "KOR",
@@ -294,7 +296,8 @@
     {
      "name": "Hyeon-Gyu Oh"
     }
-   ]
+   ],
+   "group": "A"
   },
   {
    "id": "CZE",
@@ -362,7 +365,8 @@
     {
      "name": "Patrik Schick"
     }
-   ]
+   ],
+   "group": "A"
   },
   {
    "id": "CAN",
@@ -430,7 +434,8 @@
     {
      "name": "Jonathan David"
     }
-   ]
+   ],
+   "group": "B"
   },
   {
    "id": "BIH",
@@ -498,7 +503,8 @@
     {
      "name": "Haris Tabakovic"
     }
-   ]
+   ],
+   "group": "B"
   },
   {
    "id": "QAT",
@@ -566,7 +572,8 @@
     {
      "name": "Almoez Ali"
     }
-   ]
+   ],
+   "group": "B"
   },
   {
    "id": "SUI",
@@ -634,7 +641,8 @@
     {
      "name": "Zeki Amdouni"
     }
-   ]
+   ],
+   "group": "B"
   },
   {
    "id": "BRA",
@@ -702,7 +710,8 @@
     {
      "name": "Estévão"
     }
-   ]
+   ],
+   "group": "C"
   },
   {
    "id": "MAR",
@@ -770,7 +779,8 @@
     {
      "name": "Ayoub El Kaabi"
     }
-   ]
+   ],
+   "group": "C"
   },
   {
    "id": "HAI",
@@ -838,7 +848,8 @@
     {
      "name": "Frantzdy Pierrot"
     }
-   ]
+   ],
+   "group": "C"
   },
   {
    "id": "SCO",
@@ -906,7 +917,8 @@
     {
      "name": "Ben Gannon-Doak"
     }
-   ]
+   ],
+   "group": "C"
   },
   {
    "id": "USA",
@@ -974,7 +986,8 @@
     {
      "name": "Folarin Balogun"
     }
-   ]
+   ],
+   "group": "D"
   },
   {
    "id": "PAR",
@@ -1042,7 +1055,8 @@
     {
      "name": "Antonio Sanabria"
     }
-   ]
+   ],
+   "group": "D"
   },
   {
    "id": "AUS",
@@ -1110,7 +1124,8 @@
     {
      "name": "Mohamed Touré"
     }
-   ]
+   ],
+   "group": "D"
   },
   {
    "id": "TUR",
@@ -1178,7 +1193,8 @@
     {
      "name": "Kenan Yildiz"
     }
-   ]
+   ],
+   "group": "D"
   },
   {
    "id": "GER",
@@ -1246,7 +1262,8 @@
     {
      "name": "Nick Woltemade"
     }
-   ]
+   ],
+   "group": "E"
   },
   {
    "id": "CUW",
@@ -1314,7 +1331,8 @@
     {
      "name": "Sontje Hansen"
     }
-   ]
+   ],
+   "group": "E"
   },
   {
    "id": "CIV",
@@ -1382,7 +1400,8 @@
     {
      "name": "Oumar Diakite"
     }
-   ]
+   ],
+   "group": "E"
   },
   {
    "id": "ECU",
@@ -1450,7 +1469,8 @@
     {
      "name": "Enner Valencia"
     }
-   ]
+   ],
+   "group": "E"
   },
   {
    "id": "NED",
@@ -1518,7 +1538,8 @@
     {
      "name": "Cody Gakpo"
     }
-   ]
+   ],
+   "group": "F"
   },
   {
    "id": "JPN",
@@ -1586,7 +1607,8 @@
     {
      "name": "Ayase Ueda"
     }
-   ]
+   ],
+   "group": "F"
   },
   {
    "id": "SWE",
@@ -1654,7 +1676,8 @@
     {
      "name": "Viktor Gyökeres"
     }
-   ]
+   ],
+   "group": "F"
   },
   {
    "id": "TUN",
@@ -1722,7 +1745,8 @@
     {
      "name": "Naim Sliti"
     }
-   ]
+   ],
+   "group": "F"
   },
   {
    "id": "BEL",
@@ -1790,7 +1814,8 @@
     {
      "name": "Romelu Lukaku"
     }
-   ]
+   ],
+   "group": "G"
   },
   {
    "id": "EGY",
@@ -1858,7 +1883,8 @@
     {
      "name": "Omar Marmoush"
     }
-   ]
+   ],
+   "group": "G"
   },
   {
    "id": "IRN",
@@ -1926,7 +1952,8 @@
     {
      "name": "Ali Gholizadeh"
     }
-   ]
+   ],
+   "group": "G"
   },
   {
    "id": "NZL",
@@ -1994,7 +2021,8 @@
     {
      "name": "Kosta Barbarouses"
     }
-   ]
+   ],
+   "group": "G"
   },
   {
    "id": "ESP",
@@ -2062,7 +2090,8 @@
     {
      "name": "Mikel Oyarzabal"
     }
-   ]
+   ],
+   "group": "H"
   },
   {
    "id": "CPV",
@@ -2130,7 +2159,8 @@
     {
      "name": "Bebe"
     }
-   ]
+   ],
+   "group": "H"
   },
   {
    "id": "KSA",
@@ -2198,7 +2228,8 @@
     {
      "name": "Abdullah Al-Hamdan"
     }
-   ]
+   ],
+   "group": "H"
   },
   {
    "id": "URU",
@@ -2266,7 +2297,8 @@
     {
      "name": "Facundo Pellistri"
     }
-   ]
+   ],
+   "group": "H"
   },
   {
    "id": "FRA",
@@ -2334,7 +2366,8 @@
     {
      "name": "Kylian Mbappe"
     }
-   ]
+   ],
+   "group": "I"
   },
   {
    "id": "SEN",
@@ -2402,7 +2435,8 @@
     {
      "name": "Krepin Diatta"
     }
-   ]
+   ],
+   "group": "I"
   },
   {
    "id": "IRQ",
@@ -2470,7 +2504,8 @@
     {
      "name": "Mohanad Ali"
     }
-   ]
+   ],
+   "group": "I"
   },
   {
    "id": "NOR",
@@ -2538,7 +2573,8 @@
     {
      "name": "Oscar Bobb"
     }
-   ]
+   ],
+   "group": "I"
   },
   {
    "id": "ARG",
@@ -2606,7 +2642,8 @@
     {
      "name": "Giuliano Simeone"
     }
-   ]
+   ],
+   "group": "J"
   },
   {
    "id": "ALG",
@@ -2674,7 +2711,8 @@
     {
      "name": "Mohammed Amoura"
     }
-   ]
+   ],
+   "group": "J"
   },
   {
    "id": "AUT",
@@ -2742,7 +2780,8 @@
     {
      "name": "Marko Arnautović"
     }
-   ]
+   ],
+   "group": "J"
   },
   {
    "id": "JOR",
@@ -2810,7 +2849,8 @@
     {
      "name": "Ibrahim Sabra"
     }
-   ]
+   ],
+   "group": "J"
   },
   {
    "id": "POR",
@@ -2878,7 +2918,8 @@
     {
      "name": "Rafael Leão"
     }
-   ]
+   ],
+   "group": "K"
   },
   {
    "id": "COD",
@@ -2946,7 +2987,8 @@
     {
      "name": "Nathanaël Mbuku"
     }
-   ]
+   ],
+   "group": "K"
   },
   {
    "id": "UZB",
@@ -3014,7 +3056,8 @@
     {
      "name": "Abbosbek Fayzullaev"
     }
-   ]
+   ],
+   "group": "K"
   },
   {
    "id": "COL",
@@ -3082,7 +3125,8 @@
     {
      "name": "Luis Diaz"
     }
-   ]
+   ],
+   "group": "K"
   },
   {
    "id": "ENG",
@@ -3150,7 +3194,8 @@
     {
      "name": "Ollie Watkins"
     }
-   ]
+   ],
+   "group": "L"
   },
   {
    "id": "CRO",
@@ -3218,7 +3263,8 @@
     {
      "name": "Franjo Ivanovic"
     }
-   ]
+   ],
+   "group": "L"
   },
   {
    "id": "GHA",
@@ -3286,7 +3332,8 @@
     {
      "name": "Antoine Semenyo"
     }
-   ]
+   ],
+   "group": "L"
   },
   {
    "id": "PAN",
@@ -3354,7 +3401,8 @@
     {
      "name": "Alberto Quintero"
     }
-   ]
+   ],
+   "group": "L"
   }
  ]
 }
