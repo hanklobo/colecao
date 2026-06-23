@@ -1,7 +1,7 @@
-// Builds the shareable progress card by compositing the live data on top of a
-// pre-rendered premium template (public/share-base.png). The template is
-// same-origin so the canvas never taints. Canvas is the browser-native tool
-// for this kind of image compositing.
+// Builds the shareable progress card by compositing the live data on top of the
+// premium template (public/share-base.png, 688x1543). The template is
+// same-origin so the canvas never taints. Canvas is the browser-native tool for
+// this kind of image compositing.
 
 export interface CardData {
   name: string;
@@ -16,19 +16,20 @@ export interface CardData {
   badgeIcons: string[];
 }
 
-const SANS = 'Inter, "Segoe UI", system-ui, sans-serif';
-const SERIF = 'Georgia, "Times New Roman", serif';
+const SANS = 'Inter, "Segoe UI", Arial, system-ui, sans-serif';
 const TEMPLATE = '/share-base.png';
-const W = 1080;
-const H = 1500;
+const W = 688;
+const H = 1543;
+const GOLD = 'rgba(244,198,74,0.65)';
 
 function roundRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number) {
+  const rr = Math.min(r, h / 2, w / 2);
   ctx.beginPath();
-  ctx.moveTo(x + r, y);
-  ctx.arcTo(x + w, y, x + w, y + h, r);
-  ctx.arcTo(x + w, y + h, x, y + h, r);
-  ctx.arcTo(x, y + h, x, y, r);
-  ctx.arcTo(x, y, x + w, y, r);
+  ctx.moveTo(x + rr, y);
+  ctx.arcTo(x + w, y, x + w, y + h, rr);
+  ctx.arcTo(x + w, y + h, x, y + h, rr);
+  ctx.arcTo(x, y + h, x, y, rr);
+  ctx.arcTo(x, y, x + w, y, rr);
   ctx.closePath();
 }
 
@@ -50,7 +51,6 @@ export async function generateProgressCard(data: CardData): Promise<Blob | null>
 
   const pct = Math.round((data.have / data.total) * 100);
 
-  // Base template (premium chrome). Fallback to a flat navy bg if it fails.
   const base = await loadImage(TEMPLATE);
   if (base) {
     ctx.drawImage(base, 0, 0, W, H);
@@ -62,52 +62,63 @@ export async function generateProgressCard(data: CardData): Promise<Blob | null>
   ctx.textAlign = 'center';
   ctx.textBaseline = 'alphabetic';
 
-  // Name
+  // Name (top pill)
   ctx.fillStyle = '#ffffff';
-  ctx.font = `700 52px ${SERIF}`;
-  ctx.fillText(data.name || 'Meu álbum', W / 2, 136);
+  ctx.font = `700 30px ${SANS}`;
+  ctx.fillText(data.name || 'Meu álbum', 360, 60);
 
-  // Podium %
-  ctx.fillStyle = '#fff7e0';
-  ctx.font = `800 60px ${SANS}`;
-  ctx.fillText(`${pct}%`, W / 2, 748);
-
-  // Progress fill
-  const fill = ctx.createLinearGradient(0, 878, 0, 900);
-  fill.addColorStop(0, '#ffe9a3');
-  fill.addColorStop(0.5, '#e8a417');
-  fill.addColorStop(1, '#b06a06');
-  ctx.fillStyle = fill;
-  roundRect(ctx, 160, 878, Math.max(22, (760 * pct) / 100), 22, 11);
-  ctx.fill();
-
-  // Stat numbers (over the template tiles)
-  const stats: [number, string, string][] = [
-    [180, `${data.have}`, '#ffffff'],
-    [420, `${data.missing}`, '#ff9a9a'],
-    [660, `${data.duplicates}`, '#ffd54a'],
-    [900, `${data.special}/${data.specialTotal}`, '#ffe08a'],
+  // Stat number chips over the four cards
+  const chips: [number, string, string][] = [
+    [92, `${data.have}`, '#ffffff'],
+    [248, `${data.missing}`, '#ff9a9a'],
+    [410, `${data.duplicates}`, '#ffd54a'],
+    [572, `${data.special}`, '#ffe08a'],
   ];
-  for (const [cx, value, color] of stats) {
+  for (const [cx, value, color] of chips) {
+    ctx.fillStyle = 'rgba(6,18,42,0.85)';
+    roundRect(ctx, cx - 46, 832, 92, 48, 13);
+    ctx.fill();
+    ctx.strokeStyle = GOLD;
+    ctx.lineWidth = 1.5;
+    roundRect(ctx, cx - 46, 832, 92, 48, 13);
+    ctx.stroke();
     ctx.fillStyle = color;
-    ctx.font = `800 ${value.length > 4 ? 44 : 56}px ${SANS}`;
-    ctx.fillText(value, cx, 1072);
+    ctx.font = `800 ${value.length > 4 ? 28 : 38}px ${SANS}`;
+    ctx.fillText(value, cx, 866);
   }
 
-  // Achievements line + earned badge icons
+  // Achievements banner
+  ctx.fillStyle = '#0a262e';
+  roundRect(ctx, 138, 1049, 412, 46, 23);
+  ctx.fill();
+  ctx.strokeStyle = GOLD;
+  ctx.lineWidth = 1.5;
+  roundRect(ctx, 138, 1049, 412, 46, 23);
+  ctx.stroke();
   ctx.fillStyle = '#f4c64a';
-  ctx.font = `700 34px ${SERIF}`;
-  ctx.fillText(`CONQUISTAS · ${data.badges} de ${data.badgesTotal}`, W / 2, 1208);
-  const icons = data.badgeIcons.slice(0, 8);
-  if (icons.length) {
-    ctx.font = `44px ${SANS}`;
-    const step = 78;
-    let ix = W / 2 - ((icons.length - 1) * step) / 2;
-    for (const ic of icons) {
-      ctx.fillText(ic, ix, 1268);
-      ix += step;
-    }
-  }
+  ctx.font = `800 24px ${SANS}`;
+  ctx.fillText(`CONQUISTAS · ${data.badges} / ${data.badgesTotal}`, 344, 1080);
+
+  // Progress banner (covers the template placeholder) with bar
+  ctx.fillStyle = '#062029';
+  roundRect(ctx, 120, 1238, 448, 80, 22);
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(244,198,74,0.5)';
+  ctx.lineWidth = 1.5;
+  roundRect(ctx, 120, 1238, 448, 80, 22);
+  ctx.stroke();
+  ctx.fillStyle = '#f4c64a';
+  ctx.font = `800 22px ${SANS}`;
+  ctx.fillText(`${pct}% DO ÁLBUM COMPLETO`, 344, 1272);
+  ctx.fillStyle = '#0a1a24';
+  roundRect(ctx, 160, 1288, 368, 16, 8);
+  ctx.fill();
+  const barGrad = ctx.createLinearGradient(0, 1288, 0, 1304);
+  barGrad.addColorStop(0, '#ffe9a3');
+  barGrad.addColorStop(1, '#d98a12');
+  ctx.fillStyle = barGrad;
+  roundRect(ctx, 160, 1288, Math.max(16, (368 * pct) / 100), 16, 8);
+  ctx.fill();
 
   return new Promise((resolve) => canvas.toBlob((b) => resolve(b), 'image/png'));
 }
