@@ -13,24 +13,15 @@ interface Props {
   onReset: (id: number) => void;
 }
 
-const GROUPS = [
-  'INTRO', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'EST',
-  'LEND', 'CRAQ', 'BRIL', 'FIFA',
-];
-const GROUP_LABELS: Record<string, string> = {
-  INTRO: '★', EST: '🏟',
-  A:'A', B:'B', C:'C', D:'D', E:'E', F:'F',
-  G:'G', H:'H', I:'I', J:'J', K:'K', L:'L',
-  LEND: '👑', CRAQ: '⭐', BRIL: '✨', FIFA: '🎪',
-};
+// Quick-jump chips, one per section (Abertura, FIFA Museum, then each team).
+const SPECIAL_LABEL: Record<string, string> = { INTRO: '★', MUSEU: '🏆' };
+const JUMPS = SECTIONS.map((s) => ({
+  id: s.id,
+  label: SPECIAL_LABEL[s.id] ?? s.id,
+}));
 
-function scrollToGroup(groupId: string) {
-  // A jump target is either a section id (INTRO, EST, extras) or a group letter.
-  const targetId =
-    SECTIONS.find((s) => s.id === groupId)?.id ??
-    SECTIONS.find((s) => s.group === groupId)?.id;
-  if (!targetId) return;
-  document.getElementById(`section-${targetId}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+function scrollToSection(id: string) {
+  document.getElementById(`section-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
 export function AlbumView({ state, onCycle, onReset }: Props) {
@@ -93,10 +84,10 @@ export function AlbumView({ state, onCycle, onReset }: Props) {
     });
   }
 
-  function handleGroupClick(g: string) {
-    setActiveGroup(g);
+  function handleGroupClick(id: string) {
+    setActiveGroup(id);
     setSearch('');
-    setTimeout(() => scrollToGroup(g), 50);
+    setTimeout(() => scrollToSection(id), 50);
   }
 
   return (
@@ -141,20 +132,20 @@ export function AlbumView({ state, onCycle, onReset }: Props) {
               </div>
             </div>
 
-            {/* Group quick-jump */}
+            {/* Section quick-jump */}
             {!search && (
               <div className="flex gap-1.5 px-4 py-2 overflow-x-auto border-t border-gray-100 scrollbar-hide">
-                {GROUPS.map((g) => (
+                {JUMPS.map((j) => (
                   <button
-                    key={g}
-                    onClick={() => handleGroupClick(g)}
+                    key={j.id}
+                    onClick={() => handleGroupClick(j.id)}
                     className={`px-2.5 py-1 rounded-lg text-[11px] font-bold whitespace-nowrap flex-shrink-0 transition-colors ${
-                      activeGroup === g
+                      activeGroup === j.id
                         ? 'bg-copa-blue text-white shadow-card'
                         : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                     }`}
                   >
-                    {GROUP_LABELS[g]}
+                    {j.label}
                   </button>
                 ))}
               </div>

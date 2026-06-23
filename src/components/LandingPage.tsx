@@ -29,11 +29,11 @@ function HeroArt() {
         🏆
       </div>
       {/* scattered flags */}
-      <Flag id="BRA" className="absolute left-3 top-4 w-12 h-8 rounded-lg shadow-card ring-2 ring-white/70 -rotate-12 animate-float" />
-      <Flag id="ARG" className="absolute right-4 top-2 w-12 h-8 rounded-lg shadow-card ring-2 ring-white/70 rotate-12 animate-float" />
-      <Flag id="FRA" className="absolute left-8 bottom-2 w-11 h-7 rounded-lg shadow-card ring-2 ring-white/70 rotate-6 animate-float" />
-      <Flag id="ESP" className="absolute right-8 bottom-3 w-11 h-7 rounded-lg shadow-card ring-2 ring-white/70 -rotate-6 animate-float" />
-      <Flag id="GER" className="absolute left-1/2 -translate-x-1/2 top-0 w-10 h-6 rounded-md shadow-card ring-2 ring-white/70 animate-float" />
+      <Flag id="br" className="absolute left-3 top-4 w-12 h-8 rounded-lg shadow-card ring-2 ring-white/70 -rotate-12 animate-float" />
+      <Flag id="ar" className="absolute right-4 top-2 w-12 h-8 rounded-lg shadow-card ring-2 ring-white/70 rotate-12 animate-float" />
+      <Flag id="fr" className="absolute left-8 bottom-2 w-11 h-7 rounded-lg shadow-card ring-2 ring-white/70 rotate-6 animate-float" />
+      <Flag id="es" className="absolute right-8 bottom-3 w-11 h-7 rounded-lg shadow-card ring-2 ring-white/70 -rotate-6 animate-float" />
+      <Flag id="de" className="absolute left-1/2 -translate-x-1/2 top-0 w-10 h-6 rounded-md shadow-card ring-2 ring-white/70 animate-float" />
     </div>
   );
 }
@@ -41,12 +41,12 @@ function HeroArt() {
 // ── Slide 2 illustration: a mini sticker grid ───────────────────────────────
 function StickerGridArt() {
   const cards: { id: string; status: 'missing' | 'have' | 'repeated'; n: number }[] = [
-    { id: 'BRA', status: 'have', n: 41 },
-    { id: 'ARG', status: 'repeated', n: 54 },
-    { id: 'FRA', status: 'missing', n: 67 },
-    { id: 'POR', status: 'have', n: 93 },
-    { id: 'ESP', status: 'missing', n: 75 },
-    { id: 'ITA', status: 'repeated', n: 86 },
+    { id: 'br', status: 'have', n: 41 },
+    { id: 'ar', status: 'repeated', n: 54 },
+    { id: 'fr', status: 'missing', n: 67 },
+    { id: 'pt', status: 'have', n: 93 },
+    { id: 'es', status: 'missing', n: 75 },
+    { id: 'it', status: 'repeated', n: 86 },
   ];
   const bg: Record<string, string> = {
     missing: 'bg-white border-gray-200',
@@ -102,7 +102,7 @@ function ProgressArt() {
         </div>
       </div>
       <div className="space-y-2.5 w-32">
-        {[{ id: 'BRA', p: 92 }, { id: 'ARG', p: 70 }, { id: 'FRA', p: 46 }].map((s) => (
+        {[{ id: 'br', p: 92 }, { id: 'ar', p: 70 }, { id: 'fr', p: 46 }].map((s) => (
           <div key={s.id} className="flex items-center gap-2">
             <Flag id={s.id} className="w-6 h-4 rounded shadow-sm flex-shrink-0" />
             <div className="flex-1 h-2 bg-gray-100 rounded-full overflow-hidden">
@@ -126,7 +126,7 @@ function TradeArt() {
           </div>
           <span className="text-xs font-bold text-gray-800">Você dá</span>
           <span className="ml-auto flex items-center gap-1">
-            <Flag id="BRA" className="w-5 h-3.5 rounded-sm shadow-sm" />
+            <Flag id="br" className="w-5 h-3.5 rounded-sm shadow-sm" />
             <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 rounded px-1">#41</span>
             <span className="text-[10px] font-bold text-emerald-700 bg-emerald-50 border border-emerald-200 rounded px-1">#45</span>
           </span>
@@ -138,7 +138,7 @@ function TradeArt() {
           </div>
           <span className="text-xs font-bold text-gray-800">Você recebe</span>
           <span className="ml-auto flex items-center gap-1">
-            <Flag id="ARG" className="w-5 h-3.5 rounded-sm shadow-sm" />
+            <Flag id="ar" className="w-5 h-3.5 rounded-sm shadow-sm" />
             <span className="text-[10px] font-bold text-sky-700 bg-sky-50 border border-sky-200 rounded px-1">#50</span>
           </span>
         </div>
