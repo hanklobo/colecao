@@ -62,14 +62,12 @@ export async function generateProgressCard(data: CardData): Promise<Blob | null>
   ctx.textAlign = 'center';
   ctx.textBaseline = 'alphabetic';
 
-  // Name (inside the top banner)
+  // Name (inside the top banner) - X and Y adjusted for visual centering
   ctx.fillStyle = '#ffffff';
   ctx.font = `700 32px ${SANS}`;
-  ctx.fillText(data.name || 'Meu álbum', 430, 80);
+  ctx.fillText(data.name || 'Meu álbum', 400, 86);
 
   // Stat numbers inside the empty box at the top of each card.
-  // Box centers measured on the template; numbers carry a dark outline so they
-  // read on any box colour (navy / silver / gold / holo).
   const chips: [number, string, string][] = [
     [111, `${data.have}`, '#ffffff'],
     [264, `${data.missing}`, '#ffb3b3'],
@@ -98,25 +96,33 @@ export async function generateProgressCard(data: CardData): Promise<Blob | null>
   ctx.font = `800 24px ${SANS}`;
   ctx.fillText(`CONQUISTAS · ${data.badges} / ${data.badgesTotal}`, 344, 1080);
 
-  // Progress banner (covers the template placeholder) with bar
+  // Progress banner - Expanded to fill the container area perfectly
   ctx.fillStyle = '#062029';
-  roundRect(ctx, 120, 1238, 448, 80, 22);
+  roundRect(ctx, 64, 1200, 560, 140, 22);
   ctx.fill();
+  
   ctx.strokeStyle = 'rgba(244,198,74,0.5)';
   ctx.lineWidth = 1.5;
-  roundRect(ctx, 120, 1238, 448, 80, 22);
+  roundRect(ctx, 64, 1200, 560, 140, 22);
   ctx.stroke();
+  
   ctx.fillStyle = '#f4c64a';
-  ctx.font = `800 22px ${SANS}`;
-  ctx.fillText(`${pct}% DO ÁLBUM COMPLETO`, 344, 1272);
+  ctx.font = `800 24px ${SANS}`;
+  ctx.fillText(`${pct}% DO ÁLBUM COMPLETO`, 344, 1255);
+  
+  // Background track for the progress bar
   ctx.fillStyle = '#0a1a24';
-  roundRect(ctx, 160, 1288, 368, 16, 8);
+  roundRect(ctx, 100, 1285, 488, 20, 10);
   ctx.fill();
-  const barGrad = ctx.createLinearGradient(0, 1288, 0, 1304);
+  
+  // Progress fill with gradient
+  const barGrad = ctx.createLinearGradient(0, 1285, 0, 1305);
   barGrad.addColorStop(0, '#ffe9a3');
   barGrad.addColorStop(1, '#d98a12');
   ctx.fillStyle = barGrad;
-  roundRect(ctx, 160, 1288, Math.max(16, (368 * pct) / 100), 16, 8);
+  
+  // Render filled progress based on the new total width (488px)
+  roundRect(ctx, 100, 1285, Math.max(20, (488 * pct) / 100), 20, 10);
   ctx.fill();
 
   return new Promise((resolve) => canvas.toBlob((b) => resolve(b), 'image/png'));
