@@ -33,6 +33,22 @@ function roundRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: numbe
   ctx.closePath();
 }
 
+function drawCrest(ctx: CanvasRenderingContext2D, cx: number, cy: number, w: number, h: number) {
+  const x = cx - w / 2;
+  const y = cy - h / 2;
+  const r = w * 0.22;
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.lineTo(x + w - r, y);
+  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+  ctx.lineTo(x + w, y + h * 0.55);
+  ctx.bezierCurveTo(x + w, y + h * 0.82, cx + w * 0.18, y + h * 0.92, cx, y + h);
+  ctx.bezierCurveTo(cx - w * 0.18, y + h * 0.92, x, y + h * 0.82, x, y + h * 0.55);
+  ctx.lineTo(x, y + r);
+  ctx.quadraticCurveTo(x, y, x + r, y);
+  ctx.closePath();
+}
+
 function loadImage(src: string): Promise<HTMLImageElement | null> {
   return new Promise((resolve) => {
     const img = new Image();
@@ -62,6 +78,22 @@ export async function generateProgressCard(data: CardData): Promise<Blob | null>
   ctx.textAlign = 'center';
   ctx.textBaseline = 'alphabetic';
 
+  // Percentage overlay on the spiral focal point
+  ctx.save();
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  // Outer glow ring
+  const pctY = 542;
+  ctx.shadowColor = 'rgba(244,198,74,0.9)';
+  ctx.shadowBlur = 18;
+  ctx.font = `900 30px ${SANS}`;
+  ctx.strokeStyle = '#08182f';
+  ctx.lineWidth = 7;
+  ctx.strokeText(`${pct}%`, W / 2, pctY);
+  ctx.fillStyle = '#f4c64a';
+  ctx.fillText(`${pct}%`, W / 2, pctY);
+  ctx.restore();
+
   // Name (inside the top banner) - X and Y adjusted for visual centering
   ctx.fillStyle = '#ffffff';
   ctx.font = `700 32px ${SANS}`;
@@ -86,16 +118,88 @@ export async function generateProgressCard(data: CardData): Promise<Blob | null>
   }
 
   // Achievements banner
+  const badgesX = 38;
+  const badgesY = 1060;
+  const badgesW = 614;
+  const badgesH = 190;
   ctx.fillStyle = '#0a262e';
-  roundRect(ctx, 138, 1049, 412, 46, 23);
+  roundRect(ctx, badgesX, badgesY, badgesW, badgesH, 23);
   ctx.fill();
   ctx.strokeStyle = GOLD;
   ctx.lineWidth = 1.5;
-  roundRect(ctx, 138, 1049, 412, 46, 23);
+  roundRect(ctx, badgesX, badgesY, badgesW, badgesH, 23);
   ctx.stroke();
   ctx.fillStyle = '#f4c64a';
   ctx.font = `800 24px ${SANS}`;
-  ctx.fillText(`CONQUISTAS · ${data.badges} / ${data.badgesTotal}`, 344, 1080);
+  ctx.fillText(`CONQUISTAS · ${data.badges} / ${data.badgesTotal}`, 344, badgesY + 32);
+
+  // Badge crest grid — all earned badges, up to 2 rows of 8, sized to fit
+  const icons = data.badgeIcons;
+  if (icons.length > 0) {
+    const PADDING_X = 28;
+    const availableW = badgesW - PADDING_X * 2;
+    const GAP = 7;
+    const ROW_GAP = 8;
+
+    // Distribute into up to 2 rows of max 8
+    const COLS = Math.min(icons.length, 8);
+    const ROWS = Math.ceil(icons.length / COLS);
+
+    // Size crests to fit the available width and height
+    const cwByWidth = Math.floor((availableW - GAP * (COLS - 1)) / COLS);
+    // Available height for crests: banner height minus title area minus padding
+    const availableH = badgesH - 40 - (ROWS - 1) * ROW_GAP - 8;
+    const cwByHeight = Math.floor((availableH / ROWS) / 1.14); // CH = CW * 1.14
+    const CW = Math.min(cwByWidth, cwByHeight, 72);
+    const CH = Math.round(CW * 1.14);
+
+    const totalW = COLS * CW + (COLS - 1) * GAP;
+    const startX = (W - totalW) / 2 + CW / 2;
+    // Vertically center the grid in the remaining space below the title
+    const gridH = ROWS * CH + (ROWS - 1) * ROW_GAP;
+    const gridAreaTop = badgesY + 40;
+    const gridAreaH = badgesH - 40 - 6;
+    const startY = gridAreaTop + (gridAreaH - gridH) / 2 + CH / 2;
+
+    for (let i = 0; i < icons.length; i++) {
+      const col = i % COLS;
+      const row = Math.floor(i / COLS);
+      const cx = startX + col * (CW + GAP);
+      const cy = startY + row * (CH + ROW_GAP);
+
+      // Glow + background
+      ctx.save();
+      ctx.shadowColor = 'rgba(244,198,74,0.55)';
+      ctx.shadowBlur = 10;
+      const bgGrad = ctx.createLinearGradient(cx - CW / 2, cy - CH / 2, cx + CW / 2, cy + CH / 2);
+      bgGrad.addColorStop(0, '#0d2235');
+      bgGrad.addColorStop(1, '#061520');
+      drawCrest(ctx, cx, cy, CW, CH);
+      ctx.fillStyle = bgGrad;
+      ctx.fill();
+      ctx.restore();
+
+      // Gold border
+      drawCrest(ctx, cx, cy, CW, CH);
+      ctx.strokeStyle = '#f4c64a';
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+
+      // Inner highlight ring
+      drawCrest(ctx, cx, cy, CW - 5, CH - 5);
+      ctx.strokeStyle = 'rgba(255,233,163,0.2)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+
+      // Emoji — scale font proportionally to crest size
+      ctx.save();
+      ctx.font = `${Math.round(CW * 0.47)}px sans-serif`;
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText(icons[i], cx, cy - CH * 0.04);
+      ctx.restore();
+    }
+  }
 
   // Progress banner - Expanded to fill the container area perfectly
   ctx.fillStyle = '#062029';
