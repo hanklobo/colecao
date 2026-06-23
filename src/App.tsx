@@ -7,7 +7,7 @@ import { AlbumView } from './views/AlbumView';
 import { TradingView } from './views/TradingView';
 import { StatsView } from './views/StatsView';
 import { LandingPage } from './components/LandingPage';
-import { AlbumIcon, StatsIcon, TradeIcon, BallIcon, HelpIcon } from './components/Icons';
+import { AlbumIcon, StatsIcon, TradeIcon, LogoMark, HelpIcon } from './components/Icons';
 import { computeAchievements } from './utils/achievements';
 import { Analytics } from '@vercel/analytics/react';
 
@@ -94,9 +94,7 @@ export default function App() {
         style={{ backgroundImage: 'linear-gradient(120deg, #0b2e6b 0%, #1a73e8 100%)' }}
       >
         <div className="flex items-center gap-3 px-4 pt-4 pb-2">
-          <div className="bg-copa-gold rounded-xl w-10 h-10 flex items-center justify-center flex-shrink-0 shadow-card text-copa-navy">
-            <BallIcon className="w-6 h-6" />
-          </div>
+          <LogoMark className="w-11 h-11 flex-shrink-0 rounded-xl shadow-card" />
           <div className="min-w-0 flex-1">
             <h1 className="text-white font-display font-extrabold text-lg leading-tight tracking-tight">
               Coleção Copa 2026

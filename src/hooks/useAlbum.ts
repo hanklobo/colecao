@@ -1,7 +1,9 @@
 import { useState, useCallback } from 'react';
 import type { AlbumState, StickerState, StickerStatus } from '../types';
 
-const STORAGE_KEY = 'copa2026_album';
+// v2: official 980-sticker checklist (ids differ from the earlier placeholder
+// data), so use a fresh key to avoid loading misaligned old progress.
+const STORAGE_KEY = 'copa2026_album_v2';
 
 function loadState(): AlbumState {
   try {

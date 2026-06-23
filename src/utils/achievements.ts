@@ -20,6 +20,25 @@ function sectionComplete(state: AlbumState, sectionId: string): boolean {
   });
 }
 
+// Total number of foil/special stickers in the album (escudos + abertura + museu)
+export const TOTAL_SPECIAL = SECTIONS.reduce(
+  (n, s) => n + s.stickers.filter((st) => st.special).length,
+  0,
+);
+
+export function specialOwned(state: AlbumState): number {
+  let n = 0;
+  for (const s of SECTIONS) {
+    for (const st of s.stickers) {
+      if (st.special) {
+        const v = state[st.id];
+        if (v && v.status !== 'missing') n++;
+      }
+    }
+  }
+  return n;
+}
+
 export function computeAchievements(state: AlbumState): Achievement[] {
   let have = 0;
   let repeated = 0;
@@ -31,45 +50,30 @@ export function computeAchievements(state: AlbumState): Achievement[] {
     }
   }
 
-  const teams = SECTIONS.filter((s) => s.group);
+  const teams = SECTIONS.filter((s) => s.flagCode);
   const completedTeams = teams.filter((s) => sectionComplete(state, s.id)).length;
-
-  const groups = Array.from(new Set(teams.map((s) => s.group)));
-  const completedGroups = groups.filter((g) =>
-    teams.filter((s) => s.group === g).every((s) => sectionComplete(state, s.id)),
-  ).length;
-
   const introDone = sectionComplete(state, 'INTRO');
-  const stadiumsDone = sectionComplete(state, 'EST');
+  const museumDone = sectionComplete(state, 'MUSEU');
+  const ownedSpecial = specialOwned(state);
 
-  // Special sections
-  const lendDone = sectionComplete(state, 'LEND');
-  const craqDone = sectionComplete(state, 'CRAQ');
-  const brilDone = sectionComplete(state, 'BRIL');
-  const fifaDone = sectionComplete(state, 'FIFA');
-  const specialsDone = [lendDone, craqDone, brilDone, fifaDone].filter(Boolean).length;
-
-  const half = Math.ceil(TOTAL_STICKERS / 2);
+  const pctTarget = (p: number) => Math.ceil(TOTAL_STICKERS * p);
 
   const defs: Omit<Achievement, 'earned'>[] = [
-    { id: 'start',    icon: '🎬', title: 'Começou!',         desc: 'Marque sua 1ª figurinha',     current: have,            target: 1 },
-    { id: 'fifty',    icon: '🌟', title: '50 coladas',        desc: 'Tenha 50 figurinhas',         current: have,            target: 50 },
-    { id: 'hundred',  icon: '💯', title: '100 coladas',       desc: 'Tenha 100 figurinhas',        current: have,            target: 100 },
-    { id: 'team1',    icon: '🥇', title: 'Primeira seleção',  desc: 'Complete 1 seleção',          current: completedTeams,  target: 1 },
-    { id: 'team5',    icon: '🏅', title: '5 seleções',        desc: 'Complete 5 seleções',         current: completedTeams,  target: 5 },
-    { id: 'group1',   icon: '🔰', title: 'Primeiro grupo',    desc: 'Complete 1 grupo inteiro',    current: completedGroups, target: 1 },
-    { id: 'half',     icon: '🌗', title: 'Meio caminho',      desc: 'Complete metade do álbum',    current: have,            target: half },
-    { id: 'intro',    icon: '🎏', title: 'Abertura',          desc: 'Complete a seção de abertura', current: introDone ? 1 : 0, target: 1 },
-    { id: 'stadiums', icon: '🏟️', title: 'Anfitriões',        desc: 'Complete todos os estádios',  current: stadiumsDone ? 1 : 0, target: 1 },
-    // Special sections
-    { id: 'lendas',   icon: '👑', title: 'Lendas',            desc: 'Complete as Lendas da Copa',          current: lendDone ? 1 : 0, target: 1 },
-    { id: 'craques',  icon: '⭐', title: 'Craques',           desc: 'Complete os Craques da Copa',         current: craqDone ? 1 : 0, target: 1 },
-    { id: 'brilho',   icon: '✨', title: 'Brilhantes',        desc: 'Complete as Especiais Brilhantes',    current: brilDone ? 1 : 0, target: 1 },
-    { id: 'fanfest',  icon: '🎪', title: 'Fã da Copa',        desc: 'Complete o FIFA Fan Festival',        current: fifaDone ? 1 : 0, target: 1 },
-    { id: 'special',  icon: '🔮', title: 'Colecionador especial', desc: 'Complete todas as seções especiais', current: specialsDone, target: 4 },
-    { id: 'trader',   icon: '🔁', title: 'Pronto pra trocar', desc: 'Tenha 20 repetidas',          current: repeated,        target: 20 },
-    { id: 'allgroups',icon: '🌍', title: 'Todos os grupos',   desc: 'Complete os 12 grupos',       current: completedGroups, target: groups.length },
-    { id: 'champion', icon: '🏆', title: 'Campeão!',          desc: 'Complete o álbum inteiro',    current: have,            target: TOTAL_STICKERS },
+    { id: 'start',    icon: '🎬', title: 'Primeira colada',  desc: 'Marque sua 1ª figurinha',          current: have,           target: 1 },
+    { id: 'fifty',    icon: '🌟', title: '50 coladas',        desc: 'Tenha 50 figurinhas',              current: have,           target: 50 },
+    { id: 'hundred',  icon: '💯', title: '100 coladas',       desc: 'Tenha 100 figurinhas',             current: have,           target: 100 },
+    { id: 'quarter',  icon: '🌱', title: '25% do álbum',      desc: 'Complete um quarto do álbum',      current: have,           target: pctTarget(0.25) },
+    { id: 'half',     icon: '🌗', title: 'Meio caminho',      desc: 'Complete metade do álbum',         current: have,           target: pctTarget(0.5) },
+    { id: 'threeq',   icon: '🌖', title: '75% do álbum',      desc: 'Complete três quartos do álbum',   current: have,           target: pctTarget(0.75) },
+    { id: 'team1',    icon: '🥇', title: 'Primeira seleção',  desc: 'Complete 1 seleção inteira',       current: completedTeams, target: 1 },
+    { id: 'team10',   icon: '🎖️', title: '10 seleções',       desc: 'Complete 10 seleções',             current: completedTeams, target: 10 },
+    { id: 'team24',   icon: '🌍', title: 'Metade das seleções', desc: 'Complete 24 seleções',           current: completedTeams, target: 24 },
+    { id: 'allteams', icon: '🛡️', title: 'Todas as seleções', desc: 'Complete as 48 seleções',          current: completedTeams, target: teams.length },
+    { id: 'intro',    icon: '🎏', title: 'Abertura',          desc: 'Complete a seção de abertura',     current: introDone ? 1 : 0,  target: 1 },
+    { id: 'museum',   icon: '🏛️', title: 'FIFA Museum',       desc: 'Complete os campeões históricos',  current: museumDone ? 1 : 0, target: 1 },
+    { id: 'foil',     icon: '✨', title: 'Brilho total',      desc: 'Tenha todas as figurinhas especiais', current: ownedSpecial, target: TOTAL_SPECIAL },
+    { id: 'trader',   icon: '🔁', title: 'Pronto pra trocar', desc: 'Tenha 20 figurinhas repetidas',    current: repeated,       target: 20 },
+    { id: 'champion', icon: '🏆', title: 'Campeão do mundo',  desc: 'Complete o álbum inteiro',         current: have,           target: TOTAL_STICKERS },
   ];
 
   return defs.map((d) => ({ ...d, earned: d.current >= d.target }));

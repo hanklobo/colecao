@@ -1,0 +1,3360 @@
+{
+ "sections": [
+  {
+   "id": "INTRO",
+   "name": "Abertura",
+   "stickers": [
+    {
+     "name": "Logo Panini",
+     "special": true
+    },
+    {
+     "name": "Emblema Oficial",
+     "special": true
+    },
+    {
+     "name": "Emblema Oficial II",
+     "special": true
+    },
+    {
+     "name": "Mascotes Oficiais",
+     "special": true
+    },
+    {
+     "name": "Slogan Oficial",
+     "special": true
+    },
+    {
+     "name": "Bola Oficial",
+     "special": true
+    },
+    {
+     "name": "Sede: Canadá",
+     "special": true
+    },
+    {
+     "name": "Sede: México",
+     "special": true
+    },
+    {
+     "name": "Sede: EUA",
+     "special": true
+    }
+   ]
+  },
+  {
+   "id": "MUSEU",
+   "name": "FIFA Museum",
+   "stickers": [
+    {
+     "name": "Itália 1934",
+     "special": true
+    },
+    {
+     "name": "Uruguai 1950",
+     "special": true
+    },
+    {
+     "name": "Alemanha Ocidental 1954",
+     "special": true
+    },
+    {
+     "name": "Brasil 1962",
+     "special": true
+    },
+    {
+     "name": "Alemanha Ocidental 1974",
+     "special": true
+    },
+    {
+     "name": "Argentina 1986",
+     "special": true
+    },
+    {
+     "name": "Brasil 1994",
+     "special": true
+    },
+    {
+     "name": "Brasil 2002",
+     "special": true
+    },
+    {
+     "name": "Itália 2006",
+     "special": true
+    },
+    {
+     "name": "Alemanha 2014",
+     "special": true
+    },
+    {
+     "name": "Argentina 2022",
+     "special": true
+    }
+   ]
+  },
+  {
+   "id": "MEX",
+   "name": "México",
+   "flagCode": "mx",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Luis Malagón"
+    },
+    {
+     "name": "Johan Vasquez"
+    },
+    {
+     "name": "Jorge Sánchez"
+    },
+    {
+     "name": "Cesar Montes"
+    },
+    {
+     "name": "Jesus Gallardo"
+    },
+    {
+     "name": "Israel Reyes"
+    },
+    {
+     "name": "Diego Lainez"
+    },
+    {
+     "name": "Carlos Rodriguez"
+    },
+    {
+     "name": "Edson Alvarez"
+    },
+    {
+     "name": "Orbelin Pineda"
+    },
+    {
+     "name": "Marcel Ruiz"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Érick Sánchez"
+    },
+    {
+     "name": "Hirving Lozano"
+    },
+    {
+     "name": "Santiago Giménez"
+    },
+    {
+     "name": "Raúl Jiménez"
+    },
+    {
+     "name": "Alexis Vega"
+    },
+    {
+     "name": "Roberto Alvarado"
+    },
+    {
+     "name": "Cesar Huerta"
+    }
+   ]
+  },
+  {
+   "id": "RSA",
+   "name": "África do Sul",
+   "flagCode": "za",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Ronwen Williams"
+    },
+    {
+     "name": "Sipho Chaine"
+    },
+    {
+     "name": "Aubrey Modiba"
+    },
+    {
+     "name": "Samukele Kabini"
+    },
+    {
+     "name": "Mbekezeli Mbokazi"
+    },
+    {
+     "name": "Khulumani Ndamane"
+    },
+    {
+     "name": "Siyabonga Ngezana"
+    },
+    {
+     "name": "Khuliso Mudau"
+    },
+    {
+     "name": "Nkosinathi Sibisi"
+    },
+    {
+     "name": "Teboho Mokoena"
+    },
+    {
+     "name": "Thalente Mbatha"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Bathasi Aubaas"
+    },
+    {
+     "name": "Yaya Sithole"
+    },
+    {
+     "name": "Sipho Mbule"
+    },
+    {
+     "name": "Lyle Foster"
+    },
+    {
+     "name": "Iqraam Rayners"
+    },
+    {
+     "name": "Mohau Nkota"
+    },
+    {
+     "name": "Oswin Appollis"
+    }
+   ]
+  },
+  {
+   "id": "KOR",
+   "name": "Coreia do Sul",
+   "flagCode": "kr",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Hyeon-woo Jo"
+    },
+    {
+     "name": "Seung-Gyu Kim"
+    },
+    {
+     "name": "Min-jae Kim"
+    },
+    {
+     "name": "Yu-min Cho"
+    },
+    {
+     "name": "Young-woo Seol"
+    },
+    {
+     "name": "Han-beom Lee"
+    },
+    {
+     "name": "Tae-seok Lee"
+    },
+    {
+     "name": "Myung-jae Lee"
+    },
+    {
+     "name": "Jae-sung Lee"
+    },
+    {
+     "name": "In-beom Hwang"
+    },
+    {
+     "name": "Kang-in Lee"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Seung-ho Paik"
+    },
+    {
+     "name": "Jens Castrop"
+    },
+    {
+     "name": "Dongg-yeong Lee"
+    },
+    {
+     "name": "Gue-sung Cho"
+    },
+    {
+     "name": "Heung-min Son"
+    },
+    {
+     "name": "Hee-chan Hwang"
+    },
+    {
+     "name": "Hyeon-Gyu Oh"
+    }
+   ]
+  },
+  {
+   "id": "CZE",
+   "name": "Chéquia",
+   "flagCode": "cz",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Matej Kovar"
+    },
+    {
+     "name": "Jindrich Stanek"
+    },
+    {
+     "name": "Ladislav Krejci"
+    },
+    {
+     "name": "Vladimir Coufal"
+    },
+    {
+     "name": "Jaroslav Zeleny"
+    },
+    {
+     "name": "Tomas Holes"
+    },
+    {
+     "name": "David Zima"
+    },
+    {
+     "name": "Michal Sadilek"
+    },
+    {
+     "name": "Lukas Provod"
+    },
+    {
+     "name": "Lukas Cerv"
+    },
+    {
+     "name": "Tomas Soucek"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Pavel Sulc"
+    },
+    {
+     "name": "Matej Vydra"
+    },
+    {
+     "name": "Vasil Kusej"
+    },
+    {
+     "name": "Tomas Chory"
+    },
+    {
+     "name": "Vaclav Cerny"
+    },
+    {
+     "name": "Adam Hlozek"
+    },
+    {
+     "name": "Patrik Schick"
+    }
+   ]
+  },
+  {
+   "id": "CAN",
+   "name": "Canadá",
+   "flagCode": "ca",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Dayne St.Clair"
+    },
+    {
+     "name": "Alphonso Davies"
+    },
+    {
+     "name": "Alistair Johnston"
+    },
+    {
+     "name": "Samuel Adekugbe"
+    },
+    {
+     "name": "Riche Larvea"
+    },
+    {
+     "name": "Derek Cornelius"
+    },
+    {
+     "name": "Moïse Bombito"
+    },
+    {
+     "name": "Kamal Miller"
+    },
+    {
+     "name": "Stephen Eustáquio"
+    },
+    {
+     "name": "Ismaël Koné"
+    },
+    {
+     "name": "Jonathan Osorio"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Jacob Shaffelburg"
+    },
+    {
+     "name": "Mathieu Choinière"
+    },
+    {
+     "name": "Niko Sigur"
+    },
+    {
+     "name": "Tajon Buchanan"
+    },
+    {
+     "name": "Liam Millar"
+    },
+    {
+     "name": "Cyle Larin"
+    },
+    {
+     "name": "Jonathan David"
+    }
+   ]
+  },
+  {
+   "id": "BIH",
+   "name": "Bósnia e Herzegovina",
+   "flagCode": "ba",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Nikola Vasilj"
+    },
+    {
+     "name": "Amer Dedic"
+    },
+    {
+     "name": "Sead Kolasinac"
+    },
+    {
+     "name": "Tarik Muharemovic"
+    },
+    {
+     "name": "Nihad Mujakic"
+    },
+    {
+     "name": "Nikola Katic"
+    },
+    {
+     "name": "Amir Hadziahmetovic"
+    },
+    {
+     "name": "Benjamin Tahirovic"
+    },
+    {
+     "name": "Armin Gigovic"
+    },
+    {
+     "name": "Ivan Sunjic"
+    },
+    {
+     "name": "Ivan Basic"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Dzenis Burnic"
+    },
+    {
+     "name": "Esmir Bajraktarevic"
+    },
+    {
+     "name": "Amar Memic"
+    },
+    {
+     "name": "Ermedin Demirovic"
+    },
+    {
+     "name": "Edin Dzeko"
+    },
+    {
+     "name": "Samed Bazdar"
+    },
+    {
+     "name": "Haris Tabakovic"
+    }
+   ]
+  },
+  {
+   "id": "QAT",
+   "name": "Catar",
+   "flagCode": "qa",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Meshaal Barsham"
+    },
+    {
+     "name": "Sultan Albrake"
+    },
+    {
+     "name": "Lucas Mendes"
+    },
+    {
+     "name": "Homam Ahmed"
+    },
+    {
+     "name": "Boualem Khoukhi"
+    },
+    {
+     "name": "Pedro Miguel"
+    },
+    {
+     "name": "Tarek Salman"
+    },
+    {
+     "name": "Mohamed Al-Mannai"
+    },
+    {
+     "name": "Karim Boudiaf"
+    },
+    {
+     "name": "Assim Madibo"
+    },
+    {
+     "name": "Ahmed Fatehi"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Mohammed Waad"
+    },
+    {
+     "name": "Abdulaziz Hatem"
+    },
+    {
+     "name": "Hassan Al-Haydos"
+    },
+    {
+     "name": "Edmilson Junior"
+    },
+    {
+     "name": "Akram Hassan Afif"
+    },
+    {
+     "name": "Ahmed Al Ganehi"
+    },
+    {
+     "name": "Almoez Ali"
+    }
+   ]
+  },
+  {
+   "id": "SUI",
+   "name": "Suíça",
+   "flagCode": "ch",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Gregor Kobel"
+    },
+    {
+     "name": "Yvon Mvogo"
+    },
+    {
+     "name": "Manuel Akanji"
+    },
+    {
+     "name": "Ricardo Rodriguez"
+    },
+    {
+     "name": "Nico Elvedi"
+    },
+    {
+     "name": "Aurèle Amenda"
+    },
+    {
+     "name": "Silvan Widmer"
+    },
+    {
+     "name": "Granit Xhaka"
+    },
+    {
+     "name": "Denis Zakaria"
+    },
+    {
+     "name": "Remo Freuler"
+    },
+    {
+     "name": "Fabian Rieder"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Ardon Jashari"
+    },
+    {
+     "name": "Johan Manzambi"
+    },
+    {
+     "name": "Michel Aebischer"
+    },
+    {
+     "name": "Breel Embolo"
+    },
+    {
+     "name": "Ruben Vargas"
+    },
+    {
+     "name": "Dan Ndoye"
+    },
+    {
+     "name": "Zeki Amdouni"
+    }
+   ]
+  },
+  {
+   "id": "BRA",
+   "name": "Brasil",
+   "flagCode": "br",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Alisson"
+    },
+    {
+     "name": "Bento"
+    },
+    {
+     "name": "Marquinhos"
+    },
+    {
+     "name": "Éder Militão"
+    },
+    {
+     "name": "Gabriel Magalhães"
+    },
+    {
+     "name": "Danilo"
+    },
+    {
+     "name": "Wesley"
+    },
+    {
+     "name": "Lucas Paquetá"
+    },
+    {
+     "name": "Casemiro"
+    },
+    {
+     "name": "Bruno Guimarães"
+    },
+    {
+     "name": "Luiz Henrique"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Vinicius Júnior"
+    },
+    {
+     "name": "Rodrygo"
+    },
+    {
+     "name": "João Pedro"
+    },
+    {
+     "name": "Matheus Cunha"
+    },
+    {
+     "name": "Gabriel Martinelli"
+    },
+    {
+     "name": "Raphinha"
+    },
+    {
+     "name": "Estévão"
+    }
+   ]
+  },
+  {
+   "id": "MAR",
+   "name": "Marrocos",
+   "flagCode": "ma",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Yassine Bounou"
+    },
+    {
+     "name": "Munir El Kajoui"
+    },
+    {
+     "name": "Achraf Hakimi"
+    },
+    {
+     "name": "Noussair Mazraoui"
+    },
+    {
+     "name": "Nayef Aguerd"
+    },
+    {
+     "name": "Roman Saiss"
+    },
+    {
+     "name": "Jawad El Yamio"
+    },
+    {
+     "name": "Adam Masina"
+    },
+    {
+     "name": "Sofyan Amrabat"
+    },
+    {
+     "name": "Azzedine Ounahi"
+    },
+    {
+     "name": "Eliesse Ben Seghir"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Bilal El Khannouss"
+    },
+    {
+     "name": "Ismael Saibari"
+    },
+    {
+     "name": "Youssef En-Nesyri"
+    },
+    {
+     "name": "Abde Ezzalzouli"
+    },
+    {
+     "name": "Soufiane Rahimi"
+    },
+    {
+     "name": "Brahim Diaz"
+    },
+    {
+     "name": "Ayoub El Kaabi"
+    }
+   ]
+  },
+  {
+   "id": "HAI",
+   "name": "Haiti",
+   "flagCode": "ht",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Johny Placide"
+    },
+    {
+     "name": "Carlens Arcus"
+    },
+    {
+     "name": "Martin Expérience"
+    },
+    {
+     "name": "Jean-Kevin Duverne"
+    },
+    {
+     "name": "Ricardo Adé"
+    },
+    {
+     "name": "Duke Lacroix"
+    },
+    {
+     "name": "Garven Metusala"
+    },
+    {
+     "name": "Hannes Delcroix"
+    },
+    {
+     "name": "Leverton Pierre"
+    },
+    {
+     "name": "Danley Jean Jacques"
+    },
+    {
+     "name": "Jean-Ricner Bellegarde"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Christopher Attys"
+    },
+    {
+     "name": "Derrick Etienne Jr"
+    },
+    {
+     "name": "Josue Casimir"
+    },
+    {
+     "name": "Ruben Providence"
+    },
+    {
+     "name": "Duckens Nazon"
+    },
+    {
+     "name": "Louicius Deedson"
+    },
+    {
+     "name": "Frantzdy Pierrot"
+    }
+   ]
+  },
+  {
+   "id": "SCO",
+   "name": "Escócia",
+   "flagCode": "gb-sct",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Angus Gunn"
+    },
+    {
+     "name": "Jack Hendry"
+    },
+    {
+     "name": "Kieran Tierney"
+    },
+    {
+     "name": "Aaron Hickey"
+    },
+    {
+     "name": "Andrew Robertson"
+    },
+    {
+     "name": "Scott McKenna"
+    },
+    {
+     "name": "John Souttar"
+    },
+    {
+     "name": "Anthony Ralston"
+    },
+    {
+     "name": "Grant Hanley"
+    },
+    {
+     "name": "Scott McTominay"
+    },
+    {
+     "name": "Billy Gilmour"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Lewis Ferguson"
+    },
+    {
+     "name": "Ryan Christie"
+    },
+    {
+     "name": "Kenny McLean"
+    },
+    {
+     "name": "John McGinn"
+    },
+    {
+     "name": "Lyndon Dykes"
+    },
+    {
+     "name": "Che Adams"
+    },
+    {
+     "name": "Ben Gannon-Doak"
+    }
+   ]
+  },
+  {
+   "id": "USA",
+   "name": "Estados Unidos",
+   "flagCode": "us",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Math Freese"
+    },
+    {
+     "name": "Chris Richards"
+    },
+    {
+     "name": "Tim Ream"
+    },
+    {
+     "name": "Mark McKenzie"
+    },
+    {
+     "name": "Alex Freeman"
+    },
+    {
+     "name": "Antonee Robinson"
+    },
+    {
+     "name": "Tyler Adams"
+    },
+    {
+     "name": "Tanner Tessmann"
+    },
+    {
+     "name": "Weston McKenny"
+    },
+    {
+     "name": "Christian Roldan"
+    },
+    {
+     "name": "Timothy Weah"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Diego Luna"
+    },
+    {
+     "name": "Malik Tillman"
+    },
+    {
+     "name": "Christian Pulisic"
+    },
+    {
+     "name": "Brenden Aaronson"
+    },
+    {
+     "name": "Ricardo Pepi"
+    },
+    {
+     "name": "Haji Wright"
+    },
+    {
+     "name": "Folarin Balogun"
+    }
+   ]
+  },
+  {
+   "id": "PAR",
+   "name": "Paraguai",
+   "flagCode": "py",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Roberto Fernandez"
+    },
+    {
+     "name": "Orlando Gill"
+    },
+    {
+     "name": "Gustavo Gomez"
+    },
+    {
+     "name": "Fabián Balbuena"
+    },
+    {
+     "name": "Juan José Cáceres"
+    },
+    {
+     "name": "Omar Alderete"
+    },
+    {
+     "name": "Junior Alonso"
+    },
+    {
+     "name": "Mathías Villasanti"
+    },
+    {
+     "name": "Diego Gomez"
+    },
+    {
+     "name": "Damián Bobadilla"
+    },
+    {
+     "name": "Andres Cubas"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Matias Galarza Fonda"
+    },
+    {
+     "name": "Julio Enciso"
+    },
+    {
+     "name": "Alejandro Romero Gamarra"
+    },
+    {
+     "name": "Miguel Almirón"
+    },
+    {
+     "name": "Ramon Sosa"
+    },
+    {
+     "name": "Angel Romero"
+    },
+    {
+     "name": "Antonio Sanabria"
+    }
+   ]
+  },
+  {
+   "id": "AUS",
+   "name": "Austrália",
+   "flagCode": "au",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Mathew Ryan"
+    },
+    {
+     "name": "Joe Gauci"
+    },
+    {
+     "name": "Harry Souttar"
+    },
+    {
+     "name": "Alessandro Circati"
+    },
+    {
+     "name": "Jordan Bos"
+    },
+    {
+     "name": "Aziz Behich"
+    },
+    {
+     "name": "Cameron Burgess"
+    },
+    {
+     "name": "Lewis Miller"
+    },
+    {
+     "name": "Milos Degenek"
+    },
+    {
+     "name": "Jackson Irvine"
+    },
+    {
+     "name": "Riley McGree"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Aiden O'Neill"
+    },
+    {
+     "name": "Connor Metcalfe"
+    },
+    {
+     "name": "Patrick Yazbek"
+    },
+    {
+     "name": "Craig Goodwin"
+    },
+    {
+     "name": "Kusini Vengi"
+    },
+    {
+     "name": "Nestory Irankunda"
+    },
+    {
+     "name": "Mohamed Touré"
+    }
+   ]
+  },
+  {
+   "id": "TUR",
+   "name": "Turquia",
+   "flagCode": "tr",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Ugurcan Cakir"
+    },
+    {
+     "name": "Mert Muldur"
+    },
+    {
+     "name": "Zeki Celik"
+    },
+    {
+     "name": "Abdulkerim Bardakci"
+    },
+    {
+     "name": "Caglar Soyuncu"
+    },
+    {
+     "name": "Merih Demiral"
+    },
+    {
+     "name": "Ferdi Kadioglu"
+    },
+    {
+     "name": "Kaan Ayhan"
+    },
+    {
+     "name": "Ismail Yuksek"
+    },
+    {
+     "name": "Hakan Calhanoglu"
+    },
+    {
+     "name": "Orkun Kokcu"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Arda Guler"
+    },
+    {
+     "name": "Irfan Can Kahveci"
+    },
+    {
+     "name": "Yunus Akgun"
+    },
+    {
+     "name": "Can Uzun"
+    },
+    {
+     "name": "Baris Alper Yilmaz"
+    },
+    {
+     "name": "Kerem Akturkoglu"
+    },
+    {
+     "name": "Kenan Yildiz"
+    }
+   ]
+  },
+  {
+   "id": "GER",
+   "name": "Alemanha",
+   "flagCode": "de",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Marc-André ter Stegen"
+    },
+    {
+     "name": "Jonathan Tah"
+    },
+    {
+     "name": "David Raum"
+    },
+    {
+     "name": "Nico Schlotterbeck"
+    },
+    {
+     "name": "Antonio Rüdiger"
+    },
+    {
+     "name": "Waldemar Anton"
+    },
+    {
+     "name": "Ridle Baku"
+    },
+    {
+     "name": "Maximilian Mittelstadt"
+    },
+    {
+     "name": "Joshua Kimmich"
+    },
+    {
+     "name": "Florian Wirtz"
+    },
+    {
+     "name": "Felix Nmecha"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Leon Goretzka"
+    },
+    {
+     "name": "Jamal Musiala"
+    },
+    {
+     "name": "Serge Gnabry"
+    },
+    {
+     "name": "Kai Havertz"
+    },
+    {
+     "name": "Leroy Sane"
+    },
+    {
+     "name": "Karim Adeyemi"
+    },
+    {
+     "name": "Nick Woltemade"
+    }
+   ]
+  },
+  {
+   "id": "CUW",
+   "name": "Curaçao",
+   "flagCode": "cw",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Eloy Room"
+    },
+    {
+     "name": "Armando Obispo"
+    },
+    {
+     "name": "Sherel Floranus"
+    },
+    {
+     "name": "Jurien Gaari"
+    },
+    {
+     "name": "Joshua Brenet"
+    },
+    {
+     "name": "Roshon Van Eijma"
+    },
+    {
+     "name": "Shurandy Sambo"
+    },
+    {
+     "name": "Livano Comenencia"
+    },
+    {
+     "name": "Godfried Roemeratoe"
+    },
+    {
+     "name": "Juninho Bacuna"
+    },
+    {
+     "name": "Leandro Bacuna"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Tahith Chong"
+    },
+    {
+     "name": "Kenji Gorre"
+    },
+    {
+     "name": "Jearl Margaritha"
+    },
+    {
+     "name": "Jurgen Locadia"
+    },
+    {
+     "name": "Jeremy Antonisse"
+    },
+    {
+     "name": "Gervane Kastaneer"
+    },
+    {
+     "name": "Sontje Hansen"
+    }
+   ]
+  },
+  {
+   "id": "CIV",
+   "name": "Costa do Marfim",
+   "flagCode": "ci",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Yahia Fofana"
+    },
+    {
+     "name": "Ghislain Konan"
+    },
+    {
+     "name": "Wilfried Singo"
+    },
+    {
+     "name": "Odilon Kossounou"
+    },
+    {
+     "name": "Evan Ndicka"
+    },
+    {
+     "name": "Willy Boly"
+    },
+    {
+     "name": "Emmanuel Agbadou"
+    },
+    {
+     "name": "Ousmane Diomande"
+    },
+    {
+     "name": "Franck Kessie"
+    },
+    {
+     "name": "Seko Fofana"
+    },
+    {
+     "name": "Ibrahim Sangare"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Jean-Philippe Gbamin"
+    },
+    {
+     "name": "Amad Diallo"
+    },
+    {
+     "name": "Sébastien Haller"
+    },
+    {
+     "name": "Simon Adingra"
+    },
+    {
+     "name": "Yan Diomande"
+    },
+    {
+     "name": "Evann Guessand"
+    },
+    {
+     "name": "Oumar Diakite"
+    }
+   ]
+  },
+  {
+   "id": "ECU",
+   "name": "Equador",
+   "flagCode": "ec",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Hernán Galíndez"
+    },
+    {
+     "name": "Gonzalo Valle"
+    },
+    {
+     "name": "Piero Hincapié"
+    },
+    {
+     "name": "Pervis Estupiñán"
+    },
+    {
+     "name": "Willian Pacho"
+    },
+    {
+     "name": "Ángelo Preciado"
+    },
+    {
+     "name": "Joel Ordóñez"
+    },
+    {
+     "name": "Moises Caicedo"
+    },
+    {
+     "name": "Alan Franco"
+    },
+    {
+     "name": "Kendry Paez"
+    },
+    {
+     "name": "Pedro Vite"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "John Veboah"
+    },
+    {
+     "name": "Leonardo Campana"
+    },
+    {
+     "name": "Gonzalo Plata"
+    },
+    {
+     "name": "Nilson Angulo"
+    },
+    {
+     "name": "Alan Minda"
+    },
+    {
+     "name": "Kevin Rodriguez"
+    },
+    {
+     "name": "Enner Valencia"
+    }
+   ]
+  },
+  {
+   "id": "NED",
+   "name": "Holanda",
+   "flagCode": "nl",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Bart Verbruggen"
+    },
+    {
+     "name": "Virgil van Dijk"
+    },
+    {
+     "name": "Micky van de Ven"
+    },
+    {
+     "name": "Jurrien Timber"
+    },
+    {
+     "name": "Denzel Dumfries"
+    },
+    {
+     "name": "Nathan Aké"
+    },
+    {
+     "name": "Jeremie Frimpong"
+    },
+    {
+     "name": "Jan Paul van Hecke"
+    },
+    {
+     "name": "Tijjani Reijnders"
+    },
+    {
+     "name": "Ryan Gravenberch"
+    },
+    {
+     "name": "Teun Koopmeiners"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Frenkie de Jong"
+    },
+    {
+     "name": "Xavi Simons"
+    },
+    {
+     "name": "Justin Kluivert"
+    },
+    {
+     "name": "Memphis Depay"
+    },
+    {
+     "name": "Donyell Malen"
+    },
+    {
+     "name": "Wout Weghorst"
+    },
+    {
+     "name": "Cody Gakpo"
+    }
+   ]
+  },
+  {
+   "id": "JPN",
+   "name": "Japão",
+   "flagCode": "jp",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Zion Suzuki"
+    },
+    {
+     "name": "Henry Heroki Mochizuki"
+    },
+    {
+     "name": "Ayumu Seko"
+    },
+    {
+     "name": "Junnosuke Suzuki"
+    },
+    {
+     "name": "Shogo Taniguchi"
+    },
+    {
+     "name": "Tsuyoshi Watanabe"
+    },
+    {
+     "name": "Kaishu Sano"
+    },
+    {
+     "name": "Yuki Soma"
+    },
+    {
+     "name": "Ao Tanaka"
+    },
+    {
+     "name": "Daichi Kamada"
+    },
+    {
+     "name": "Takefusa Kubo"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Ritsu Doan"
+    },
+    {
+     "name": "Keito Nakamura"
+    },
+    {
+     "name": "Takumi Minamino"
+    },
+    {
+     "name": "Shuto Machino"
+    },
+    {
+     "name": "Junya Ito"
+    },
+    {
+     "name": "Koki Ogawa"
+    },
+    {
+     "name": "Ayase Ueda"
+    }
+   ]
+  },
+  {
+   "id": "SWE",
+   "name": "Suécia",
+   "flagCode": "se",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Victor Johansson"
+    },
+    {
+     "name": "Isak Hien"
+    },
+    {
+     "name": "Gabriel Gudmundsson"
+    },
+    {
+     "name": "Emil Holm"
+    },
+    {
+     "name": "Victor Nilsson Lindelöf"
+    },
+    {
+     "name": "Gustaf Lagerbielke"
+    },
+    {
+     "name": "Lucas Bergvall"
+    },
+    {
+     "name": "Hugo Larsson"
+    },
+    {
+     "name": "Jesper Karlström"
+    },
+    {
+     "name": "Yasin Ayari"
+    },
+    {
+     "name": "Mattias Svanberg"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Daniel Svensson"
+    },
+    {
+     "name": "Ken Sema"
+    },
+    {
+     "name": "Roony Bardghji"
+    },
+    {
+     "name": "Dejan Kulusevski"
+    },
+    {
+     "name": "Anthony Elanga"
+    },
+    {
+     "name": "Alexander Isak"
+    },
+    {
+     "name": "Viktor Gyökeres"
+    }
+   ]
+  },
+  {
+   "id": "TUN",
+   "name": "Tunísia",
+   "flagCode": "tn",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Bechir Ben Said"
+    },
+    {
+     "name": "Aymen Dahmen"
+    },
+    {
+     "name": "Yan Valery"
+    },
+    {
+     "name": "Montassar Talbi"
+    },
+    {
+     "name": "Yassine Meriah"
+    },
+    {
+     "name": "Ali Abdi"
+    },
+    {
+     "name": "Dylan Bronn"
+    },
+    {
+     "name": "Ellyes Skhiri"
+    },
+    {
+     "name": "Aissa Laidouni"
+    },
+    {
+     "name": "Ferjani Sassi"
+    },
+    {
+     "name": "Mohamed Ali Ben Romdhane"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Hannibal Mejbri"
+    },
+    {
+     "name": "Elias Achouri"
+    },
+    {
+     "name": "Elias Saad"
+    },
+    {
+     "name": "Hazem Mastouri"
+    },
+    {
+     "name": "Ismael Gharbi"
+    },
+    {
+     "name": "Sayfallah Ltaief"
+    },
+    {
+     "name": "Naim Sliti"
+    }
+   ]
+  },
+  {
+   "id": "BEL",
+   "name": "Bélgica",
+   "flagCode": "be",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Thibaut Courtois"
+    },
+    {
+     "name": "Arthur Theate"
+    },
+    {
+     "name": "Timothy Castagne"
+    },
+    {
+     "name": "Zeno Debast"
+    },
+    {
+     "name": "Brandon Mechele"
+    },
+    {
+     "name": "Maxim De Cuyper"
+    },
+    {
+     "name": "Thomas Meunier"
+    },
+    {
+     "name": "Youri Tielemans"
+    },
+    {
+     "name": "Amadou Onana"
+    },
+    {
+     "name": "Nicolas Raskin"
+    },
+    {
+     "name": "Alexis Saelemaekers"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Hans Vanaken"
+    },
+    {
+     "name": "Kevin De Bruyne"
+    },
+    {
+     "name": "Jérémy Doku"
+    },
+    {
+     "name": "Charles De Ketelaere"
+    },
+    {
+     "name": "Leandro Trossard"
+    },
+    {
+     "name": "Loïs Openda"
+    },
+    {
+     "name": "Romelu Lukaku"
+    }
+   ]
+  },
+  {
+   "id": "EGY",
+   "name": "Egito",
+   "flagCode": "eg",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Mohamed El Shenawy"
+    },
+    {
+     "name": "Mohamed Hany"
+    },
+    {
+     "name": "Mohamed Hamdy"
+    },
+    {
+     "name": "Yasser Ibrahim"
+    },
+    {
+     "name": "Khaled Sobhi"
+    },
+    {
+     "name": "Ramy Rabia"
+    },
+    {
+     "name": "Hossam Abdelmaguid"
+    },
+    {
+     "name": "Ahmed Fatouh"
+    },
+    {
+     "name": "Marwan Attia"
+    },
+    {
+     "name": "Zizo"
+    },
+    {
+     "name": "Hamdy Fathy"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Mohamed Lasheen"
+    },
+    {
+     "name": "Emam Ashour"
+    },
+    {
+     "name": "Osama Faisal"
+    },
+    {
+     "name": "Mohamed Salah"
+    },
+    {
+     "name": "Mostafa Mohamed"
+    },
+    {
+     "name": "Trezeguet"
+    },
+    {
+     "name": "Omar Marmoush"
+    }
+   ]
+  },
+  {
+   "id": "IRN",
+   "name": "Irã",
+   "flagCode": "ir",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Alireza Beiranvand"
+    },
+    {
+     "name": "Morteza Pouraliganji"
+    },
+    {
+     "name": "Ehsan Hajsafi"
+    },
+    {
+     "name": "Milad Mohammadi"
+    },
+    {
+     "name": "Shojae Khalilzadeh"
+    },
+    {
+     "name": "Ramin Rezaeian"
+    },
+    {
+     "name": "Hossein Kanaani"
+    },
+    {
+     "name": "Sadegh Moharrami"
+    },
+    {
+     "name": "Saleh Hardani"
+    },
+    {
+     "name": "Saeed Ezatolahi"
+    },
+    {
+     "name": "Saman Ghoddos"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Omid Noorafkan"
+    },
+    {
+     "name": "Roozbeh Cheshmi"
+    },
+    {
+     "name": "Mohammad Mohebi"
+    },
+    {
+     "name": "Sardar Azmoun"
+    },
+    {
+     "name": "Mehdi Taremi"
+    },
+    {
+     "name": "Alireza Jahanbakhsh"
+    },
+    {
+     "name": "Ali Gholizadeh"
+    }
+   ]
+  },
+  {
+   "id": "NZL",
+   "name": "Nova Zelândia",
+   "flagCode": "nz",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Max Crocombe Payne"
+    },
+    {
+     "name": "Alex Paulsen"
+    },
+    {
+     "name": "Michael Boxall"
+    },
+    {
+     "name": "Liberato Cacace"
+    },
+    {
+     "name": "Tim Payne"
+    },
+    {
+     "name": "Tyler Bindon"
+    },
+    {
+     "name": "Francis de Vries"
+    },
+    {
+     "name": "Finn Surman"
+    },
+    {
+     "name": "Joe Bell"
+    },
+    {
+     "name": "Sarpreet Singh"
+    },
+    {
+     "name": "Ryan Thomas"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Matthew Garbett"
+    },
+    {
+     "name": "Marko Stamenić"
+    },
+    {
+     "name": "Ben Old"
+    },
+    {
+     "name": "Chris Wood"
+    },
+    {
+     "name": "Elijah Just"
+    },
+    {
+     "name": "Callum McCowatt"
+    },
+    {
+     "name": "Kosta Barbarouses"
+    }
+   ]
+  },
+  {
+   "id": "ESP",
+   "name": "Espanha",
+   "flagCode": "es",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Unai Simon"
+    },
+    {
+     "name": "Robin Le Normand"
+    },
+    {
+     "name": "Aymeric Laporte"
+    },
+    {
+     "name": "Dean Huijsen"
+    },
+    {
+     "name": "Pedro Porro"
+    },
+    {
+     "name": "Dani Carvajal"
+    },
+    {
+     "name": "Marc Cucurella"
+    },
+    {
+     "name": "Martín Zubimendi"
+    },
+    {
+     "name": "Rodri"
+    },
+    {
+     "name": "Pedri"
+    },
+    {
+     "name": "Fabian Ruiz"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Mikel Merino"
+    },
+    {
+     "name": "Lamine Yamal"
+    },
+    {
+     "name": "Dani Olmo"
+    },
+    {
+     "name": "Nico Williams"
+    },
+    {
+     "name": "Ferran Torres"
+    },
+    {
+     "name": "Álvaro Morata"
+    },
+    {
+     "name": "Mikel Oyarzabal"
+    }
+   ]
+  },
+  {
+   "id": "CPV",
+   "name": "Cabo Verde",
+   "flagCode": "cv",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Vozinha"
+    },
+    {
+     "name": "Logan Costa"
+    },
+    {
+     "name": "Pico"
+    },
+    {
+     "name": "Diney"
+    },
+    {
+     "name": "Steven Moreira"
+    },
+    {
+     "name": "Wagner Pina"
+    },
+    {
+     "name": "Joao Paulo"
+    },
+    {
+     "name": "Yannick Semedo"
+    },
+    {
+     "name": "Kevin Pina"
+    },
+    {
+     "name": "Patrick Andrade"
+    },
+    {
+     "name": "Jamiro Monteiro"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Deroy Duarte"
+    },
+    {
+     "name": "Garry Rodrigues"
+    },
+    {
+     "name": "Jovane Cabral"
+    },
+    {
+     "name": "Ryan Mendes"
+    },
+    {
+     "name": "Dailon Livramento"
+    },
+    {
+     "name": "Willy Semedo"
+    },
+    {
+     "name": "Bebe"
+    }
+   ]
+  },
+  {
+   "id": "KSA",
+   "name": "Arábia Saudita",
+   "flagCode": "sa",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Nawaf Alaqidi"
+    },
+    {
+     "name": "Abdulrahman Al-Sanbi"
+    },
+    {
+     "name": "Saud Abdulhamid"
+    },
+    {
+     "name": "Nawaf Bouwashl"
+    },
+    {
+     "name": "Jihad Thakri"
+    },
+    {
+     "name": "Moteb Al-Harbi"
+    },
+    {
+     "name": "Hassan Altambakti"
+    },
+    {
+     "name": "Musab Aljuwayr"
+    },
+    {
+     "name": "Ziyad Aljohani"
+    },
+    {
+     "name": "Abdullah Alkhaibari"
+    },
+    {
+     "name": "Nasser Aldawsari"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Saleh Abu Alshamat"
+    },
+    {
+     "name": "Marwan Alsahafi"
+    },
+    {
+     "name": "Salem Aldawsari"
+    },
+    {
+     "name": "Abdulrahman Al-Aboud"
+    },
+    {
+     "name": "Feras Akbrikan"
+    },
+    {
+     "name": "Saleh Alshehri"
+    },
+    {
+     "name": "Abdullah Al-Hamdan"
+    }
+   ]
+  },
+  {
+   "id": "URU",
+   "name": "Uruguai",
+   "flagCode": "uy",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Sergio Rochet"
+    },
+    {
+     "name": "Santiago Mele"
+    },
+    {
+     "name": "Ronald Araujo"
+    },
+    {
+     "name": "José María Giménez"
+    },
+    {
+     "name": "Sebastian Caceres"
+    },
+    {
+     "name": "Mathias Olivera"
+    },
+    {
+     "name": "Guillermo Varela"
+    },
+    {
+     "name": "Nahitan Nandez"
+    },
+    {
+     "name": "Federico Valverde"
+    },
+    {
+     "name": "Giorgian De Arrascaeta"
+    },
+    {
+     "name": "Rodrigo Bentancur"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Manuel Ugarte"
+    },
+    {
+     "name": "Nicolás de la Cruz"
+    },
+    {
+     "name": "Maxi Araujo"
+    },
+    {
+     "name": "Darwin Núñez"
+    },
+    {
+     "name": "Federico Viñas"
+    },
+    {
+     "name": "Rodrigo Aguirre"
+    },
+    {
+     "name": "Facundo Pellistri"
+    }
+   ]
+  },
+  {
+   "id": "FRA",
+   "name": "França",
+   "flagCode": "fr",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Mike Maignan"
+    },
+    {
+     "name": "Theo Hernandez"
+    },
+    {
+     "name": "William Saliba"
+    },
+    {
+     "name": "Jules Kounde"
+    },
+    {
+     "name": "Ibrahima Konate"
+    },
+    {
+     "name": "Dayot Upamecano"
+    },
+    {
+     "name": "Lucas Digne"
+    },
+    {
+     "name": "Aurélien Tchouaméni"
+    },
+    {
+     "name": "Eduardo Camavinga"
+    },
+    {
+     "name": "Manu Kone"
+    },
+    {
+     "name": "Adrien Rabiot"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Michael Olise"
+    },
+    {
+     "name": "Ousmane Dembele"
+    },
+    {
+     "name": "Bradley Barcola"
+    },
+    {
+     "name": "Désiré Doué"
+    },
+    {
+     "name": "Kingsley Coman"
+    },
+    {
+     "name": "Hugo Ekitike"
+    },
+    {
+     "name": "Kylian Mbappe"
+    }
+   ]
+  },
+  {
+   "id": "SEN",
+   "name": "Senegal",
+   "flagCode": "sn",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Edouard Mendy"
+    },
+    {
+     "name": "Yehvann Diouf"
+    },
+    {
+     "name": "Moussa Niakhaté"
+    },
+    {
+     "name": "Abdoulaye Seck"
+    },
+    {
+     "name": "Ismail Jakobs"
+    },
+    {
+     "name": "El Hadji Malick Diouf"
+    },
+    {
+     "name": "Kalidou Koulibaly"
+    },
+    {
+     "name": "Idrissa Gana Gueye"
+    },
+    {
+     "name": "Pape Matar Sarr"
+    },
+    {
+     "name": "Pape Gueye"
+    },
+    {
+     "name": "Habib Diarra"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Lamine Camara"
+    },
+    {
+     "name": "Sadio Mane"
+    },
+    {
+     "name": "Ismaïla Sarr"
+    },
+    {
+     "name": "Boulaye Dia"
+    },
+    {
+     "name": "Iliman Ndiaye"
+    },
+    {
+     "name": "Nicolas Jackson"
+    },
+    {
+     "name": "Krepin Diatta"
+    }
+   ]
+  },
+  {
+   "id": "IRQ",
+   "name": "Iraque",
+   "flagCode": "iq",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Jalal Hassan"
+    },
+    {
+     "name": "Rebin Sulaka"
+    },
+    {
+     "name": "Hussein Ali"
+    },
+    {
+     "name": "Akam Hashem"
+    },
+    {
+     "name": "Merchas Doski"
+    },
+    {
+     "name": "Zaid Tahseen"
+    },
+    {
+     "name": "Manaf Younis"
+    },
+    {
+     "name": "Zidane Iqbal"
+    },
+    {
+     "name": "Amir Al-Ammari"
+    },
+    {
+     "name": "Ibrahim Bavesh"
+    },
+    {
+     "name": "Ali Jasim"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Youssef Amyn"
+    },
+    {
+     "name": "Aimar Sher"
+    },
+    {
+     "name": "Marko Farji"
+    },
+    {
+     "name": "Osama Rashid"
+    },
+    {
+     "name": "Ali Al-Hamadi"
+    },
+    {
+     "name": "Aymen Hussein"
+    },
+    {
+     "name": "Mohanad Ali"
+    }
+   ]
+  },
+  {
+   "id": "NOR",
+   "name": "Noruega",
+   "flagCode": "no",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Orjan Nyland"
+    },
+    {
+     "name": "Julian Ryerson"
+    },
+    {
+     "name": "Leo Ostigård"
+    },
+    {
+     "name": "Kristoffer Vassbakk Ajer"
+    },
+    {
+     "name": "Marcus Holmgren Pedersen"
+    },
+    {
+     "name": "David Møller Wolfe"
+    },
+    {
+     "name": "Torbjørn Heggem"
+    },
+    {
+     "name": "Morten Thorsby"
+    },
+    {
+     "name": "Martin Ødegaard"
+    },
+    {
+     "name": "Sander Berge"
+    },
+    {
+     "name": "Andreas Schjelderup"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Patrick Berg"
+    },
+    {
+     "name": "Erling Haaland"
+    },
+    {
+     "name": "Alexander Sørloth"
+    },
+    {
+     "name": "Aron Dønnum"
+    },
+    {
+     "name": "Jorgen Strand Larsen"
+    },
+    {
+     "name": "Antonio Nusa"
+    },
+    {
+     "name": "Oscar Bobb"
+    }
+   ]
+  },
+  {
+   "id": "ARG",
+   "name": "Argentina",
+   "flagCode": "ar",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Emiliano Martinez"
+    },
+    {
+     "name": "Nahuel Molina"
+    },
+    {
+     "name": "Cristian Romero"
+    },
+    {
+     "name": "Nicolas Otamendi"
+    },
+    {
+     "name": "Nicolas Tagliafico"
+    },
+    {
+     "name": "Leonardo Balerdi"
+    },
+    {
+     "name": "Enzo Fernandez"
+    },
+    {
+     "name": "Alexis Mac Allister"
+    },
+    {
+     "name": "Rodrigo De Paul"
+    },
+    {
+     "name": "Exequiel Palacios"
+    },
+    {
+     "name": "Leandro Paredes"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Nico Paz"
+    },
+    {
+     "name": "Franco Mastantuono"
+    },
+    {
+     "name": "Nico Gonzalez"
+    },
+    {
+     "name": "Lionel Messi"
+    },
+    {
+     "name": "Lautaro Martinez"
+    },
+    {
+     "name": "Julian Alvarez"
+    },
+    {
+     "name": "Giuliano Simeone"
+    }
+   ]
+  },
+  {
+   "id": "ALG",
+   "name": "Argélia",
+   "flagCode": "dz",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Alexis Guendouz"
+    },
+    {
+     "name": "Ramy Bensebaini"
+    },
+    {
+     "name": "Youcef Atal"
+    },
+    {
+     "name": "Rayan Aït-Nouri"
+    },
+    {
+     "name": "Mohamed Amine Tougai"
+    },
+    {
+     "name": "Aïssa Mandi"
+    },
+    {
+     "name": "Ismael Bennacer"
+    },
+    {
+     "name": "Houssem Aquar"
+    },
+    {
+     "name": "Hicham Boudaoui"
+    },
+    {
+     "name": "Ramiz Zerrouki"
+    },
+    {
+     "name": "Nabil Bentalab"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Farés Chaibi"
+    },
+    {
+     "name": "Riyad Mahrez"
+    },
+    {
+     "name": "Said Benrahma"
+    },
+    {
+     "name": "Anis Hadj Moussa"
+    },
+    {
+     "name": "Amine Gouiri"
+    },
+    {
+     "name": "Baghdad Bounedjah"
+    },
+    {
+     "name": "Mohammed Amoura"
+    }
+   ]
+  },
+  {
+   "id": "AUT",
+   "name": "Áustria",
+   "flagCode": "at",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Alexander Schlager"
+    },
+    {
+     "name": "Patrick Pentz"
+    },
+    {
+     "name": "David Alaba"
+    },
+    {
+     "name": "Kevin Danso"
+    },
+    {
+     "name": "Philipp Lienhart"
+    },
+    {
+     "name": "Stefan Posch"
+    },
+    {
+     "name": "Phillipp Mwene"
+    },
+    {
+     "name": "Alexander Prass"
+    },
+    {
+     "name": "Xaver Schlager"
+    },
+    {
+     "name": "Marcel Sabitzer"
+    },
+    {
+     "name": "Konrad Laimer"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Florian Grillitsch"
+    },
+    {
+     "name": "Nicolas Seiwald"
+    },
+    {
+     "name": "Romano Schmid"
+    },
+    {
+     "name": "Patrick Wimmer"
+    },
+    {
+     "name": "Christoph Baumgartner"
+    },
+    {
+     "name": "Michael Gregoritsch"
+    },
+    {
+     "name": "Marko Arnautović"
+    }
+   ]
+  },
+  {
+   "id": "JOR",
+   "name": "Jordânia",
+   "flagCode": "jo",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Yazeed Abulaila"
+    },
+    {
+     "name": "Ihsan Haddad"
+    },
+    {
+     "name": "Mohammad Abu Hashish"
+    },
+    {
+     "name": "Yazan Al-Arab"
+    },
+    {
+     "name": "Abdallah Nasib"
+    },
+    {
+     "name": "Saleem Obaid"
+    },
+    {
+     "name": "Mohammad Abualnadi"
+    },
+    {
+     "name": "Ibrahim Saadeh"
+    },
+    {
+     "name": "Nizar Al-Rashdan"
+    },
+    {
+     "name": "Noor Al-Rawabdeh"
+    },
+    {
+     "name": "Mohannad Abu Taha"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Amer Jamous"
+    },
+    {
+     "name": "Musa Al-Taamari"
+    },
+    {
+     "name": "Yazan Al-Naimat"
+    },
+    {
+     "name": "Mahmoud Al-Mardi"
+    },
+    {
+     "name": "Ali Olwan"
+    },
+    {
+     "name": "Mohammad Abu Zrayq"
+    },
+    {
+     "name": "Ibrahim Sabra"
+    }
+   ]
+  },
+  {
+   "id": "POR",
+   "name": "Portugal",
+   "flagCode": "pt",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Diogo Costa"
+    },
+    {
+     "name": "Jose Sa"
+    },
+    {
+     "name": "Ruben Dias"
+    },
+    {
+     "name": "João Cancelo"
+    },
+    {
+     "name": "Diogo Dalot"
+    },
+    {
+     "name": "Nuno Mendes"
+    },
+    {
+     "name": "Gonçalo Inácio"
+    },
+    {
+     "name": "Bernardo Silva"
+    },
+    {
+     "name": "Bruno Fernandes"
+    },
+    {
+     "name": "Ruben Neves"
+    },
+    {
+     "name": "Vitinha"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "João Neves"
+    },
+    {
+     "name": "Cristiano Ronaldo"
+    },
+    {
+     "name": "Francisco Trincao"
+    },
+    {
+     "name": "João Felix"
+    },
+    {
+     "name": "Gonçalo Ramos"
+    },
+    {
+     "name": "Pedro Neto"
+    },
+    {
+     "name": "Rafael Leão"
+    }
+   ]
+  },
+  {
+   "id": "COD",
+   "name": "Congo (RD)",
+   "flagCode": "cd",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Lionel Mpasi"
+    },
+    {
+     "name": "Aaron Wan-Bissaka"
+    },
+    {
+     "name": "Axel Tuanzebe"
+    },
+    {
+     "name": "Arthur Masuaku"
+    },
+    {
+     "name": "Chancel Mbemba"
+    },
+    {
+     "name": "Joris Kayembe"
+    },
+    {
+     "name": "Charles Pickel"
+    },
+    {
+     "name": "Ngal'ayel Mukau"
+    },
+    {
+     "name": "Edo Kayembe"
+    },
+    {
+     "name": "Samuel Moutoussamy"
+    },
+    {
+     "name": "Noah Sadiki"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Théo Bongonda"
+    },
+    {
+     "name": "Meschak Elia"
+    },
+    {
+     "name": "Yoane Wissa"
+    },
+    {
+     "name": "Brian Cipenga"
+    },
+    {
+     "name": "Fiston Mayele"
+    },
+    {
+     "name": "Cédric Bakambu"
+    },
+    {
+     "name": "Nathanaël Mbuku"
+    }
+   ]
+  },
+  {
+   "id": "UZB",
+   "name": "Uzbequistão",
+   "flagCode": "uz",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Utkir Yusupov"
+    },
+    {
+     "name": "Farrukh Savfiev"
+    },
+    {
+     "name": "Sherzod Nasrullaev"
+    },
+    {
+     "name": "Umar Eshmurodov"
+    },
+    {
+     "name": "Husniddin Aliqulov"
+    },
+    {
+     "name": "Rustamjon Ashurmatov"
+    },
+    {
+     "name": "Khojiakbar Alijonov"
+    },
+    {
+     "name": "Abdukodir Khusanov"
+    },
+    {
+     "name": "Odiljon Hamrobekov"
+    },
+    {
+     "name": "Otabek Shukurov"
+    },
+    {
+     "name": "Jamshid Iskanderov"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Azizbek Turgunboev"
+    },
+    {
+     "name": "Khojimat Erkinov"
+    },
+    {
+     "name": "Eldor Shomurodov"
+    },
+    {
+     "name": "Oston Urunov"
+    },
+    {
+     "name": "Jaloliddin Masharipov"
+    },
+    {
+     "name": "Igor Sergeev"
+    },
+    {
+     "name": "Abbosbek Fayzullaev"
+    }
+   ]
+  },
+  {
+   "id": "COL",
+   "name": "Colômbia",
+   "flagCode": "co",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Camilo Vargas"
+    },
+    {
+     "name": "David Ospina"
+    },
+    {
+     "name": "Dávinson Sánchez"
+    },
+    {
+     "name": "Yerry Mina"
+    },
+    {
+     "name": "Daniel Munoz"
+    },
+    {
+     "name": "Johan Mojica"
+    },
+    {
+     "name": "Jhon Lucumí"
+    },
+    {
+     "name": "Santiago Arias"
+    },
+    {
+     "name": "Jefferson Lerma"
+    },
+    {
+     "name": "Kevin Castaño"
+    },
+    {
+     "name": "Richard Rios"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "James Rodriguez"
+    },
+    {
+     "name": "Juan Fernando Quintero"
+    },
+    {
+     "name": "Jorge Carrascal"
+    },
+    {
+     "name": "Jon Arias"
+    },
+    {
+     "name": "Jhon Cordova"
+    },
+    {
+     "name": "Luis Suarez"
+    },
+    {
+     "name": "Luis Diaz"
+    }
+   ]
+  },
+  {
+   "id": "ENG",
+   "name": "Inglaterra",
+   "flagCode": "gb-eng",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Jordan Pickford"
+    },
+    {
+     "name": "John Stones"
+    },
+    {
+     "name": "Marc Guéhi"
+    },
+    {
+     "name": "Ezri Konsa"
+    },
+    {
+     "name": "Trent Alexander-Arnold"
+    },
+    {
+     "name": "Reece James"
+    },
+    {
+     "name": "Dan Burn"
+    },
+    {
+     "name": "Jordan Henderson"
+    },
+    {
+     "name": "Declan Rice"
+    },
+    {
+     "name": "Jude Bellingham"
+    },
+    {
+     "name": "Cole Palmer"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Morgan Rogers"
+    },
+    {
+     "name": "Anthony Gordon"
+    },
+    {
+     "name": "Phil Foden"
+    },
+    {
+     "name": "Bukayo Saka"
+    },
+    {
+     "name": "Harry Kane"
+    },
+    {
+     "name": "Marcus Rashford"
+    },
+    {
+     "name": "Ollie Watkins"
+    }
+   ]
+  },
+  {
+   "id": "CRO",
+   "name": "Croácia",
+   "flagCode": "hr",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Dominik Livaković"
+    },
+    {
+     "name": "Duje Caleta-Car"
+    },
+    {
+     "name": "Josko Gvardiol"
+    },
+    {
+     "name": "Josip Stanišić"
+    },
+    {
+     "name": "Luka Vušković"
+    },
+    {
+     "name": "Josip Sutalo"
+    },
+    {
+     "name": "Kristijan Jakic"
+    },
+    {
+     "name": "Luka Modrić"
+    },
+    {
+     "name": "Mateo Kovacic"
+    },
+    {
+     "name": "Martin Baturina"
+    },
+    {
+     "name": "Lovro Majer"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Mario Pasalic"
+    },
+    {
+     "name": "Petar Sucic"
+    },
+    {
+     "name": "Ivan Perišić"
+    },
+    {
+     "name": "Marco Pasalic"
+    },
+    {
+     "name": "Ante Budimir"
+    },
+    {
+     "name": "Andrej Kramarić"
+    },
+    {
+     "name": "Franjo Ivanovic"
+    }
+   ]
+  },
+  {
+   "id": "GHA",
+   "name": "Gana",
+   "flagCode": "gh",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Lawrence Ati Zigi"
+    },
+    {
+     "name": "Tariq Lamptey"
+    },
+    {
+     "name": "Mohammed Salisu"
+    },
+    {
+     "name": "Alidu Seidu"
+    },
+    {
+     "name": "Alexander Djiku"
+    },
+    {
+     "name": "Gideon Mensah"
+    },
+    {
+     "name": "Caleb Yirenkyi"
+    },
+    {
+     "name": "Abdul Issahaku Fatawu"
+    },
+    {
+     "name": "Thomas Partey"
+    },
+    {
+     "name": "Salis Abdul Samed"
+    },
+    {
+     "name": "Kamaldeen Sulemana"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Mohammed Kudus"
+    },
+    {
+     "name": "Inaki Williams"
+    },
+    {
+     "name": "Jordan Ayew"
+    },
+    {
+     "name": "Andrew Ayew"
+    },
+    {
+     "name": "Joseph Paintsil"
+    },
+    {
+     "name": "Osman Bukari"
+    },
+    {
+     "name": "Antoine Semenyo"
+    }
+   ]
+  },
+  {
+   "id": "PAN",
+   "name": "Panamá",
+   "flagCode": "pa",
+   "stickers": [
+    {
+     "name": "Escudo",
+     "special": true
+    },
+    {
+     "name": "Orlando Mosquera"
+    },
+    {
+     "name": "Luis Mejia"
+    },
+    {
+     "name": "Fidel Escobar"
+    },
+    {
+     "name": "Andres Andrade"
+    },
+    {
+     "name": "Michael Amir Murillo"
+    },
+    {
+     "name": "Eric Davis"
+    },
+    {
+     "name": "Jose Cordoba"
+    },
+    {
+     "name": "Cesar Blackman"
+    },
+    {
+     "name": "Cristian Martinez"
+    },
+    {
+     "name": "Aníbal Godoy"
+    },
+    {
+     "name": "Adalberto Carrasquilla"
+    },
+    {
+     "name": "Foto da equipe"
+    },
+    {
+     "name": "Édgar Bárcenas"
+    },
+    {
+     "name": "Carlos Harvey"
+    },
+    {
+     "name": "Ismael Díaz"
+    },
+    {
+     "name": "Jose Fajardo"
+    },
+    {
+     "name": "Cecilio Waterman"
+    },
+    {
+     "name": "Jose Luiz Rodriguez"
+    },
+    {
+     "name": "Alberto Quintero"
+    }
+   ]
+  }
+ ]
+}

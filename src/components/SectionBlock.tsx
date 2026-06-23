@@ -102,6 +102,7 @@ export function SectionBlock({ section, state, onCycle, onReset, filter, isColla
                 id={st.id}
                 name={st.name}
                 flagUrl={flagUrl}
+                special={st.special}
                 stickerState={state[st.id] ?? { status: 'missing', count: 0 }}
                 onPress={() => onCycle(st.id)}
                 onReset={() => onReset(st.id)}

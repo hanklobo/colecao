@@ -2,9 +2,10 @@ import { useMemo, useRef, useState } from 'react';
 import type { AlbumState } from '../types';
 import { SECTIONS, TOTAL_STICKERS, STICKER_MAP } from '../data/album2026';
 import { getFlagUrl } from '../utils/flags';
-import { computeAchievements } from '../utils/achievements';
+import { computeAchievements, specialOwned, TOTAL_SPECIAL } from '../utils/achievements';
 import { shareProgressCard } from '../utils/shareCard';
 import { exportAlbum, parseAlbumFile } from '../utils/backup';
+import { AchievementsGrid } from '../components/Achievements';
 import { CheckIcon, ShareIcon, DownloadIcon, UploadIcon } from '../components/Icons';
 
 interface Props {
@@ -41,6 +42,7 @@ export function StatsView({ state, myName, onImport }: Props) {
 
   const achievements = useMemo(() => computeAchievements(state), [state]);
   const earnedCount = achievements.filter((a) => a.earned).length;
+  const specials = specialOwned(state);
 
   const [sharing, setSharing] = useState(false);
   const [shareMsg, setShareMsg] = useState<string | null>(null);
@@ -93,7 +95,7 @@ export function StatsView({ state, myName, onImport }: Props) {
             style={{ width: `${pct}%` }}
           />
         </div>
-        <div className="flex gap-6 mt-3">
+        <div className="flex gap-5 mt-3">
           <div>
             <p className="text-white font-bold text-lg tabular-nums">{totalHave}</p>
             <p className="text-white/60 text-xs font-medium">tenho</p>
@@ -105,6 +107,10 @@ export function StatsView({ state, myName, onImport }: Props) {
           <div>
             <p className="text-copa-gold font-bold text-lg tabular-nums">{totalDuplicates}</p>
             <p className="text-white/60 text-xs font-medium">repetidas</p>
+          </div>
+          <div>
+            <p className="text-amber-300 font-bold text-lg tabular-nums">{specials}/{TOTAL_SPECIAL}</p>
+            <p className="text-white/60 text-xs font-medium">✨ especiais</p>
           </div>
         </div>
 
@@ -127,36 +133,8 @@ export function StatsView({ state, myName, onImport }: Props) {
             {earnedCount}/{achievements.length}
           </span>
         </div>
-        <div className="grid grid-cols-3 gap-2.5">
-          {achievements.map((a) => {
-            const progressPct = Math.min(100, Math.round((a.current / a.target) * 100));
-            return (
-              <div
-                key={a.id}
-                className={`rounded-2xl p-3 text-center border transition-all ${
-                  a.earned
-                    ? 'bg-white border-copa-gold/40 shadow-card'
-                    : 'bg-gray-100 border-gray-200'
-                }`}
-                title={a.desc}
-              >
-                <div className={`text-3xl leading-none mb-1.5 ${a.earned ? '' : 'grayscale opacity-40'}`}>
-                  {a.icon}
-                </div>
-                <p className={`text-[10px] font-bold leading-tight ${a.earned ? 'text-gray-800' : 'text-gray-400'}`}>
-                  {a.title}
-                </p>
-                {a.earned ? (
-                  <p className="text-[9px] font-semibold text-emerald-600 mt-1">✓ desbloqueada</p>
-                ) : (
-                  <div className="mt-1.5 h-1 bg-gray-200 rounded-full overflow-hidden">
-                    <div className="h-full bg-copa-blue/60 rounded-full" style={{ width: `${progressPct}%` }} />
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
+        <p className="text-gray-400 text-xs mb-3 -mt-1">Toque num brasão para ver os detalhes e sua evolução.</p>
+        <AchievementsGrid achievements={achievements} albumPct={Math.round(pct)} />
       </div>
 
       {/* Per-section */}

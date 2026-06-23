@@ -11,6 +11,7 @@ export interface Sticker {
   id: number;
   name: string;
   sectionId: string;
+  special?: boolean;
 }
 
 export interface Section {
