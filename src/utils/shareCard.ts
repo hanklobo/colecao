@@ -67,12 +67,12 @@ export async function generateProgressCard(data: CardData): Promise<Blob | null>
   ctx.font = `700 30px ${SANS}`;
   ctx.fillText(data.name || 'Meu álbum', 360, 60);
 
-  // Stat number chips over the four cards
+  // Stat number chips over the four cards (centers measured on the template)
   const chips: [number, string, string][] = [
-    [92, `${data.have}`, '#ffffff'],
-    [248, `${data.missing}`, '#ff9a9a'],
-    [410, `${data.duplicates}`, '#ffd54a'],
-    [572, `${data.special}`, '#ffe08a'],
+    [111, `${data.have}`, '#ffffff'],
+    [264, `${data.missing}`, '#ff9a9a'],
+    [422, `${data.duplicates}`, '#ffd54a'],
+    [577, `${data.special}`, '#ffe08a'],
   ];
   for (const [cx, value, color] of chips) {
     ctx.fillStyle = 'rgba(6,18,42,0.85)';
