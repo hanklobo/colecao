@@ -55,7 +55,10 @@ export function StatsView({ state, myName, onImport }: Props) {
       total: TOTAL_STICKERS,
       duplicates: totalDuplicates,
       missing: totalMissing,
+      special: specials,
+      specialTotal: TOTAL_SPECIAL,
       badges: earnedCount,
+      badgesTotal: achievements.length,
     });
     setSharing(false);
     if (result === 'downloaded') {

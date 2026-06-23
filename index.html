@@ -7,8 +7,17 @@
     <link rel="apple-touch-icon" href="/icon-192.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#0b2e6b" />
-    <title>Coleção Copa 2026 · Álbum de Figurinhas</title>
-    <meta name="description" content="Organize, acompanhe e troque as figurinhas do álbum da Copa do Mundo 2026 — de graça, direto no celular." />
+    <title>Coleção Copa 2026 · Álbum de Figurinhas online grátis (checklist e troca)</title>
+    <meta name="description" content="Controle o álbum de figurinhas da Copa do Mundo 2026: marque o que tem, veja o que falta, acompanhe o progresso por seleção e troque figurinhas repetidas com amigos por um link. Grátis, sem cadastro." />
+    <meta name="keywords" content="álbum copa 2026, figurinhas copa do mundo 2026, checklist panini 2026, troca de figurinhas, repetidas, controle de álbum, FIFA World Cup 2026" />
+    <meta name="author" content="albumcopa.xyz" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href="https://albumcopa.xyz/" />
+
+    <!-- PWA / iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Copa 2026" />
 
     <!-- Open Graph / WhatsApp / Facebook -->
     <meta property="og:type" content="website" />
@@ -17,6 +26,7 @@
     <meta property="og:description" content="Organize sua coleção, veja o que falta e troque figurinhas com os amigos por um link. Grátis." />
     <meta property="og:url" content="https://albumcopa.xyz/" />
     <meta property="og:image" content="https://albumcopa.xyz/og.png" />
+    <meta property="og:image:alt" content="Coleção Copa 2026 — álbum de figurinhas" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="pt_BR" />
@@ -26,9 +36,34 @@
     <meta name="twitter:title" content="Coleção Copa 2026 · Álbum de Figurinhas" />
     <meta name="twitter:description" content="Organize sua coleção, veja o que falta e troque figurinhas com os amigos por um link. Grátis." />
     <meta name="twitter:image" content="https://albumcopa.xyz/og.png" />
+
+    <!-- Structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Coleção Copa 2026",
+      "url": "https://albumcopa.xyz/",
+      "description": "Álbum de figurinhas da Copa do Mundo 2026: controle o que você tem, o que falta e troque repetidas com amigos.",
+      "applicationCategory": "SportsApplication",
+      "operatingSystem": "Web",
+      "inLanguage": "pt-BR",
+      "isAccessibleForFree": true,
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "BRL" }
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <div style="max-width:680px;margin:40px auto;padding:0 20px;font-family:system-ui,sans-serif;color:#0b2e6b">
+        <h1>Coleção Copa 2026 — Álbum de Figurinhas</h1>
+        <p>Um app gratuito para controlar o álbum de figurinhas da Copa do Mundo 2026:
+        marque as figurinhas que você tem, veja quais faltam, acompanhe seu progresso por
+        seleção e troque figurinhas repetidas com amigos através de um link.</p>
+        <p>Ative o JavaScript para usar o aplicativo.</p>
+      </div>
+    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
