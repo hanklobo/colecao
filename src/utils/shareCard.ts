@@ -65,7 +65,8 @@ export async function generateProgressCard(data: CardData): Promise<Blob | null>
   // Name (inside the top banner) - X and Y adjusted for visual centering
   ctx.fillStyle = '#ffffff';
   ctx.font = `700 32px ${SANS}`;
-  ctx.fillText(data.name || 'Meu álbum', 400, 86);
+  const displayName = (data.name || 'Meu álbum').slice(0, 14);
+  ctx.fillText(displayName, W / 2, 110);
 
   // Stat numbers inside the empty box at the top of each card.
   const chips: [number, string, string][] = [
@@ -98,31 +99,31 @@ export async function generateProgressCard(data: CardData): Promise<Blob | null>
 
   // Progress banner - Expanded to fill the container area perfectly
   ctx.fillStyle = '#062029';
-  roundRect(ctx, 64, 1200, 560, 140, 22);
+  roundRect(ctx, 38, 1250, 614, 168, 22);
   ctx.fill();
   
   ctx.strokeStyle = 'rgba(244,198,74,0.5)';
   ctx.lineWidth = 1.5;
-  roundRect(ctx, 64, 1200, 560, 140, 22);
+  roundRect(ctx, 38, 1250, 614, 168, 22);
   ctx.stroke();
   
   ctx.fillStyle = '#f4c64a';
   ctx.font = `800 24px ${SANS}`;
-  ctx.fillText(`${pct}% DO ÁLBUM COMPLETO`, 344, 1255);
+  ctx.fillText(`${pct}% DO ÁLBUM COMPLETO`, 344, 1300);
   
   // Background track for the progress bar
   ctx.fillStyle = '#0a1a24';
-  roundRect(ctx, 100, 1285, 488, 20, 10);
+  roundRect(ctx, 88, 1350, 500, 20, 10);
   ctx.fill();
   
   // Progress fill with gradient
-  const barGrad = ctx.createLinearGradient(0, 1285, 0, 1305);
+  const barGrad = ctx.createLinearGradient(0, 1350, 0, 1305);
   barGrad.addColorStop(0, '#ffe9a3');
   barGrad.addColorStop(1, '#d98a12');
   ctx.fillStyle = barGrad;
   
   // Render filled progress based on the new total width (488px)
-  roundRect(ctx, 100, 1285, Math.max(20, (488 * pct) / 100), 20, 10);
+  roundRect(ctx, 88, 1350, Math.max(20, (500 * pct) / 100), 20, 10);
   ctx.fill();
 
   return new Promise((resolve) => canvas.toBlob((b) => resolve(b), 'image/png'));
