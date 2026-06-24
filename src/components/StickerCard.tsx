@@ -134,14 +134,16 @@ export function StickerCard({ id, name, sectionId, sectionIndex, special, sticke
         </div>
       )}
 
-      {/* Reset button (visible only when marked) */}
+      {/* Reset button — larger touch target (w-7 h-7) with smaller visual circle inside */}
       {marked && (
         <button
           onClick={(e) => { e.stopPropagation(); onReset(); }}
-          className="absolute top-1 right-1 w-4 h-4 rounded-full bg-white/25 hover:bg-red-500 active:bg-red-600 text-white text-[10px] font-bold flex items-center justify-center leading-none transition-colors"
+          className="absolute top-0 right-0 w-7 h-7 flex items-center justify-center"
           aria-label="Remover marcação"
         >
-          ×
+          <span className="w-4 h-4 rounded-full bg-white/30 hover:bg-red-500 active:bg-red-600 text-white text-[10px] font-bold flex items-center justify-center leading-none transition-colors pointer-events-none">
+            ×
+          </span>
         </button>
       )}
 
