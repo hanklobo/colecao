@@ -1,101 +1,152 @@
 import type { StickerState } from '../types';
 import { CheckIcon } from './Icons';
+import { getTeamColor } from '../utils/teamColors';
 
 interface Props {
   id: number;
   name: string;
-  flagUrl: string | null;
+  sectionId: string;
+  sectionIndex: number;
   special?: boolean;
   stickerState: StickerState;
   onPress: () => void;
   onReset: () => void;
 }
 
-const CARD_BG: Record<string, string> = {
-  missing:  'bg-white/80 border-gray-200 backdrop-blur-sm',
-  have:     'bg-emerald-50/90 border-emerald-400 backdrop-blur-sm',
-  repeated: 'bg-amber-50/90 border-amber-400 backdrop-blur-sm',
-};
-
-export function StickerCard({ id, name, flagUrl, special, stickerState, onPress, onReset }: Props) {
+export function StickerCard({ id, name, sectionId, sectionIndex, special, stickerState, onPress, onReset }: Props) {
   const { status, count } = stickerState;
   const marked = status !== 'missing';
+  const color = getTeamColor(sectionId);
 
   return (
     <button
       onClick={onPress}
-      className={`relative w-full rounded-xl border-2 overflow-hidden active:scale-95 transition-transform select-none text-left ${CARD_BG[status]} ${
+      className={`relative w-full overflow-hidden active:scale-95 transition-transform select-none ${
         special ? 'ring-2 ring-amber-300/70' : ''
       }`}
       aria-label={`Figurinha ${id}: ${name}${special ? ' (especial)' : ''}`}
-      style={{ minHeight: 88 }}
+      style={{
+        aspectRatio: '4 / 5',
+        backgroundColor: color.from,
+        borderRadius: 6,
+      }}
     >
-      {/* Flag wash background */}
-      {marked && flagUrl && (
-        <img
-          src={flagUrl}
-          aria-hidden
-          className="absolute inset-0 w-full h-full object-cover opacity-[0.07] pointer-events-none"
-        />
+      {/* Darkening overlay for marked states */}
+      {status === 'have'     && <div className="absolute inset-0 bg-emerald-900/30 pointer-events-none" />}
+      {status === 'repeated' && <div className="absolute inset-0 bg-amber-900/35 pointer-events-none" />}
+
+      {/* Large "26" decorative watermark — mimics album placeholder shape */}
+      <div
+        aria-hidden
+        style={{
+          position: 'absolute',
+          bottom: '-8%',
+          right: '-8%',
+          fontSize: '5.8rem',
+          fontFamily: '"Plus Jakarta Sans", sans-serif',
+          fontWeight: 800,
+          color: 'rgba(255,255,255,0.26)',
+          lineHeight: 0.80,
+          letterSpacing: '-0.04em',
+          userSelect: 'none',
+          pointerEvents: 'none',
+        }}
+      >
+        26
+      </div>
+
+      {/* Top-left: section code + sticker local index */}
+      <div className="absolute top-1.5 left-1.5 leading-none">
+        <p style={{
+          fontSize: '0.42rem',
+          fontWeight: 800,
+          color: 'rgba(255,255,255,0.80)',
+          letterSpacing: '0.12em',
+          lineHeight: 1,
+          fontFamily: '"Plus Jakarta Sans", sans-serif',
+        }}>
+          {sectionId}
+        </p>
+        <p style={{
+          fontSize: '1rem',
+          fontWeight: 800,
+          color: 'white',
+          lineHeight: 1.05,
+          fontFamily: '"Plus Jakarta Sans", sans-serif',
+        }}>
+          {sectionIndex}
+        </p>
+      </div>
+
+      {/* Player name — vertical, right side, reading bottom-to-top */}
+      <div
+        style={{
+          position: 'absolute',
+          right: 3,
+          top: 8,
+          bottom: 8,
+          display: 'flex',
+          alignItems: 'flex-end',
+          justifyContent: 'center',
+        }}
+      >
+        <span
+          style={{
+            fontSize: '0.40rem',
+            fontWeight: 700,
+            color: 'rgba(255,255,255,0.85)',
+            letterSpacing: '0.06em',
+            writingMode: 'vertical-rl',
+            transform: 'rotate(180deg)',
+            whiteSpace: 'nowrap',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            maxHeight: '90%',
+            textTransform: 'uppercase',
+            lineHeight: 1,
+            fontFamily: '"Plus Jakarta Sans", sans-serif',
+          }}
+        >
+          {name}
+        </span>
+      </div>
+
+      {/* Have: green check badge */}
+      {status === 'have' && (
+        <div className="absolute bottom-1.5 left-1.5">
+          <div className="w-4 h-4 rounded-full bg-emerald-500 flex items-center justify-center shadow">
+            <CheckIcon className="w-2.5 h-2.5 text-white" />
+          </div>
+        </div>
       )}
 
-      {/* Foil/special shimmer corner */}
+      {/* Repeated: amber count badge */}
+      {status === 'repeated' && (
+        <div className="absolute bottom-1.5 left-1.5">
+          <span className="bg-amber-500 text-white text-[8px] font-black rounded-full px-1.5 py-0.5 leading-none tabular-nums shadow">
+            {count}×
+          </span>
+        </div>
+      )}
+
+      {/* Reset button (visible only when marked) */}
+      {marked && (
+        <button
+          onClick={(e) => { e.stopPropagation(); onReset(); }}
+          className="absolute top-1 right-1 w-4 h-4 rounded-full bg-white/25 hover:bg-red-500 active:bg-red-600 text-white text-[10px] font-bold flex items-center justify-center leading-none transition-colors"
+          aria-label="Remover marcação"
+        >
+          ×
+        </button>
+      )}
+
+      {/* Special: golden corner triangle */}
       {special && (
         <span
           aria-hidden
-          className="absolute top-0 right-0 w-0 h-0 border-t-[18px] border-l-[18px] border-t-amber-300 border-l-transparent"
+          className="absolute top-0 right-0 w-0 h-0 border-t-[16px] border-l-[16px] border-t-amber-300 border-l-transparent"
         />
       )}
-
-      <div className="relative flex flex-col h-full p-2 gap-1">
-        {/* Top row: number + reset button (INSIDE card, no overflow) */}
-        <div className="flex items-center justify-between">
-          <span className="text-[9px] font-bold text-gray-400 leading-none tabular-nums">
-            #{id}{special && <span className="text-amber-500"> ✦</span>}
-          </span>
-          {marked && (
-            <button
-              onClick={(e) => { e.stopPropagation(); onReset(); }}
-              className="w-4 h-4 rounded-full bg-gray-400 hover:bg-red-500 active:bg-red-600 text-white text-[10px] font-bold flex items-center justify-center leading-none transition-colors flex-shrink-0"
-              aria-label="Remover marcação"
-            >
-              ×
-            </button>
-          )}
-        </div>
-
-        {/* Flag thumbnail */}
-        <div className="flex-1 flex items-center justify-center">
-          <div className="w-10 h-6 rounded overflow-hidden shadow-sm flex items-center justify-center bg-gray-100 flex-shrink-0">
-            {flagUrl ? (
-              <img src={flagUrl} alt="" className="w-full h-full object-cover" loading="lazy" />
-            ) : (
-              <span className="text-sm leading-none text-gray-300">⚽</span>
-            )}
-          </div>
-        </div>
-
-        {/* Name */}
-        <p className={`text-[9px] font-semibold text-center leading-tight line-clamp-2 ${
-          marked ? 'text-gray-800' : 'text-gray-400'
-        }`}>
-          {name}
-        </p>
-
-        {/* Status badge */}
-        <div className="flex justify-center min-h-[14px] items-center">
-          {status === 'have' && (
-            <span className="inline-flex items-center gap-0.5 text-[9px] font-bold text-emerald-600">
-              <CheckIcon className="w-2.5 h-2.5" /> tenho
-            </span>
-          )}
-          {status === 'repeated' && (
-            <span className="bg-amber-500 text-white text-[9px] font-bold rounded-full px-2 py-0.5 leading-none tabular-nums">
-              {count}×
-            </span>
-          )}
-        </div>
-      </div>
     </button>
   );
 }
