@@ -84,37 +84,74 @@ export function StatsView({ state, myName, onImport }: Props) {
     .filter((id) => { const s = state[id]; return !s || s.status === 'missing'; })
     .sort((a, b) => a - b);
 
+  const motivational =
+    pct === 100 ? '🏆 Álbum completo!' :
+    pct >= 90   ? 'Falta pouquíssimo!' :
+    pct >= 75   ? 'Quase lá, não para!' :
+    pct >= 50   ? 'Você está na metade!' :
+    pct >= 25   ? 'Bom começo, continue!' :
+                  'Sua jornada começa aqui.';
+
   return (
     <div className="h-full overflow-y-auto pb-24 bg-gray-50">
       {/* Hero card */}
       <div
-        className="px-5 pt-5 pb-8 shadow-card-lg"
-        style={{ backgroundImage: 'linear-gradient(120deg, #0b2e6b 0%, #1a73e8 100%)' }}
+        className="relative px-5 pt-6 pb-7 shadow-card-lg overflow-hidden"
+        style={{ backgroundImage: 'linear-gradient(135deg, #071e4a 0%, #0b2e6b 45%, #1a56b0 100%)' }}
       >
-        <p className="text-white/70 text-xs font-semibold uppercase tracking-widest mb-1">Completude do álbum</p>
-        <p className="text-6xl font-display font-extrabold text-white tabular-nums">{Math.round(pct)}<span className="text-3xl text-copa-gold">%</span></p>
-        <div className="mt-3 h-2.5 bg-white/10 rounded-full overflow-hidden">
-          <div
-            className="h-full bg-copa-gold rounded-full transition-all duration-700"
-            style={{ width: `${pct}%` }}
-          />
+        {/* Decorative background circles */}
+        <div className="absolute -top-14 -right-10 w-52 h-52 rounded-full bg-white/[0.04] pointer-events-none" />
+        <div className="absolute top-8 -right-4 w-28 h-28 rounded-full bg-white/[0.05] pointer-events-none" />
+        <div className="absolute -bottom-16 -left-10 w-48 h-48 rounded-full bg-copa-gold/[0.07] pointer-events-none" />
+
+        {/* Label + motivational */}
+        <div className="flex items-center justify-between mb-3">
+          <p className="text-white/50 text-[10px] font-bold uppercase tracking-widest">Completude do álbum</p>
+          <p className="text-white/70 text-[11px] font-semibold">{motivational}</p>
         </div>
-        <div className="flex gap-5 mt-3">
-          <div>
-            <p className="text-white font-bold text-lg tabular-nums">{totalHave}</p>
-            <p className="text-white/60 text-xs font-medium">tenho</p>
+
+        {/* Percentage + fraction */}
+        <div className="flex items-end gap-3 mb-4">
+          <p className="font-display font-extrabold text-white tabular-nums leading-none" style={{ fontSize: '5rem' }}>
+            {Math.round(pct)}
+          </p>
+          <div className="pb-2 leading-none">
+            <span className="text-copa-gold font-black text-3xl leading-none">%</span>
+            <p className="text-white/40 text-[11px] font-semibold mt-1 tabular-nums">{totalHave} / {TOTAL_STICKERS}</p>
           </div>
-          <div>
-            <p className="text-white font-bold text-lg tabular-nums">{totalMissing}</p>
-            <p className="text-white/60 text-xs font-medium">faltam</p>
+        </div>
+
+        {/* Progress bar — thicker with gold glow */}
+        <div className="mb-5">
+          <div className="h-3 bg-white/10 rounded-full overflow-hidden">
+            <div
+              className="h-full rounded-full transition-all duration-700"
+              style={{
+                width: `${pct}%`,
+                background: 'linear-gradient(90deg, #d97706 0%, #f59e0b 60%, #fcd34d 100%)',
+                boxShadow: '0 0 10px rgba(245,158,11,0.55)',
+              }}
+            />
           </div>
-          <div>
-            <p className="text-copa-gold font-bold text-lg tabular-nums">{totalDuplicates}</p>
-            <p className="text-white/60 text-xs font-medium">repetidas</p>
+        </div>
+
+        {/* Stats — glassmorphism cards */}
+        <div className="grid grid-cols-4 gap-2 mb-5">
+          <div className="bg-white/10 rounded-xl py-2.5 px-1 text-center">
+            <p className="text-white font-extrabold text-lg tabular-nums leading-none">{totalHave}</p>
+            <p className="text-white/45 text-[9px] font-semibold mt-1.5 leading-none">coladas</p>
           </div>
-          <div>
-            <p className="text-amber-300 font-bold text-lg tabular-nums">{specials}/{TOTAL_SPECIAL}</p>
-            <p className="text-white/60 text-xs font-medium">✨ especiais</p>
+          <div className="bg-white/10 rounded-xl py-2.5 px-1 text-center">
+            <p className="text-white font-extrabold text-lg tabular-nums leading-none">{totalMissing}</p>
+            <p className="text-white/45 text-[9px] font-semibold mt-1.5 leading-none">faltam</p>
+          </div>
+          <div className="rounded-xl py-2.5 px-1 text-center" style={{ background: 'rgba(245,158,11,0.18)' }}>
+            <p className="text-copa-gold font-extrabold text-lg tabular-nums leading-none">{totalDuplicates}</p>
+            <p className="text-copa-gold/60 text-[9px] font-semibold mt-1.5 leading-none">repetidas</p>
+          </div>
+          <div className="rounded-xl py-2.5 px-1 text-center" style={{ background: 'rgba(252,211,77,0.12)' }}>
+            <p className="text-amber-300 font-extrabold text-lg tabular-nums leading-none">{specials}</p>
+            <p className="text-amber-300/60 text-[9px] font-semibold mt-1.5 leading-none">✦ especiais</p>
           </div>
         </div>
 
@@ -122,7 +159,8 @@ export function StatsView({ state, myName, onImport }: Props) {
         <button
           onClick={handleShare}
           disabled={sharing}
-          className="mt-5 w-full py-3 rounded-2xl bg-white/15 hover:bg-white/25 text-white font-bold text-sm flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-60"
+          className="w-full py-3 rounded-2xl text-white font-bold text-sm flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-60"
+          style={{ background: 'rgba(255,255,255,0.13)', border: '1px solid rgba(255,255,255,0.15)' }}
         >
           <ShareIcon className="w-4 h-4" />
           {sharing ? 'Gerando imagem...' : shareMsg ?? 'Compartilhar meu progresso'}
