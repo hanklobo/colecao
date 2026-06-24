@@ -17,7 +17,7 @@ interface RawSection {
   stickers: RawSticker[];
 }
 
-const SECTION_EMOJI: Record<string, string> = { INTRO: '🎬', MUSEU: '🏆' };
+const SECTION_EMOJI: Record<string, string> = { INTRO: '🎬', MUSEU: '🏆', COCA: '🥤' };
 
 function buildSections(): Section[] {
   const out: Section[] = [];

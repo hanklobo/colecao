@@ -57,7 +57,8 @@ const TEAM_COLORS: Record<string, TeamColor> = {
   ENG: { from: '#0a2472', to: '#cf142b' },
   CRO: { from: '#c8102e', to: '#0f1a6b' },
   GHA: { from: '#006b3f', to: '#ce1126' },
-  PAN: { from: '#005293', to: '#d21034' },
+  PAN:  { from: '#005293', to: '#d21034' },
+  COCA: { from: '#e8001a', to: '#b50012' },
 };
 
 const DEFAULT: TeamColor = { from: '#1e293b', to: '#334155' };

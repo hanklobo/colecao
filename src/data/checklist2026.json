@@ -3403,6 +3403,26 @@
     }
    ],
    "group": "L"
+  },
+  {
+   "id": "COCA",
+   "name": "Coca-Cola",
+   "stickers": [
+    { "name": "Lamine Yamal", "special": true },
+    { "name": "Joshua Kimmich", "special": true },
+    { "name": "Harry Kane", "special": true },
+    { "name": "Santiago Giménez", "special": true },
+    { "name": "Joško Gvardiol", "special": true },
+    { "name": "Federico Valverde", "special": true },
+    { "name": "Jefferson Lerma", "special": true },
+    { "name": "Enner Valencia", "special": true },
+    { "name": "Gabriel Magalhães", "special": true },
+    { "name": "Virgil van Dijk", "special": true },
+    { "name": "Alphonso Davies", "special": true },
+    { "name": "Emiliano Martínez", "special": true },
+    { "name": "Raúl Jiménez", "special": true },
+    { "name": "Lautaro Martínez", "special": true }
+   ]
   }
  ]
 }
