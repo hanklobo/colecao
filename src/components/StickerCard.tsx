@@ -22,6 +22,7 @@ export function StickerCard({ id, name, sectionId, sectionIndex, special, sticke
     <button
       onClick={onPress}
       className={`relative w-full overflow-hidden active:scale-95 transition-transform select-none ${
+        status === 'repeated' ? 'ring-2 ring-amber-400' :
         special ? 'ring-2 ring-amber-300/70' : ''
       }`}
       aria-label={`Figurinha ${id}: ${name}${special ? ' (especial)' : ''}`}
@@ -29,11 +30,12 @@ export function StickerCard({ id, name, sectionId, sectionIndex, special, sticke
         aspectRatio: '4 / 5',
         backgroundColor: color.from,
         borderRadius: 6,
+        opacity: status === 'missing' ? 0.62 : 1,
       }}
     >
-      {/* Darkening overlay for marked states */}
+      {/* State overlays */}
       {status === 'have'     && <div className="absolute inset-0 bg-emerald-900/30 pointer-events-none" />}
-      {status === 'repeated' && <div className="absolute inset-0 bg-amber-900/35 pointer-events-none" />}
+      {status === 'repeated' && <div className="absolute inset-0 bg-amber-400/20 pointer-events-none" />}
 
       {/* Large "26" decorative watermark — mimics album placeholder shape */}
       <div
@@ -120,10 +122,13 @@ export function StickerCard({ id, name, sectionId, sectionIndex, special, sticke
         </div>
       )}
 
-      {/* Repeated: amber count badge */}
+      {/* Repeated: prominent amber count badge centred at bottom */}
       {status === 'repeated' && (
-        <div className="absolute bottom-1.5 left-1.5">
-          <span className="bg-amber-500 text-white text-[8px] font-black rounded-full px-1.5 py-0.5 leading-none tabular-nums shadow">
+        <div className="absolute bottom-2 left-0 right-0 flex justify-center">
+          <span
+            className="bg-amber-500 text-white font-black rounded-full shadow-md tabular-nums leading-none"
+            style={{ fontSize: '0.72rem', paddingTop: 3, paddingBottom: 3, paddingLeft: 7, paddingRight: 7 }}
+          >
             {count}×
           </span>
         </div>
