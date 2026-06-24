@@ -15,13 +15,15 @@ interface Props {
 }
 
 export function SectionBlock({ section, state, onCycle, onReset, filter, isCollapsed, onToggle }: Props) {
-  const visibleStickers = section.stickers.filter((st) => {
-    if (filter === 'all') return true;
-    const s = state[st.id];
-    if (filter === 'missing') return !s || s.status === 'missing';
-    if (filter === 'repeated') return s?.status === 'repeated';
-    return true;
-  });
+  const visibleStickers = section.stickers
+    .map((st, i) => ({ ...st, sectionIndex: i + 1 }))
+    .filter((st) => {
+      if (filter === 'all') return true;
+      const s = state[st.id];
+      if (filter === 'missing') return !s || s.status === 'missing';
+      if (filter === 'repeated') return s?.status === 'repeated';
+      return true;
+    });
 
   if (visibleStickers.length === 0) return null;
 
@@ -101,7 +103,8 @@ export function SectionBlock({ section, state, onCycle, onReset, filter, isColla
                 key={st.id}
                 id={st.id}
                 name={st.name}
-                flagUrl={flagUrl}
+                sectionId={section.id}
+                sectionIndex={st.sectionIndex}
                 special={st.special}
                 stickerState={state[st.id] ?? { status: 'missing', count: 0 }}
                 onPress={() => onCycle(st.id)}
