@@ -67,7 +67,7 @@ export interface UseUserSyncReturn {
   lastSyncedAt: number | null;
   lastSyncedCode: string | null;
   scheduleSync: (code: string) => void;
-  forceSync: (code: string) => Promise<void>;
+  forceSync: (code: string) => Promise<boolean>;
 }
 
 export function useUserSync(): UseUserSyncReturn {
@@ -83,9 +83,9 @@ export function useUserSync(): UseUserSyncReturn {
   const accountRef = useRef(account);
   useEffect(() => { accountRef.current = account; }, [account]);
 
-  const doSync = useCallback(async (code: string) => {
+  const doSync = useCallback(async (code: string): Promise<boolean> => {
     const a = accountRef.current;
-    if (!a.id || !a.token) return;
+    if (!a.id || !a.token) return false;
     setSyncStatus('syncing');
     try {
       const r = await updateUser(a.id, a.token, { code });
@@ -93,9 +93,11 @@ export function useUserSync(): UseUserSyncReturn {
       persistMeta(next);
       setMeta(next);
       setSyncStatus('idle');
+      return true;
     } catch (err) {
       console.warn('sync failed', err);
       setSyncStatus('error');
+      return false;
     }
   }, []);
 
@@ -108,12 +110,12 @@ export function useUserSync(): UseUserSyncReturn {
     }, DEBOUNCE_MS);
   }, [doSync]);
 
-  const forceSync = useCallback(async (code: string) => {
+  const forceSync = useCallback(async (code: string): Promise<boolean> => {
     if (timer.current) {
       window.clearTimeout(timer.current);
       timer.current = null;
     }
-    await doSync(code);
+    return await doSync(code);
   }, [doSync]);
 
   // Cleanup any pending timer on unmount.

@@ -11,6 +11,7 @@ import { AlbumView } from './views/AlbumView';
 import { TradingView } from './views/TradingView';
 import { StatsView } from './views/StatsView';
 import { LandingPage } from './components/LandingPage';
+import { SyncBadge } from './components/SyncBadge';
 import { AlbumIcon, StatsIcon, TradeIcon, LogoMark, HelpIcon } from './components/Icons';
 import { computeAchievements } from './utils/achievements';
 import { encodeTradeCode } from './utils/trading';
@@ -210,14 +211,22 @@ export default function App() {
               Álbum Panini · FIFA World Cup
             </p>
           </div>
-          <button
-            onClick={() => setShowHelp(true)}
-            aria-label="Como funciona"
-            className="flex-shrink-0 flex items-center gap-1.5 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 rounded-full pl-2.5 pr-3 py-1.5 text-xs font-semibold transition-colors self-start"
-          >
-            <HelpIcon className="w-4 h-4" />
-            Ajuda
-          </button>
+          <div className="flex-shrink-0 flex items-center gap-1.5 self-start">
+            <SyncBadge
+              status={syncStatus}
+              dirty={dirty}
+              enabled={!!account.id}
+              onForceSync={() => { void forceSync(code); }}
+            />
+            <button
+              onClick={() => setShowHelp(true)}
+              aria-label="Como funciona"
+              className="flex items-center gap-1.5 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 rounded-full pl-2.5 pr-3 py-1.5 text-xs font-semibold transition-colors"
+            >
+              <HelpIcon className="w-4 h-4" />
+              Ajuda
+            </button>
+          </div>
         </div>
         <ProgressBar have={stats.have} duplicates={stats.duplicateCount} />
       </header>
@@ -239,8 +248,6 @@ export default function App() {
             state={state}
             onCycle={cycleSticker}
             onReset={resetSticker}
-            syncStatus={syncStatus}
-            isDirty={dirty}
           />
         )}
         {tab === 'stats' && (
@@ -266,6 +273,7 @@ export default function App() {
             onGoToAlbum={() => setTab('album')}
             syncStatus={syncStatus}
             lastSyncedAt={lastSyncedAt}
+            isDirty={dirty}
             onForceSync={() => forceSync(code)}
             onShareSucceeded={markFirstShareSeen}
           />

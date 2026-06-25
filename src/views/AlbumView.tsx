@@ -4,7 +4,6 @@ import { SECTIONS, TOTAL_STICKERS } from '../data/album2026';
 import { SectionBlock } from '../components/SectionBlock';
 import { FilterBar } from '../components/FilterBar';
 import { SearchIcon, FilterIcon, ChevronDown } from '../components/Icons';
-import type { SyncStatus } from '../hooks/useUserSync';
 
 type Filter = 'all' | 'missing' | 'repeated';
 
@@ -12,8 +11,6 @@ interface Props {
   state: AlbumState;
   onCycle: (id: number) => void;
   onReset: (id: number) => void;
-  syncStatus: SyncStatus;
-  isDirty: boolean;
 }
 
 // Quick-jump chips: Abertura, FIFA Museum, then one per group (A–L), each
@@ -31,7 +28,7 @@ function scrollToSection(id: string) {
   document.getElementById(`section-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-export function AlbumView({ state, onCycle, onReset, syncStatus, isDirty }: Props) {
+export function AlbumView({ state, onCycle, onReset }: Props) {
   const [filter, setFilter]   = useState<Filter>('all');
   const [search, setSearch]   = useState('');
   const [activeGroup, setActiveGroup] = useState('INTRO');
@@ -194,8 +191,6 @@ export function AlbumView({ state, onCycle, onReset, syncStatus, isDirty }: Prop
               filter={filter}
               isCollapsed={!!collapsed[sec.id]}
               onToggle={() => toggleSection(sec.id)}
-              syncStatus={syncStatus}
-              isDirty={isDirty}
             />
           ))
         ) : (

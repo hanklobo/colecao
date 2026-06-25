@@ -34,7 +34,8 @@ interface Props {
   onGoToAlbum: () => void;
   syncStatus: SyncStatus;
   lastSyncedAt: number | null;
-  onForceSync: () => Promise<void>;
+  isDirty: boolean;
+  onForceSync: () => Promise<boolean>;
   onShareSucceeded: () => void;
 }
 
@@ -74,6 +75,7 @@ export function TradingView({
   onGoToAlbum,
   syncStatus,
   lastSyncedAt,
+  isDirty,
   onForceSync,
   onShareSucceeded,
 }: Props) {
@@ -119,7 +121,13 @@ export function TradingView({
     if (!currentId) {
       const created = await onUpdateMyName(name);
       currentId = created.id;
-      if (!currentId) return; // creation failed — UI surfaces via SyncStrip
+      if (!currentId) return; // creation failed
+    }
+    // If the album has unsynced changes, push them first so the link the
+    // friend opens reflects the latest state. Abort the share if sync fails.
+    if (isDirty) {
+      const ok = await onForceSync();
+      if (!ok) return;
     }
     const url = generateShareUrl(currentId);
     try {
@@ -231,7 +239,7 @@ export function TradingView({
           <>
             <button
               onClick={shareLink}
-              disabled={accountBusy}
+              disabled={accountBusy || syncStatus === 'syncing'}
               className={`w-full py-3.5 rounded-2xl font-bold text-sm transition-all active:scale-95 flex items-center justify-center gap-2 ${
                 shared
                   ? 'bg-emerald-500 text-white'
@@ -242,6 +250,10 @@ export function TradingView({
                 <><CheckIcon className="w-4 h-4" /> Link copiado!</>
               ) : accountBusy ? (
                 <>⏳ Criando seu link...</>
+              ) : syncStatus === 'syncing' ? (
+                <>⟳ Sincronizando...</>
+              ) : isDirty ? (
+                <><ShareIcon className="w-4 h-4" /> Sincronizar e compartilhar</>
               ) : (
                 <><ShareIcon className="w-4 h-4" /> Compartilhar meu link</>
               )}
@@ -250,8 +262,8 @@ export function TradingView({
               accountReady={accountReady}
               accountError={accountError}
               syncStatus={syncStatus}
+              isDirty={isDirty}
               lastSyncedAt={lastSyncedAt}
-              onForceSync={onForceSync}
             />
           </>
         ) : (
@@ -377,51 +389,40 @@ export function TradingView({
   );
 }
 
-// ── Sync strip: small horizontal status under the share button ──────────────
+// ── Sync strip: small status line under the share button ───────────────────
 
 function SyncStrip({
   accountReady,
   accountError,
   syncStatus,
+  isDirty,
   lastSyncedAt,
-  onForceSync,
 }: {
   accountReady: boolean;
   accountError: boolean;
   syncStatus: SyncStatus;
+  isDirty: boolean;
   lastSyncedAt: number | null;
-  onForceSync: () => Promise<void>;
 }) {
   let label: string;
-  let canSync = accountReady;
   if (accountError) {
     label = 'Sem conexão com a nuvem';
-    canSync = false;
   } else if (!accountReady) {
     label = 'Pronto pra compartilhar';
-    canSync = false;
   } else if (syncStatus === 'syncing') {
     label = 'Sincronizando…';
-  } else if (syncStatus === 'pending') {
-    label = 'Aguardando sincronizar';
   } else if (syncStatus === 'error') {
     label = 'Falha ao sincronizar';
+  } else if (isDirty) {
+    label = 'Alterações pendentes';
   } else {
     label = `Atualizado ${formatRelative(lastSyncedAt)}`;
   }
 
   return (
-    <div className="mt-2.5 flex items-center justify-between text-white/60 text-[11px] leading-snug">
-      <span className="truncate">Seu álbum: {label}</span>
-      {canSync && (
-        <button
-          onClick={() => { void onForceSync(); }}
-          className="text-white/80 hover:text-white font-semibold underline-offset-2 hover:underline"
-        >
-          Sincronizar agora
-        </button>
-      )}
-    </div>
+    <p className="mt-2.5 text-white/60 text-[11px] leading-snug text-center">
+      Seu álbum: {label}
+    </p>
   );
 }
 
