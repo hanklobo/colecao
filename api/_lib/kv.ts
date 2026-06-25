@@ -8,9 +8,7 @@ const TOKEN_ENV =
 
 function requireEnv() {
   if (!URL_ENV || !TOKEN_ENV) {
-    throw new Error(
-      'KV not configured: set KV_REST_API_URL + KV_REST_API_TOKEN (or UPSTASH_REDIS_REST_URL + _TOKEN).',
-    );
+    throw new Error('kv_not_configured');
   }
   return { url: URL_ENV, token: TOKEN_ENV };
 }
@@ -26,8 +24,9 @@ async function call<T = unknown>(command: (string | number)[]): Promise<T> {
     body: JSON.stringify(command),
   });
   if (!res.ok) {
-    const text = await res.text().catch(() => '');
-    throw new Error(`KV ${command[0]} failed: ${res.status} ${text}`);
+    // Don't include the response body to avoid leaking sensitive bytes
+    // (e.g. echoed auth headers) into function logs.
+    throw new Error(`kv_${String(command[0]).toLowerCase()}_failed_${res.status}`);
   }
   const json = (await res.json()) as { result: T };
   return json.result;
@@ -45,4 +44,22 @@ export async function getJSON<T>(key: string): Promise<T | null> {
 
 export async function setJSON<T>(key: string, value: T): Promise<void> {
   await call(['SET', key, JSON.stringify(value)]);
+}
+
+// Atomic create-if-absent. Returns true when the key was set, false if it
+// already existed. Used to avoid clobbering on nanoid collisions.
+export async function setNXJSON<T>(key: string, value: T): Promise<boolean> {
+  const r = await call<string | null>(['SET', key, JSON.stringify(value), 'NX']);
+  return r === 'OK';
+}
+
+// Increment a counter and ensure it has a TTL. Returns the new count.
+// The TTL is only set on the first increment (when INCR returns 1), so the
+// window is a true fixed-window starting at the first hit.
+export async function incrWithTTL(key: string, ttlSeconds: number): Promise<number> {
+  const n = await call<number>(['INCR', key]);
+  if (n === 1) {
+    try { await call(['EXPIRE', key, ttlSeconds]); } catch { /* best-effort */ }
+  }
+  return n;
 }

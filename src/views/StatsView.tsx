@@ -1,18 +1,20 @@
 import { useMemo, useRef, useState } from 'react';
 import type { AlbumState } from '../types';
 import type { BackupMeta } from '../App';
+import type { MyAccount } from '../hooks/useUserSync';
 import { SECTIONS, TOTAL_STICKERS, STICKER_MAP } from '../data/album2026';
 import { getFlagUrl } from '../utils/flags';
 import { computeAchievements, specialOwned, TOTAL_SPECIAL } from '../utils/achievements';
 import { shareProgressCard } from '../utils/shareCard';
-import { exportAlbum, parseAlbumFile } from '../utils/backup';
+import { exportAlbum, parseAlbumFile, type ImportResult } from '../utils/backup';
 import { AchievementsGrid } from '../components/Achievements';
 import { CheckIcon, ShareIcon, DownloadIcon, UploadIcon } from '../components/Icons';
 
 interface Props {
   state: AlbumState;
   myName: string;
-  onImport: (state: AlbumState) => void;
+  account: MyAccount;
+  onImport: (result: ImportResult) => void;
   backupMeta: BackupMeta;
   onBackupDone: () => void;
 }
@@ -31,7 +33,7 @@ function formatRelative(ts: number | null | undefined): string {
   return `há ${days} d`;
 }
 
-export function StatsView({ state, myName, onImport, backupMeta, onBackupDone }: Props) {
+export function StatsView({ state, myName, account, onImport, backupMeta, onBackupDone }: Props) {
   const fileRef = useRef<HTMLInputElement>(null);
 
   function handleImportFile(e: React.ChangeEvent<HTMLInputElement>) {
@@ -44,8 +46,12 @@ export function StatsView({ state, myName, onImport, backupMeta, onBackupDone }:
         window.alert('Arquivo inválido. Selecione um backup exportado pelo app.');
         return;
       }
-      const count = Object.keys(parsed).length;
-      if (window.confirm(`Importar ${count} figurinhas? Isso substitui sua coleção atual.`)) {
+      const count = Object.keys(parsed.album).length;
+      const hasAccount = !!parsed.account;
+      const confirmMsg = hasAccount
+        ? `Importar ${count} figurinhas e restaurar sua conta da nuvem? Isso substitui o estado atual deste navegador.`
+        : `Importar ${count} figurinhas? Isso substitui sua coleção atual.`;
+      if (window.confirm(confirmMsg)) {
         onImport(parsed);
       }
     });
@@ -286,12 +292,22 @@ export function StatsView({ state, myName, onImport, backupMeta, onBackupDone }:
 
         <div className="bg-white rounded-2xl p-4 shadow-sm">
           <p className="text-gray-500 text-xs leading-snug mb-3">
-            Sua coleção fica salva só neste navegador. Exporte um arquivo para não perder
-            o progresso ao trocar de celular ou limpar o navegador.
+            O arquivo de backup inclui sua coleção {account.id ? 'e a chave da sua conta na nuvem' : ''}.
+            Guarde uma cópia: se trocar de celular ou limpar o navegador, importe pra
+            recuperar tudo.
           </p>
           <div className="flex gap-2">
             <button
-              onClick={() => { exportAlbum(state, myName); onBackupDone(); }}
+              onClick={() => {
+                exportAlbum(
+                  state,
+                  myName,
+                  account.id && account.token
+                    ? { id: account.id, token: account.token, name: account.name }
+                    : undefined,
+                );
+                onBackupDone();
+              }}
               className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-copa-ink text-white font-bold text-sm active:scale-95 transition"
             >
               <DownloadIcon className="w-4 h-4" /> Exportar

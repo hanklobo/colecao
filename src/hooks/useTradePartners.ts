@@ -43,14 +43,15 @@ export function useTradePartners() {
       const fetched = await fetchUser(id);
       if (!fetched) return null;
       if (!fetched.code || !decodeTradeCode(fetched.code)) {
-        // Account exists but hasn't synced any code yet — store a placeholder
-        // so they show up in the partners list with a "waiting" state.
+        // Account exists but hasn't synced a code yet — store a placeholder
+        // and intentionally leave fetchedAt undefined so the UI can render a
+        // "waiting" copy instead of the misleading "atualizado agora há
+        // pouco" that pairs with the empty-state body.
         const placeholder: TradePartner = {
           id: fetched.id,
           name: fetched.name || fallbackName?.trim() || 'Amigo',
           code: '',
           addedAt: Date.now(),
-          fetchedAt: Date.now(),
         };
         upsertPartner(placeholder);
         return placeholder;
@@ -119,20 +120,30 @@ export function useTradePartners() {
 // Extract a user id from a pasted share link or raw id. Accepts:
 //   - bare id like "abc12XYZ_-"
 //   - full URL "https://.../?u=abc12XYZ_-"
-//   - just the query "?u=abc12XYZ_-"
+//   - just the query "?u=abc12XYZ_-" or "u=abc12XYZ_-"
+// Uses URLSearchParams to avoid substring collisions like `?au=1&u=real`,
+// where the previous indexOf('u=') match would pull the wrong value.
+const ID_RE = /^[A-Za-z0-9_-]{6,40}$/;
 export function parsePartnerInput(input: string): string | null {
   const s = input.trim();
   if (!s) return null;
-  // Try query param first.
-  const qIdx = s.indexOf('u=');
-  if (qIdx >= 0) {
-    const after = s.slice(qIdx + 2);
-    const end = after.search(/[&#]/);
-    const id = end >= 0 ? after.slice(0, end) : after;
-    if (/^[A-Za-z0-9_-]{6,40}$/.test(id)) return id;
+
+  const qIdx = s.indexOf('?');
+  const queryPart =
+    qIdx >= 0 ? s.slice(qIdx + 1) :
+    s.includes('=') ? s :
+    '';
+
+  if (queryPart) {
+    try {
+      const params = new URLSearchParams(queryPart);
+      const id = params.get('u');
+      if (id && ID_RE.test(id)) return id;
+    } catch { /* fall through */ }
   }
+
   // Treat the whole thing as a bare id.
-  if (/^[A-Za-z0-9_-]{6,40}$/.test(s)) return s;
+  if (ID_RE.test(s)) return s;
   return null;
 }
 

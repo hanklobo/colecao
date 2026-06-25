@@ -52,7 +52,9 @@ const SHARE_STEPS = [
 
 function formatRelative(ts: number | null | undefined): string {
   if (!ts) return 'nunca';
-  const diff = Date.now() - ts;
+  // Clamp future timestamps (clock skew between device and server) so we
+  // never render "há -3 min" — surface them as "agora há pouco".
+  const diff = Math.max(0, Date.now() - ts);
   if (diff < 60_000) return 'agora há pouco';
   const mins = Math.floor(diff / 60_000);
   if (mins < 60) return `há ${mins} min`;
@@ -114,18 +116,25 @@ export function TradingView({
   async function shareLink() {
     const name = myName || nameInput.trim();
     if (!name) { setEditingName(true); return; }
+    // Close the inline name editor on the success path so the UI doesn't
+    // keep the "preencha seu nome" hint visible after a share goes out.
+    setEditingName(false);
+
     // Ensure we have an account before sharing — updateName creates one
     // lazily on first call. The hook returns the resolved account so we
     // don't have to wait for React state to flush.
     let currentId = account.id;
+    let justCreated = false;
     if (!currentId) {
       const created = await onUpdateMyName(name);
       currentId = created.id;
       if (!currentId) return; // creation failed
+      justCreated = true;
     }
-    // If the album has unsynced changes, push them first so the link the
-    // friend opens reflects the latest state. Abort the share if sync fails.
-    if (isDirty) {
+    // Push the current code to the server before sharing the link so the
+    // friend's first GET returns real data, not the empty `code: null` that
+    // a fresh account ships with. The same goes for any pending edits.
+    if (justCreated || isDirty) {
       const ok = await onForceSync();
       if (!ok) return;
     }
@@ -323,8 +332,8 @@ export function TradingView({
             </div>
             <p className="font-bold text-gray-800 text-sm">Nenhum parceiro ainda</p>
             <p className="text-gray-400 text-xs mt-1 leading-snug">
-              Compartilhe seu link acima. Quando um amigo abrir, ele aparece aqui e o app
-              mostra na hora o que vale a pena trocar.
+              Compartilhe seu link acima — e <strong>peça o link do seu amigo</strong> também.
+              Cada um precisa abrir o link do outro pra aparecerem como parceiros aqui.
             </p>
           </div>
         )}
@@ -502,7 +511,9 @@ function PartnerAnalysis({ partner, myState, myHave, onRemove, onRefresh, onGoTo
           <p className="text-gray-500">
             {isLegacy
               ? '⚠ Código antigo (sem atualização automática)'
-              : `Atualizado ${formatRelative(partner.fetchedAt)}`}
+              : noCodeYet
+                ? 'Aguardando ele cadastrar figurinhas'
+                : `Atualizado ${formatRelative(partner.fetchedAt)}`}
           </p>
           {!isLegacy && (
             <button

@@ -4,8 +4,11 @@ import { sha256Hex } from '../_lib/ids.js';
 import { getBearer, json, readBody, trimName } from '../_lib/http.js';
 import { publicUser, userKey, type UserRecord } from '../_lib/types.js';
 
-// Loose upper bound; the v2 trade code for the 980-sticker album is ~330 chars.
-const MAX_CODE_LEN = 2000;
+// Cap in UTF-8 bytes (not JS string length, which counts UTF-16 code units).
+// The v2 trade code for 980 stickers is ~330 ASCII bytes; we leave 4× headroom.
+const MAX_CODE_BYTES = 1400;
+
+const encoder = new TextEncoder();
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   const raw = req.query.id;
@@ -37,6 +40,30 @@ async function handlePut(req: VercelRequest, res: VercelResponse, id: string) {
   const token = getBearer(req);
   if (!token) return json(res, 401, { error: 'missing_token' });
 
+  const body = readBody(req);
+  const codeIn = body.code;
+  const nameIn = body.name;
+
+  // Validate before any KV read so a junk body costs us zero storage ops.
+  let normalizedCode: string | undefined;
+  let normalizedName: string | undefined;
+
+  if (codeIn !== undefined) {
+    if (typeof codeIn !== 'string' || encoder.encode(codeIn).length > MAX_CODE_BYTES) {
+      return json(res, 400, { error: 'bad_code' });
+    }
+    normalizedCode = codeIn;
+  }
+  if (nameIn !== undefined) {
+    const trimmed = trimName(nameIn);
+    if (!trimmed) return json(res, 400, { error: 'bad_name' });
+    normalizedName = trimmed;
+  }
+
+  if (normalizedCode === undefined && normalizedName === undefined) {
+    return json(res, 400, { error: 'nothing_to_update' });
+  }
+
   let user: UserRecord | null;
   try {
     user = await getJSON<UserRecord>(userKey(id));
@@ -49,22 +76,13 @@ async function handlePut(req: VercelRequest, res: VercelResponse, id: string) {
     return json(res, 403, { error: 'bad_token' });
   }
 
-  const body = readBody(req);
-  const codeIn = body.code;
-  const nameIn = body.name;
-
   const next: UserRecord = { ...user, updatedAt: Date.now() };
+  if (normalizedCode !== undefined) next.code = normalizedCode;
+  if (normalizedName !== undefined) next.name = normalizedName;
 
-  if (codeIn !== undefined) {
-    if (typeof codeIn !== 'string' || codeIn.length > MAX_CODE_LEN) {
-      return json(res, 400, { error: 'bad_code' });
-    }
-    next.code = codeIn;
-  }
-  if (nameIn !== undefined) {
-    const trimmed = trimName(nameIn);
-    if (!trimmed) return json(res, 400, { error: 'bad_name' });
-    next.name = trimmed;
+  // Skip the write when nothing actually changed.
+  if (next.code === user.code && next.name === user.name) {
+    return json(res, 200, { ok: true, updatedAt: user.updatedAt });
   }
 
   try {

@@ -60,8 +60,13 @@ export default function App() {
     lastSyncedCode,
     scheduleSync,
     forceSync,
+    restoreAccount,
   } = useUserSync();
-  const [toast, setToast] = useState<string | null>(null);
+  // Queue rather than single slot, so a milestone nudge and an achievement
+  // unlock firing in the same tick don't clobber each other.
+  const [toastQueue, setToastQueue] = useState<string[]>([]);
+  const toast = toastQueue[0] ?? null;
+  const pushToast = (msg: string) => setToastQueue((q) => [...q, msg]);
   const [showHelp, setShowHelp] = useState(false);
   const [firstTime, setFirstTime] = useState(false);
   const [backupMeta, setBackupMeta] = useState<BackupMeta>(loadBackupMeta);
@@ -90,19 +95,19 @@ export default function App() {
     (async () => {
       const added = await addPartnerById(partnerId, fallbackName);
       if (added) {
-        setToast(`${added.name} foi adicionado(a) como parceiro de troca!`);
+        pushToast(`${added.name} foi adicionado(a) como parceiro de troca!`);
         setTab('trading');
       } else {
-        setToast('Não foi possível carregar esse parceiro.');
+        pushToast('Não foi possível carregar esse parceiro.');
       }
     })();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Auto-dismiss toast
+  // Auto-dismiss the head of the toast queue.
   useEffect(() => {
     if (!toast) return;
-    const t = setTimeout(() => setToast(null), 3500);
+    const t = setTimeout(() => setToastQueue((q) => q.slice(1)), 3500);
     return () => clearTimeout(t);
   }, [toast]);
 
@@ -121,7 +126,7 @@ export default function App() {
     const fresh = earned.filter((a) => !seen.includes(a.id));
     if (fresh.length > 0) {
       const a = fresh[fresh.length - 1];
-      setToast(`${a.icon} Conquista desbloqueada: ${a.title}!`);
+      pushToast(`${a.icon} Conquista desbloqueada: ${a.title}!`);
       localStorage.setItem(BADGES_KEY, JSON.stringify(earned.map((x) => x.id)));
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -170,7 +175,7 @@ export default function App() {
     );
     if (!triggered) return;
     const label = triggered === 100 ? 'Álbum completo!' : `${triggered}% do álbum`;
-    setToast(`🎉 ${label} — exporte um backup pra não perder!`);
+    pushToast(`🎉 ${label} — exporte um backup pra não perder!`);
     const next: BackupMeta = {
       ...backupMeta,
       nudgedMilestones: [...(backupMeta.nudgedMilestones ?? []), triggered],
@@ -191,7 +196,19 @@ export default function App() {
     const next: BackupMeta = { ...backupMeta, firstShareNudgeSeen: true };
     saveBackupMeta(next);
     setBackupMeta(next);
-    setToast('✨ Salvo na nuvem! Que tal exportar um backup também?');
+    pushToast('✨ Salvo na nuvem! Que tal exportar um backup também?');
+  }
+
+  // Backup import: restore album state + (optionally) the original account
+  // credentials so the user keeps writing to the same server record.
+  function handleImport(result: { album: import('./types').AlbumState; account?: { id: string; token: string; name?: string } }) {
+    replaceState(result.album);
+    if (result.account) {
+      restoreAccount(result.account);
+      pushToast('Backup restaurado — sua conta na nuvem foi recuperada.');
+    } else {
+      pushToast('Backup restaurado. (Esse arquivo não trazia sua conta da nuvem.)');
+    }
   }
 
   return (
@@ -254,7 +271,8 @@ export default function App() {
           <StatsView
             state={state}
             myName={account.name}
-            onImport={replaceState}
+            account={account}
+            onImport={handleImport}
             backupMeta={backupMeta}
             onBackupDone={markBackupDone}
           />
