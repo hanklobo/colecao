@@ -1,8 +1,8 @@
-import type { VercelRequest, VercelResponse } from '../_lib/vercel-types';
-import { setJSON } from '../_lib/kv';
-import { newToken, newUserId, sha256Hex } from '../_lib/ids';
-import { json, readBody, trimName } from '../_lib/http';
-import { userKey, type UserRecord } from '../_lib/types';
+import type { VercelRequest, VercelResponse } from '../_lib/vercel-types.js';
+import { setJSON } from '../_lib/kv.js';
+import { newToken, newUserId, sha256Hex } from '../_lib/ids.js';
+import { json, readBody, trimName } from '../_lib/http.js';
+import { userKey, type UserRecord } from '../_lib/types.js';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {

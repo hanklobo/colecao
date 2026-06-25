@@ -1,4 +1,4 @@
-import type { VercelRequest, VercelResponse } from './vercel-types';
+import type { VercelRequest, VercelResponse } from './vercel-types.js';
 
 export function readBody(req: VercelRequest): Record<string, unknown> {
   // Vercel parses application/json automatically into req.body, but during

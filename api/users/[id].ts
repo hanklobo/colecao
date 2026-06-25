@@ -1,8 +1,8 @@
-import type { VercelRequest, VercelResponse } from '../_lib/vercel-types';
-import { getJSON, setJSON } from '../_lib/kv';
-import { sha256Hex } from '../_lib/ids';
-import { getBearer, json, readBody, trimName } from '../_lib/http';
-import { publicUser, userKey, type UserRecord } from '../_lib/types';
+import type { VercelRequest, VercelResponse } from '../_lib/vercel-types.js';
+import { getJSON, setJSON } from '../_lib/kv.js';
+import { sha256Hex } from '../_lib/ids.js';
+import { getBearer, json, readBody, trimName } from '../_lib/http.js';
+import { publicUser, userKey, type UserRecord } from '../_lib/types.js';
 
 // Loose upper bound; the v2 trade code for the 980-sticker album is ~330 chars.
 const MAX_CODE_LEN = 2000;
