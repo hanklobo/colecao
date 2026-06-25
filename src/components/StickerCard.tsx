@@ -30,7 +30,7 @@ export function StickerCard({ id, name, sectionId, sectionIndex, special, sticke
         aspectRatio: '4 / 5',
         backgroundColor: color.from,
         borderRadius: 6,
-        opacity: status === 'missing' ? 0.62 : 1,
+        opacity: status === 'missing' ? 0.52 : 1,
       }}
     >
       {/* State overlays */}
@@ -80,38 +80,67 @@ export function StickerCard({ id, name, sectionId, sectionIndex, special, sticke
         </p>
       </div>
 
-      {/* Player name — vertical, right side, reading bottom-to-top */}
-      <div
-        style={{
-          position: 'absolute',
-          right: 3,
-          top: 8,
-          bottom: 8,
-          display: 'flex',
-          alignItems: 'flex-end',
-          justifyContent: 'center',
-        }}
-      >
-        <span
+      {/* Player name */}
+      {marked ? (
+        // Marked: name centered + bold across the middle of the card.
+        <div
+          className="absolute inset-x-1.5 top-1/2 -translate-y-1/2 flex items-center justify-center pointer-events-none"
+        >
+          <span
+            style={{
+              fontSize: '0.62rem',
+              fontWeight: 800,
+              color: 'white',
+              letterSpacing: '0.02em',
+              lineHeight: 1.05,
+              textAlign: 'center',
+              textTransform: 'uppercase',
+              textShadow: '0 1px 2px rgba(0,0,0,0.45)',
+              fontFamily: '"Plus Jakarta Sans", sans-serif',
+              display: '-webkit-box',
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: 'vertical',
+              overflow: 'hidden',
+              wordBreak: 'break-word',
+            }}
+          >
+            {name}
+          </span>
+        </div>
+      ) : (
+        // Missing: keep the discreet vertical name on the right edge.
+        <div
           style={{
-            fontSize: '0.40rem',
-            fontWeight: 700,
-            color: 'rgba(255,255,255,0.85)',
-            letterSpacing: '0.06em',
-            writingMode: 'vertical-rl',
-            transform: 'rotate(180deg)',
-            whiteSpace: 'nowrap',
-            overflow: 'hidden',
-            textOverflow: 'ellipsis',
-            maxHeight: '90%',
-            textTransform: 'uppercase',
-            lineHeight: 1,
-            fontFamily: '"Plus Jakarta Sans", sans-serif',
+            position: 'absolute',
+            right: 3,
+            top: 8,
+            bottom: 8,
+            display: 'flex',
+            alignItems: 'flex-end',
+            justifyContent: 'center',
           }}
         >
-          {name}
-        </span>
-      </div>
+          <span
+            style={{
+              fontSize: '0.40rem',
+              fontWeight: 700,
+              color: 'rgba(255,255,255,0.85)',
+              letterSpacing: '0.06em',
+              writingMode: 'vertical-rl',
+              transform: 'rotate(180deg)',
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              maxHeight: '90%',
+              textTransform: 'uppercase',
+              lineHeight: 1,
+              fontFamily: '"Plus Jakarta Sans", sans-serif',
+            }}
+          >
+            {name}
+          </span>
+        </div>
+      )}
 
       {/* Have: green check badge */}
       {status === 'have' && (
