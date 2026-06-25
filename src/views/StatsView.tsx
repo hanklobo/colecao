@@ -19,19 +19,9 @@ interface Props {
   onBackupDone: () => void;
 }
 
-const STALE_BACKUP_MS = 14 * 24 * 60 * 60 * 1000;
+import { formatRelative } from '../utils/time';
 
-function formatRelative(ts: number | null | undefined): string {
-  if (!ts) return 'nunca';
-  const diff = Date.now() - ts;
-  if (diff < 60_000) return 'agora há pouco';
-  const mins = Math.floor(diff / 60_000);
-  if (mins < 60) return `há ${mins} min`;
-  const hours = Math.floor(mins / 60);
-  if (hours < 24) return `há ${hours} h`;
-  const days = Math.floor(hours / 24);
-  return `há ${days} d`;
-}
+const STALE_BACKUP_MS = 14 * 24 * 60 * 60 * 1000;
 
 export function StatsView({ state, myName, account, onImport, backupMeta, onBackupDone }: Props) {
   const fileRef = useRef<HTMLInputElement>(null);

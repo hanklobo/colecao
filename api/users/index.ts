@@ -4,11 +4,14 @@ import { newToken, newUserId, sha256Hex } from '../_lib/ids.js';
 import { clientIp, json, readBody, trimName } from '../_lib/http.js';
 import { userKey, type UserRecord } from '../_lib/types.js';
 
-// Fixed-window IP rate limit: 20 creations per 10 minutes per source IP.
-// Plenty for legit users (you create an account once, ever) and tight
-// enough that a scripted POST loop hits the wall within seconds.
-const RL_LIMIT  = 20;
-const RL_WINDOW = 600;
+// Fixed-window IP rate limit. This guards ACCOUNT CREATION only (each
+// real user creates an account once, ever); the auto-sync / save path
+// is PUT on /api/users/[id], which is auth-protected by token and not
+// rate limited here. 60 creations per hour gives generous headroom for
+// shared NATs (schools, families on the same router clicking a viral
+// share link) while still stopping a scripted POST loop in seconds.
+const RL_LIMIT  = 60;
+const RL_WINDOW = 3600;
 
 // Cap on retries when SET NX hits a nanoid collision. The space is 64^10,
 // so even at 1M users the per-call collision probability is ~1e-8; three

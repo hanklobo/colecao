@@ -9,6 +9,7 @@ import {
   getPartnerStats,
   generateShareUrl,
 } from '../utils/trading';
+import { formatRelative } from '../utils/time';
 import { getFlagUrl } from '../utils/flags';
 import {
   ShareIcon,
@@ -33,7 +34,6 @@ interface Props {
   onRefreshPartner: (id: string) => Promise<void>;
   onGoToAlbum: () => void;
   syncStatus: SyncStatus;
-  lastSyncedAt: number | null;
   isDirty: boolean;
   onForceSync: () => Promise<boolean>;
   onShareSucceeded: () => void;
@@ -50,20 +50,6 @@ const SHARE_STEPS = [
   { emoji: '🤝', label: 'As trocas aparecem' },
 ];
 
-function formatRelative(ts: number | null | undefined): string {
-  if (!ts) return 'nunca';
-  // Clamp future timestamps (clock skew between device and server) so we
-  // never render "há -3 min" — surface them as "agora há pouco".
-  const diff = Math.max(0, Date.now() - ts);
-  if (diff < 60_000) return 'agora há pouco';
-  const mins = Math.floor(diff / 60_000);
-  if (mins < 60) return `há ${mins} min`;
-  const hours = Math.floor(mins / 60);
-  if (hours < 24) return `há ${hours} h`;
-  const days = Math.floor(hours / 24);
-  return `há ${days} d`;
-}
-
 export function TradingView({
   state,
   myName,
@@ -76,7 +62,6 @@ export function TradingView({
   onRefreshPartner,
   onGoToAlbum,
   syncStatus,
-  lastSyncedAt,
   isDirty,
   onForceSync,
   onShareSucceeded,
@@ -173,7 +158,6 @@ export function TradingView({
     setSelectedPartnerId(partner.id);
   }
 
-  const accountReady = accountStatus === 'ready' && !!account.id;
   const accountBusy  = accountStatus === 'creating';
   const accountError = accountStatus === 'error';
 
@@ -245,36 +229,29 @@ export function TradingView({
 
         {/* Share button — only after the name is filled */}
         {myName && !editingName ? (
-          <>
-            <button
-              onClick={shareLink}
-              disabled={accountBusy || syncStatus === 'syncing'}
-              className={`w-full py-3.5 rounded-2xl font-bold text-sm transition-all active:scale-95 flex items-center justify-center gap-2 ${
-                shared
-                  ? 'bg-emerald-500 text-white'
-                  : 'bg-copa-gold text-copa-navy hover:brightness-110 shadow-card disabled:opacity-50'
-              }`}
-            >
-              {shared ? (
-                <><CheckIcon className="w-4 h-4" /> Link copiado!</>
-              ) : accountBusy ? (
-                <>⏳ Criando seu link...</>
-              ) : syncStatus === 'syncing' ? (
-                <>⟳ Sincronizando...</>
-              ) : isDirty ? (
-                <><ShareIcon className="w-4 h-4" /> Sincronizar e compartilhar</>
-              ) : (
-                <><ShareIcon className="w-4 h-4" /> Compartilhar meu link</>
-              )}
-            </button>
-            <SyncStrip
-              accountReady={accountReady}
-              accountError={accountError}
-              syncStatus={syncStatus}
-              isDirty={isDirty}
-              lastSyncedAt={lastSyncedAt}
-            />
-          </>
+          <button
+            onClick={shareLink}
+            disabled={accountBusy || syncStatus === 'syncing'}
+            className={`w-full py-3.5 rounded-2xl font-bold text-sm transition-all active:scale-95 flex items-center justify-center gap-2 ${
+              shared
+                ? 'bg-emerald-500 text-white'
+                : 'bg-copa-gold text-copa-navy hover:brightness-110 shadow-card disabled:opacity-50'
+            }`}
+          >
+            {shared ? (
+              <><CheckIcon className="w-4 h-4" /> Link copiado!</>
+            ) : accountBusy ? (
+              <>⏳ Criando seu link...</>
+            ) : syncStatus === 'syncing' ? (
+              <>⟳ Sincronizando...</>
+            ) : accountError ? (
+              <><ShareIcon className="w-4 h-4" /> Tentar de novo</>
+            ) : isDirty ? (
+              <><ShareIcon className="w-4 h-4" /> Sincronizar e compartilhar</>
+            ) : (
+              <><ShareIcon className="w-4 h-4" /> Compartilhar meu link</>
+            )}
+          </button>
         ) : (
           <p className="text-white/60 text-[11px] text-center leading-snug">
             ☝️ Preencha seu nome para gerar e compartilhar seu link de troca.
@@ -305,14 +282,21 @@ export function TradingView({
         {/* Manual add form */}
         {showAddForm && (
           <div className="bg-white rounded-2xl shadow-card p-4 mb-4 space-y-3 animate-slide-down">
-            <p className="text-sm font-bold text-gray-800">Adicionar amigo manualmente</p>
-            <textarea
+            <p className="text-sm font-bold text-gray-800">Adicionar amigo pelo ID</p>
+            <input
               value={addInput}
               onChange={(e) => setAddInput(e.target.value)}
-              placeholder="Cole aqui o link que seu amigo enviou"
-              rows={3}
-              className="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-xs font-mono resize-none focus:outline-none focus:border-copa-blue focus:ring-2 focus:ring-copa-blue/15 transition"
+              onKeyDown={(e) => { if (e.key === 'Enter') void submitAddPartner(); }}
+              placeholder="ID do amigo"
+              autoCapitalize="off"
+              autoCorrect="off"
+              spellCheck={false}
+              className="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm font-mono focus:outline-none focus:border-copa-blue focus:ring-2 focus:ring-copa-blue/15 transition"
             />
+            <p className="text-[11px] text-gray-400 leading-snug">
+              O ID tem 10 caracteres e fica depois do <span className="font-mono">?u=</span> no link do amigo.
+              Você também pode colar o link inteiro — vamos extrair o ID.
+            </p>
             {addError && <p className="text-rose-500 text-xs font-medium">{addError}</p>}
             <button
               onClick={submitAddPartner}
@@ -398,42 +382,6 @@ export function TradingView({
   );
 }
 
-// ── Sync strip: small status line under the share button ───────────────────
-
-function SyncStrip({
-  accountReady,
-  accountError,
-  syncStatus,
-  isDirty,
-  lastSyncedAt,
-}: {
-  accountReady: boolean;
-  accountError: boolean;
-  syncStatus: SyncStatus;
-  isDirty: boolean;
-  lastSyncedAt: number | null;
-}) {
-  let label: string;
-  if (accountError) {
-    label = 'Sem conexão com a nuvem';
-  } else if (!accountReady) {
-    label = 'Pronto pra compartilhar';
-  } else if (syncStatus === 'syncing') {
-    label = 'Sincronizando…';
-  } else if (syncStatus === 'error') {
-    label = 'Falha ao sincronizar';
-  } else if (isDirty) {
-    label = 'Alterações pendentes';
-  } else {
-    label = `Atualizado ${formatRelative(lastSyncedAt)}`;
-  }
-
-  return (
-    <p className="mt-2.5 text-white/60 text-[11px] leading-snug text-center">
-      Seu álbum: {label}
-    </p>
-  );
-}
 
 // ── Partner analysis card ───────────────────────────────────────────────────
 

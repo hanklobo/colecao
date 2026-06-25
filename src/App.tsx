@@ -215,16 +215,35 @@ export default function App() {
     <div className="flex flex-col bg-gray-50 max-w-lg mx-auto" style={{ height: '100dvh' }}>
       {/* Header */}
       <header
-        className="flex-shrink-0 z-30 shadow-card-lg"
-        style={{ backgroundImage: 'linear-gradient(120deg, #0b2e6b 0%, #1a73e8 100%)' }}
+        className="relative flex-shrink-0 z-30 shadow-card-lg overflow-hidden"
+        style={{
+          backgroundImage:
+            'radial-gradient(120% 80% at 0% 0%, #1a56b0 0%, transparent 55%),' +
+            'radial-gradient(110% 80% at 100% 0%, #0b2e6b 0%, transparent 60%),' +
+            'linear-gradient(140deg, #0a1f4e 0%, #0b2e6b 45%, #133b8a 100%)',
+        }}
       >
+        {/* Subtle gold band along the top — premium chrome cue */}
+        <div
+          aria-hidden
+          className="absolute top-0 left-0 right-0 h-px"
+          style={{ background: 'linear-gradient(90deg, transparent 0%, #fcd34d 50%, transparent 100%)', opacity: 0.55 }}
+        />
         <div className="flex items-center gap-3 px-4 pt-4 pb-2">
-          <LogoMark className="w-11 h-11 flex-shrink-0 rounded-xl shadow-card" />
+          <div className="relative flex-shrink-0">
+            <LogoMark className="w-12 h-12 rounded-2xl shadow-card-lg ring-1 ring-white/20" />
+            <div
+              aria-hidden
+              className="absolute -inset-0.5 rounded-2xl pointer-events-none"
+              style={{ boxShadow: 'inset 0 0 0 1px rgba(252,211,77,0.35)' }}
+            />
+          </div>
           <div className="min-w-0 flex-1">
-            <h1 className="text-white font-display font-extrabold text-lg leading-tight tracking-tight">
-              Coleção Copa 2026
+            <h1 className="font-display font-extrabold leading-none tracking-tight">
+              <span className="text-white text-[15px]">Coleção</span>
+              <span className="text-copa-gold text-lg ml-1.5">Copa 2026</span>
             </h1>
-            <p className="text-white/60 text-[11px] font-medium leading-none mt-0.5">
+            <p className="text-white/55 text-[9.5px] font-bold leading-none mt-1.5 uppercase tracking-[0.18em]">
               Álbum Panini · FIFA World Cup
             </p>
           </div>
@@ -238,14 +257,19 @@ export default function App() {
             <button
               onClick={() => setShowHelp(true)}
               aria-label="Como funciona"
-              className="flex items-center gap-1.5 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 rounded-full pl-2.5 pr-3 py-1.5 text-xs font-semibold transition-colors"
+              className="flex items-center gap-1.5 text-white/85 hover:text-white bg-white/10 hover:bg-white/20 rounded-full pl-2.5 pr-3 py-1.5 text-[11px] font-semibold transition-colors"
             >
-              <HelpIcon className="w-4 h-4" />
+              <HelpIcon className="w-3.5 h-3.5" />
               Ajuda
             </button>
           </div>
         </div>
-        <ProgressBar have={stats.have} duplicates={stats.duplicateCount} />
+        <ProgressBar
+          have={stats.have}
+          duplicates={stats.duplicateCount}
+          lastSyncedAt={lastSyncedAt}
+          showSync={!!account.id}
+        />
       </header>
 
       {/* Toast notification */}
@@ -290,7 +314,6 @@ export default function App() {
             onRefreshPartner={refreshPartner}
             onGoToAlbum={() => setTab('album')}
             syncStatus={syncStatus}
-            lastSyncedAt={lastSyncedAt}
             isDirty={dirty}
             onForceSync={() => forceSync(code)}
             onShareSucceeded={markFirstShareSeen}

@@ -1,11 +1,14 @@
 import { TOTAL_STICKERS } from '../data/album2026';
+import { formatRelative } from '../utils/time';
 
 interface Props {
   have: number;
   duplicates: number;
+  lastSyncedAt?: number | null;
+  showSync?: boolean;
 }
 
-export function ProgressBar({ have, duplicates }: Props) {
+export function ProgressBar({ have, duplicates, lastSyncedAt, showSync }: Props) {
   const pct = (have / TOTAL_STICKERS) * 100;
   const missing = TOTAL_STICKERS - have;
 
@@ -23,9 +26,16 @@ export function ProgressBar({ have, duplicates }: Props) {
           style={{ width: `${pct}%` }}
         />
       </div>
-      <div className="flex gap-4 mt-1.5 text-[10px] text-white/60">
-        <span>Faltam <span className="text-white/90 font-semibold">{missing}</span></span>
-        <span>Repetidas <span className="text-white/90 font-semibold">{duplicates}</span></span>
+      <div className="flex items-center justify-between mt-1.5 text-[10px] text-white/60">
+        <div className="flex gap-4">
+          <span>Faltam <span className="text-white/90 font-semibold">{missing}</span></span>
+          <span>Repetidas <span className="text-white/90 font-semibold">{duplicates}</span></span>
+        </div>
+        {showSync && (
+          <span className="text-white/45 tabular-nums">
+            Sincronizado {formatRelative(lastSyncedAt)}
+          </span>
+        )}
       </div>
     </div>
   );
