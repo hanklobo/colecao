@@ -1,4 +1,5 @@
 import type { Section, AlbumState } from '../types';
+import type { SyncStatus } from '../hooks/useUserSync';
 import { StickerCard } from './StickerCard';
 import { getFlagUrl } from '../utils/flags';
 import { getTeamColor } from '../utils/teamColors';
@@ -12,9 +13,21 @@ interface Props {
   filter: 'all' | 'missing' | 'repeated';
   isCollapsed: boolean;
   onToggle: () => void;
+  syncStatus?: SyncStatus;
+  isDirty?: boolean;
 }
 
-export function SectionBlock({ section, state, onCycle, onReset, filter, isCollapsed, onToggle }: Props) {
+export function SectionBlock({
+  section,
+  state,
+  onCycle,
+  onReset,
+  filter,
+  isCollapsed,
+  onToggle,
+  syncStatus,
+  isDirty,
+}: Props) {
   const visibleStickers = section.stickers
     .map((st, i) => ({ ...st, sectionIndex: i + 1 }))
     .filter((st) => {
@@ -36,6 +49,12 @@ export function SectionBlock({ section, state, onCycle, onReset, filter, isColla
   const flagUrl = section.flagCode ? getFlagUrl(section.flagCode, 80) : null;
   const flagBgUrl = section.flagCode ? getFlagUrl(section.flagCode, 160) : null;
   const color = getTeamColor(section.id);
+
+  // Only show the sync chip when there's something to communicate. When the
+  // album is fully synced (idle + clean) we leave the empty slot as-is.
+  const showSyncChip =
+    (isDirty && (syncStatus === 'pending' || syncStatus === 'syncing')) ||
+    syncStatus === 'error';
 
   return (
     <div id={`section-${section.id}`} className="mb-1.5">
@@ -111,9 +130,45 @@ export function SectionBlock({ section, state, onCycle, onReset, filter, isColla
                 onReset={() => onReset(st.id)}
               />
             ))}
+            {showSyncChip && <SyncTile status={syncStatus} />}
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+function SyncTile({ status }: { status: SyncStatus | undefined }) {
+  const variant =
+    status === 'error'
+      ? {
+          icon: '⚠',
+          label: 'Não sincronizado',
+          sub: 'Tentaremos de novo',
+          tone: 'border-amber-200 bg-amber-50 text-amber-700',
+        }
+      : status === 'syncing'
+        ? {
+            icon: '🔄',
+            label: 'Sincronizando…',
+            sub: 'Atualizando seus parceiros',
+            tone: 'border-sky-200 bg-sky-50 text-sky-700',
+          }
+        : {
+            icon: '⏳',
+            label: 'Alterações pendentes',
+            sub: 'Sincronizando em breve',
+            tone: 'border-gray-200 bg-gray-50 text-gray-600',
+          };
+
+  return (
+    <div
+      className={`aspect-square rounded-xl border ${variant.tone} flex flex-col items-center justify-center text-center px-1.5 py-1`}
+      aria-live="polite"
+    >
+      <span className="text-xl leading-none mb-1">{variant.icon}</span>
+      <p className="text-[10px] font-extrabold leading-tight">{variant.label}</p>
+      <p className="text-[9px] opacity-75 leading-tight mt-0.5">{variant.sub}</p>
     </div>
   );
 }

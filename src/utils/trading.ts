@@ -128,8 +128,6 @@ export function getPartnerStats(code: string): PartnerStats | null {
   return { have, missing: decoded.missing.length, duplicates };
 }
 
-export function generateShareUrl(name: string, code: string): string {
-  // Build manually: the code uses only URL-safe chars (base64url + '~'),
-  // so we skip URLSearchParams to avoid bloating it with percent-escapes.
-  return `${window.location.origin}/?t=${code}&de=${encodeURIComponent(name)}`;
+export function generateShareUrl(userId: string): string {
+  return `${window.location.origin}/?u=${userId}`;
 }

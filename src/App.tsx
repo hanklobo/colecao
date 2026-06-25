@@ -1,7 +1,11 @@
 import { useState, useEffect, useMemo } from 'react';
 import type { ComponentType } from 'react';
 import { useAlbum } from './hooks/useAlbum';
-import { useTradePartners } from './hooks/useTradePartners';
+import {
+  useTradePartners,
+  useRefreshPartnersOnMount,
+} from './hooks/useTradePartners';
+import { useUserSync } from './hooks/useUserSync';
 import { ProgressBar } from './components/ProgressBar';
 import { AlbumView } from './views/AlbumView';
 import { TradingView } from './views/TradingView';
@@ -9,10 +13,12 @@ import { StatsView } from './views/StatsView';
 import { LandingPage } from './components/LandingPage';
 import { AlbumIcon, StatsIcon, TradeIcon, LogoMark, HelpIcon } from './components/Icons';
 import { computeAchievements } from './utils/achievements';
+import { encodeTradeCode } from './utils/trading';
 import { Analytics } from '@vercel/analytics/react';
 
 const ONBOARD_KEY = 'copa2026_onboarded';
 const BADGES_KEY = 'copa2026_badges';
+const BACKUP_META_KEY = 'copa2026_backupmeta';   // { firstShareNudgeSeen, lastBackupAt, nudgedMilestones }
 
 type Tab = 'album' | 'stats' | 'trading';
 
@@ -22,13 +28,42 @@ const TABS: { id: Tab; label: string; Icon: ComponentType<{ className?: string; 
   { id: 'trading', label: 'Troca',     Icon: TradeIcon },
 ];
 
+export interface BackupMeta {
+  firstShareNudgeSeen?: boolean;
+  lastBackupAt?: number;
+  nudgedMilestones?: number[];
+}
+
+function loadBackupMeta(): BackupMeta {
+  try {
+    return JSON.parse(localStorage.getItem(BACKUP_META_KEY) ?? '{}') as BackupMeta;
+  } catch {
+    return {};
+  }
+}
+
+function saveBackupMeta(m: BackupMeta) {
+  localStorage.setItem(BACKUP_META_KEY, JSON.stringify(m));
+}
+
 export default function App() {
   const [tab, setTab] = useState<Tab>('album');
   const { state, cycleSticker, resetSticker, replaceState, stats } = useAlbum();
-  const { partners, myName, updateMyName, addPartner, removePartner } = useTradePartners();
+  const { partners, addPartnerById, refreshPartner, removePartner } = useTradePartners();
+  const {
+    account,
+    accountStatus,
+    updateName,
+    syncStatus,
+    lastSyncedAt,
+    lastSyncedCode,
+    scheduleSync,
+    forceSync,
+  } = useUserSync();
   const [toast, setToast] = useState<string | null>(null);
   const [showHelp, setShowHelp] = useState(false);
   const [firstTime, setFirstTime] = useState(false);
+  const [backupMeta, setBackupMeta] = useState<BackupMeta>(loadBackupMeta);
 
   // Show landing page on first ever visit
   useEffect(() => {
@@ -44,17 +79,22 @@ export default function App() {
     localStorage.setItem(ONBOARD_KEY, '1');
   }
 
-  // Parse incoming trade link on first load
+  // Parse incoming trade link on first load.
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    const code = params.get('t') ?? params.get('troca');
-    const fromName = params.get('de');
-    if (code && fromName) {
-      addPartner(fromName, code);
-      setToast(`${fromName} foi adicionado(a) como parceiro de troca!`);
-      window.history.replaceState({}, '', '/');
-      setTab('trading');
-    }
+    const partnerId = params.get('u');
+    const fallbackName = params.get('de') ?? undefined;
+    if (!partnerId) return;
+    window.history.replaceState({}, '', '/');
+    (async () => {
+      const added = await addPartnerById(partnerId, fallbackName);
+      if (added) {
+        setToast(`${added.name} foi adicionado(a) como parceiro de troca!`);
+        setTab('trading');
+      } else {
+        setToast('Não foi possível carregar esse parceiro.');
+      }
+    })();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -85,6 +125,73 @@ export default function App() {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [earnedKey]);
+
+  // ── Sync orchestration ────────────────────────────────────────────────────
+  const code = useMemo(() => encodeTradeCode(state), [state]);
+  const dirty = !!account.id && code !== lastSyncedCode;
+
+  // Debounced sync on every album change.
+  useEffect(() => {
+    if (!dirty) return;
+    scheduleSync(code);
+  }, [code, dirty, scheduleSync]);
+
+  // Force sync when the tab/window is hidden — captures end-of-session edits.
+  useEffect(() => {
+    function onVis() {
+      if (document.visibilityState === 'hidden' && dirty) {
+        void forceSync(code);
+      }
+    }
+    document.addEventListener('visibilitychange', onVis);
+    return () => document.removeEventListener('visibilitychange', onVis);
+  }, [code, dirty, forceSync]);
+
+  // Force sync when entering the Trading tab so partners see fresh data.
+  useEffect(() => {
+    if (tab === 'trading' && dirty) {
+      void forceSync(code);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tab]);
+
+  // SWR: when entering the Trading tab, refresh partners in the background.
+  useRefreshPartnersOnMount(partners, refreshPartner, tab === 'trading');
+
+  // ── Backup nudges ─────────────────────────────────────────────────────────
+  // Milestones: first time the album crosses 50%, 75% or 100%, surface a nudge.
+  useEffect(() => {
+    const totalHave = Object.values(state).filter((s) => s.status !== 'missing').length;
+    const pct = (totalHave / 980) * 100;
+    const milestones = [50, 75, 100];
+    const triggered = milestones.find(
+      (m) => pct >= m && !(backupMeta.nudgedMilestones ?? []).includes(m),
+    );
+    if (!triggered) return;
+    const label = triggered === 100 ? 'Álbum completo!' : `${triggered}% do álbum`;
+    setToast(`🎉 ${label} — exporte um backup pra não perder!`);
+    const next: BackupMeta = {
+      ...backupMeta,
+      nudgedMilestones: [...(backupMeta.nudgedMilestones ?? []), triggered],
+    };
+    saveBackupMeta(next);
+    setBackupMeta(next);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state]);
+
+  function markBackupDone() {
+    const next: BackupMeta = { ...backupMeta, lastBackupAt: Date.now() };
+    saveBackupMeta(next);
+    setBackupMeta(next);
+  }
+
+  function markFirstShareSeen() {
+    if (backupMeta.firstShareNudgeSeen) return;
+    const next: BackupMeta = { ...backupMeta, firstShareNudgeSeen: true };
+    saveBackupMeta(next);
+    setBackupMeta(next);
+    setToast('✨ Salvo na nuvem! Que tal exportar um backup também?');
+  }
 
   return (
     <div className="flex flex-col bg-gray-50 max-w-lg mx-auto" style={{ height: '100dvh' }}>
@@ -128,18 +235,39 @@ export default function App() {
       {/* Main content — each view manages its own scroll */}
       <main className="flex-1 overflow-hidden">
         {tab === 'album' && (
-          <AlbumView state={state} onCycle={cycleSticker} onReset={resetSticker} />
+          <AlbumView
+            state={state}
+            onCycle={cycleSticker}
+            onReset={resetSticker}
+            syncStatus={syncStatus}
+            isDirty={dirty}
+          />
         )}
-        {tab === 'stats' && <StatsView state={state} myName={myName} onImport={replaceState} />}
+        {tab === 'stats' && (
+          <StatsView
+            state={state}
+            myName={account.name}
+            onImport={replaceState}
+            backupMeta={backupMeta}
+            onBackupDone={markBackupDone}
+          />
+        )}
         {tab === 'trading' && (
           <TradingView
             state={state}
-            myName={myName}
-            onUpdateMyName={updateMyName}
+            myName={account.name}
+            account={account}
+            accountStatus={accountStatus}
+            onUpdateMyName={updateName}
             partners={partners}
-            onAddPartner={addPartner}
+            onAddPartnerById={addPartnerById}
             onRemovePartner={removePartner}
+            onRefreshPartner={refreshPartner}
             onGoToAlbum={() => setTab('album')}
+            syncStatus={syncStatus}
+            lastSyncedAt={lastSyncedAt}
+            onForceSync={() => forceSync(code)}
+            onShareSucceeded={markFirstShareSeen}
           />
         )}
       </main>

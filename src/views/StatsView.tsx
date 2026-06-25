@@ -1,5 +1,6 @@
 import { useMemo, useRef, useState } from 'react';
 import type { AlbumState } from '../types';
+import type { BackupMeta } from '../App';
 import { SECTIONS, TOTAL_STICKERS, STICKER_MAP } from '../data/album2026';
 import { getFlagUrl } from '../utils/flags';
 import { computeAchievements, specialOwned, TOTAL_SPECIAL } from '../utils/achievements';
@@ -12,9 +13,25 @@ interface Props {
   state: AlbumState;
   myName: string;
   onImport: (state: AlbumState) => void;
+  backupMeta: BackupMeta;
+  onBackupDone: () => void;
 }
 
-export function StatsView({ state, myName, onImport }: Props) {
+const STALE_BACKUP_MS = 14 * 24 * 60 * 60 * 1000;
+
+function formatRelative(ts: number | null | undefined): string {
+  if (!ts) return 'nunca';
+  const diff = Date.now() - ts;
+  if (diff < 60_000) return 'agora há pouco';
+  const mins = Math.floor(diff / 60_000);
+  if (mins < 60) return `há ${mins} min`;
+  const hours = Math.floor(mins / 60);
+  if (hours < 24) return `há ${hours} h`;
+  const days = Math.floor(hours / 24);
+  return `há ${days} d`;
+}
+
+export function StatsView({ state, myName, onImport, backupMeta, onBackupDone }: Props) {
   const fileRef = useRef<HTMLInputElement>(null);
 
   function handleImportFile(e: React.ChangeEvent<HTMLInputElement>) {
@@ -245,6 +262,28 @@ export function StatsView({ state, myName, onImport }: Props) {
       {/* Backup */}
       <div className="px-4 mt-6">
         <h2 className="font-display font-extrabold text-gray-800 text-sm mb-3 uppercase tracking-wide">Backup</h2>
+
+        {/* Persistent stale-backup banner — only when backup is missing or old. */}
+        {(() => {
+          const last = backupMeta.lastBackupAt ?? 0;
+          const isStale = !last || Date.now() - last > STALE_BACKUP_MS;
+          if (!isStale) return null;
+          return (
+            <div className="mb-3 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 flex items-start gap-2.5">
+              <span className="text-base leading-none mt-0.5">⚠</span>
+              <div className="flex-1 min-w-0">
+                <p className="text-amber-900 font-bold text-xs leading-tight">
+                  {last ? 'Backup desatualizado' : 'Nenhum backup salvo'}
+                </p>
+                <p className="text-amber-800/80 text-[11px] leading-snug mt-0.5">
+                  Se você limpar o navegador ou trocar de celular, sua coleção pode se perder.
+                  Exporte um arquivo para garantir.
+                </p>
+              </div>
+            </div>
+          );
+        })()}
+
         <div className="bg-white rounded-2xl p-4 shadow-sm">
           <p className="text-gray-500 text-xs leading-snug mb-3">
             Sua coleção fica salva só neste navegador. Exporte um arquivo para não perder
@@ -252,7 +291,7 @@ export function StatsView({ state, myName, onImport }: Props) {
           </p>
           <div className="flex gap-2">
             <button
-              onClick={() => exportAlbum(state, myName)}
+              onClick={() => { exportAlbum(state, myName); onBackupDone(); }}
               className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-copa-ink text-white font-bold text-sm active:scale-95 transition"
             >
               <DownloadIcon className="w-4 h-4" /> Exportar
@@ -264,6 +303,9 @@ export function StatsView({ state, myName, onImport }: Props) {
               <UploadIcon className="w-4 h-4" /> Importar
             </button>
           </div>
+          <p className="text-gray-400 text-[11px] font-medium mt-2.5 text-center">
+            Último backup: {formatRelative(backupMeta.lastBackupAt)}
+          </p>
           <input
             ref={fileRef}
             type="file"
