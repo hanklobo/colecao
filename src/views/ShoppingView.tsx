@@ -48,18 +48,6 @@ const FEATURED: FeaturedListing[] = [
     url: 'https://meli.la/1iYQjt6',
   },
   {
-    id: 'box-estadio',
-    title: 'Box Estádio Copa do Mundo Numerado Exclusivo FIFA World Cup 2026',
-    image: '/box-estadio.webp',
-    price: 1829.90,
-    rating: 4.6,
-    reviews: 117,
-    badge: 'MAIS VENDIDO',
-    badgeColor: 'bg-orange-500',
-    tag: '16º em Livros Físicos Panini',
-    url: 'https://meli.la/33hs4gF',
-  },
-  {
     id: 'album-capa-dura',
     title: 'Álbum Capa Dura Ouro — Copa do Mundo 2026 FIFA World Cup Panini',
     image: '/album-capa-dura.webp',
@@ -72,6 +60,18 @@ const FEATURED: FeaturedListing[] = [
     badgeColor: 'bg-orange-500',
     tag: '15º em Livros Físicos',
     url: 'https://meli.la/1sopTpB',
+  },
+  {
+    id: 'box-estadio',
+    title: 'Box Estádio Copa do Mundo Numerado Exclusivo FIFA World Cup 2026',
+    image: '/box-estadio.webp',
+    price: 1829.90,
+    rating: 4.6,
+    reviews: 117,
+    badge: 'MAIS VENDIDO',
+    badgeColor: 'bg-orange-500',
+    tag: '16º em Livros Físicos Panini',
+    url: 'https://meli.la/33hs4gF',
   },
 ];
 
