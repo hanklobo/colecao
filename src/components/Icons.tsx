@@ -10,56 +10,115 @@ const base = (className = '') =>
   `inline-block flex-shrink-0 ${className}`;
 
 export function AlbumIcon({ className, filled }: IconProps) {
+  // Open album / sticker book with a sticker card peeking out
   return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      className={base(className)}
-      stroke="currentColor"
-      strokeWidth={filled ? 2.2 : 1.9}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H19a1 1 0 0 1 1 1v15a1 1 0 0 1-1 1H6.5A2.5 2.5 0 0 1 4 17.5z" />
-      <path d="M4 17.5A2.5 2.5 0 0 1 6.5 15H20" />
-      <path d="M9 3v9" />
+    <svg viewBox="0 0 24 24" fill="none" className={base(className)}>
+      {filled ? (
+        <>
+          {/* Book body */}
+          <path
+            d="M5 3.5A2.5 2.5 0 0 1 7.5 1H19a1 1 0 0 1 1 1v17a1 1 0 0 1-1 1H7.5A2.5 2.5 0 0 1 5 17.5z"
+            fill="currentColor"
+          />
+          {/* Spine / bottom shadow */}
+          <path
+            d="M5 17.5A2.5 2.5 0 0 1 7.5 15H20"
+            stroke="currentColor"
+            strokeWidth={2}
+            strokeLinecap="round"
+          />
+          {/* Sticker card tab */}
+          <rect x="9" y="4" width="7" height="9" rx="1.5" fill="white" opacity="0.9" />
+          {/* Card inner detail */}
+          <rect x="10.5" y="5.5" width="4" height="3.5" rx="0.5" fill="currentColor" opacity="0.4" />
+          <line x1="10.5" y1="10.5" x2="14.5" y2="10.5" stroke="currentColor" strokeWidth="1" opacity="0.4" />
+          <line x1="10.5" y1="12" x2="13" y2="12" stroke="currentColor" strokeWidth="1" opacity="0.4" />
+        </>
+      ) : (
+        <>
+          <path
+            d="M5 3.5A2.5 2.5 0 0 1 7.5 1H19a1 1 0 0 1 1 1v17a1 1 0 0 1-1 1H7.5A2.5 2.5 0 0 1 5 17.5z"
+            stroke="currentColor"
+            strokeWidth={1.8}
+          />
+          <path
+            d="M5 17.5A2.5 2.5 0 0 1 7.5 15H20"
+            stroke="currentColor"
+            strokeWidth={1.8}
+            strokeLinecap="round"
+          />
+          {/* Sticker card outline */}
+          <rect x="9" y="4" width="7" height="9" rx="1.5" stroke="currentColor" strokeWidth={1.5} />
+          <line x1="10.5" y1="10.5" x2="14.5" y2="10.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+          <line x1="10.5" y1="12" x2="13" y2="12" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+        </>
+      )}
     </svg>
   );
 }
 
 export function StatsIcon({ className, filled }: IconProps) {
+  // Trophy with a progress fill inside
   return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      className={base(className)}
-      stroke="currentColor"
-      strokeWidth={filled ? 2.4 : 1.9}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M5 20V11" />
-      <path d="M12 20V4" />
-      <path d="M19 20v-6" />
+    <svg viewBox="0 0 24 24" fill="none" className={base(className)}>
+      {filled ? (
+        <>
+          {/* Trophy cup body */}
+          <path
+            d="M8 3h8v7a4 4 0 0 1-8 0V3z"
+            fill="currentColor"
+          />
+          {/* Handles */}
+          <path d="M8 5H5a2 2 0 0 0 0 4h3" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" />
+          <path d="M16 5h3a2 2 0 0 1 0 4h-3" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" />
+          {/* Stem */}
+          <path d="M12 14v3" stroke="currentColor" strokeWidth={2} strokeLinecap="round" />
+          {/* Base */}
+          <path d="M8 20h8" stroke="currentColor" strokeWidth={2.2} strokeLinecap="round" />
+          {/* Star inside cup */}
+          <path d="M12 5.5l.6 1.8h1.9l-1.5 1.1.6 1.8L12 9.1l-1.6 1.1.6-1.8-1.5-1.1h1.9z" fill="white" opacity="0.9" />
+        </>
+      ) : (
+        <>
+          <path
+            d="M8 3h8v7a4 4 0 0 1-8 0V3z"
+            stroke="currentColor"
+            strokeWidth={1.8}
+            strokeLinejoin="round"
+          />
+          <path d="M8 5H5a2 2 0 0 0 0 4h3" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" />
+          <path d="M16 5h3a2 2 0 0 1 0 4h-3" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" />
+          <path d="M12 14v3" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" />
+          <path d="M8 20h8" stroke="currentColor" strokeWidth={2} strokeLinecap="round" />
+          <path d="M12 5.5l.6 1.8h1.9l-1.5 1.1.6 1.8L12 9.1l-1.6 1.1.6-1.8-1.5-1.1h1.9z" stroke="currentColor" strokeWidth={0.8} strokeLinejoin="round" />
+        </>
+      )}
     </svg>
   );
 }
 
 export function TradeIcon({ className, filled }: IconProps) {
+  // Two sticker cards swapping hands
   return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      className={base(className)}
-      stroke="currentColor"
-      strokeWidth={filled ? 2.2 : 1.9}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M7 4 3 8l4 4" />
-      <path d="M3 8h14" />
-      <path d="m17 20 4-4-4-4" />
-      <path d="M21 16H7" />
+    <svg viewBox="0 0 24 24" fill="none" className={base(className)}>
+      {filled ? (
+        <>
+          {/* Left card going right-up */}
+          <rect x="2" y="9" width="8" height="10" rx="1.5" fill="currentColor" transform="rotate(-12 6 14)" />
+          {/* Right card going left-up */}
+          <rect x="14" y="5" width="8" height="10" rx="1.5" fill="currentColor" opacity="0.6" transform="rotate(12 18 10)" />
+          {/* Swap arrows */}
+          <path d="M9 6l3-3 3 3" stroke="white" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M15 18l-3 3-3-3" stroke="white" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round" />
+        </>
+      ) : (
+        <>
+          <rect x="2" y="9" width="8" height="10" rx="1.5" stroke="currentColor" strokeWidth={1.7} transform="rotate(-12 6 14)" />
+          <rect x="14" y="5" width="8" height="10" rx="1.5" stroke="currentColor" strokeWidth={1.7} transform="rotate(12 18 10)" />
+          <path d="M9 6l3-3 3 3" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M15 18l-3 3-3-3" stroke="currentColor" strokeWidth={1.7} strokeLinecap="round" strokeLinejoin="round" />
+        </>
+      )}
     </svg>
   );
 }
@@ -332,18 +391,45 @@ export function LogoMark({ className }: IconProps) {
 }
 
 export function ShopIcon({ className, filled }: IconProps) {
+  // Shopping bag with a price tag
   return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      className={base(className)}
-      stroke="currentColor"
-      strokeWidth={filled ? 2.2 : 1.9}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M5 8h14l-1 12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1z" />
-      <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+    <svg viewBox="0 0 24 24" fill="none" className={base(className)}>
+      {filled ? (
+        <>
+          {/* Bag body */}
+          <path
+            d="M4 9h16l-1.5 11a1 1 0 0 1-1 .9H6.5a1 1 0 0 1-1-.9z"
+            fill="currentColor"
+          />
+          {/* Handles */}
+          <path
+            d="M9 9V7a3 3 0 0 1 6 0v2"
+            stroke="currentColor"
+            strokeWidth={2}
+            strokeLinecap="round"
+          />
+          {/* Price tag on bag */}
+          <circle cx="12" cy="15" r="2" fill="white" opacity="0.9" />
+          <line x1="12" y1="13" x2="12" y2="12" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.9" />
+        </>
+      ) : (
+        <>
+          <path
+            d="M4 9h16l-1.5 11a1 1 0 0 1-1 .9H6.5a1 1 0 0 1-1-.9z"
+            stroke="currentColor"
+            strokeWidth={1.8}
+            strokeLinejoin="round"
+          />
+          <path
+            d="M9 9V7a3 3 0 0 1 6 0v2"
+            stroke="currentColor"
+            strokeWidth={1.8}
+            strokeLinecap="round"
+          />
+          <circle cx="12" cy="15" r="1.8" stroke="currentColor" strokeWidth={1.3} />
+          <line x1="12" y1="13.2" x2="12" y2="12" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" />
+        </>
+      )}
     </svg>
   );
 }
