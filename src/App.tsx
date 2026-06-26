@@ -223,19 +223,40 @@ export default function App() {
             'linear-gradient(140deg, #06184a 0%, #0b2e6b 45%, #133b8a 100%)',
         }}
       >
-        {/* Diagonal sheen — subtle premium texture */}
-        <div
+        {/* Cromos pattern — scattered sticker silhouettes in the background.
+            Same vibe as the "26" watermark on each StickerCard, tying the
+            header to the rest of the app's visual language. */}
+        <svg
           aria-hidden
-          className="absolute inset-0 pointer-events-none opacity-30 mix-blend-overlay"
-          style={{
-            backgroundImage:
-              'repeating-linear-gradient(115deg, rgba(255,255,255,0.04) 0 1px, transparent 1px 14px)',
-          }}
-        />
+          className="absolute inset-0 w-full h-full pointer-events-none"
+          preserveAspectRatio="xMidYMid slice"
+        >
+          <defs>
+            <pattern id="hdr-cromos" x="0" y="0" width="118" height="96" patternUnits="userSpaceOnUse">
+              <g fill="white" opacity="0.05">
+                <rect x="6"  y="8"  width="28" height="36" rx="3" transform="rotate(-9 20 26)" />
+                <rect x="48" y="44" width="30" height="38" rx="3" transform="rotate(11 63 63)" />
+                <rect x="86" y="2"  width="26" height="33" rx="3" transform="rotate(-5 99 18)" />
+                <rect x="94" y="58" width="22" height="28" rx="3" transform="rotate(14 105 72)" />
+              </g>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#hdr-cromos)" />
+        </svg>
         {/* Gold hairline along the top */}
         <div
           aria-hidden
           className="absolute top-0 left-0 right-0 h-px"
+          style={{
+            background: 'linear-gradient(90deg, transparent 0%, #fcd34d 50%, transparent 100%)',
+            opacity: 0.7,
+          }}
+        />
+        {/* Gold hairline along the bottom — chrome separator between
+            header and content, mirroring the top one. */}
+        <div
+          aria-hidden
+          className="absolute bottom-0 left-0 right-0 h-px z-10"
           style={{
             background: 'linear-gradient(90deg, transparent 0%, #fcd34d 50%, transparent 100%)',
             opacity: 0.7,
