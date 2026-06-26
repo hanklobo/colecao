@@ -100,16 +100,30 @@ export function AlbumView({ state, onCycle, onReset }: Props) {
       {/* ── Toolbar (fixed, does not scroll) ── */}
       <div className="flex-shrink-0 bg-white border-b border-gray-200 shadow-card">
 
-        {/* Top bar: title + filters toggle (top-right corner) */}
-        <div className="flex items-center justify-between px-4 py-2.5">
-          <p className="font-display font-extrabold text-gray-900 text-base tracking-tight">Álbum</p>
+        {/* Top bar: title + collapse-all icon + Filtros toggle */}
+        <div className="flex items-center gap-2 px-4 py-2.5">
+          <p className="font-display font-extrabold text-gray-900 text-base tracking-tight flex-1">Álbum</p>
+
+          {/* Collapse / expand all sections — small icon button so it sits
+              quietly next to the title without competing for attention. */}
+          <button
+            onClick={areAllCollapsed ? expandAll : collapseAll}
+            aria-label={areAllCollapsed ? 'Expandir todas as seções' : 'Recolher todas as seções'}
+            title={areAllCollapsed ? 'Expandir tudo' : 'Recolher tudo'}
+            className="flex-shrink-0 w-9 h-9 rounded-xl text-gray-500 hover:text-copa-blue hover:bg-copa-blue/5 transition-colors flex items-center justify-center"
+          >
+            <ChevronDown
+              className={`w-4 h-4 transition-transform ${areAllCollapsed ? '-rotate-90' : 'rotate-0'}`}
+            />
+          </button>
+
           <button
             onClick={toggleFilters}
             aria-pressed={showFilters}
-            className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all active:scale-95 flex-shrink-0 ${
+            className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold transition-all active:scale-95 flex-shrink-0 ring-1 ${
               showFilters
-                ? 'bg-copa-ink text-white shadow-card'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                ? 'bg-copa-blue text-white shadow-card ring-copa-blue/30'
+                : 'bg-copa-blue/[0.06] text-copa-blue hover:bg-copa-blue/[0.12] ring-copa-blue/15'
             }`}
             title={showFilters ? 'Ocultar filtros e busca' : 'Exibir filtros e busca'}
           >
@@ -121,9 +135,9 @@ export function AlbumView({ state, onCycle, onReset }: Props) {
 
         {/* Collapsible region: search + group jump + status filters */}
         {showFilters && (
-          <div className="animate-slide-down border-t border-gray-100">
+          <div className="animate-slide-down border-t border-gray-100 bg-gradient-to-b from-gray-50/60 to-white">
             {/* Search */}
-            <div className="px-4 py-2.5 bg-gray-50/80">
+            <div className="px-4 pt-3 pb-2">
               <div className="relative">
                 <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
                 <input
@@ -131,22 +145,22 @@ export function AlbumView({ state, onCycle, onReset }: Props) {
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Buscar seleção ou figurinha..."
-                  className="w-full pl-9 pr-3 py-2 rounded-xl border border-gray-200 text-sm bg-white font-medium placeholder:text-gray-400 focus:outline-none focus:border-copa-blue focus:ring-2 focus:ring-copa-blue/15 transition"
+                  className="w-full pl-9 pr-3 py-2 rounded-xl border border-gray-200 text-sm bg-white font-medium placeholder:text-gray-400 focus:outline-none focus:border-copa-blue focus:ring-2 focus:ring-copa-blue/15 transition shadow-sm"
                 />
               </div>
             </div>
 
             {/* Section quick-jump */}
             {!search && (
-              <div className="flex gap-1.5 px-4 py-2 overflow-x-auto border-t border-gray-100 scrollbar-hide">
+              <div className="flex gap-1.5 px-4 py-2 overflow-x-auto scrollbar-hide">
                 {JUMPS.map((j) => (
                   <button
                     key={j.id}
                     onClick={() => handleGroupClick(j.id)}
-                    className={`px-2.5 py-1 rounded-lg text-[11px] font-bold whitespace-nowrap flex-shrink-0 transition-colors ${
+                    className={`min-w-[28px] h-7 px-2.5 rounded-lg text-[11px] font-bold whitespace-nowrap flex-shrink-0 transition-colors flex items-center justify-center ${
                       activeGroup === j.id
                         ? 'bg-copa-blue text-white shadow-card'
-                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                        : 'bg-white text-gray-600 ring-1 ring-gray-200 hover:ring-copa-blue/40 hover:text-copa-blue'
                     }`}
                   >
                     {j.label}
@@ -155,25 +169,13 @@ export function AlbumView({ state, onCycle, onReset }: Props) {
               </div>
             )}
 
-            {/* Filter bar + collapse-all toggle */}
-            <div className="flex items-center border-t border-gray-100">
-              <div className="flex-1 overflow-x-hidden">
-                <FilterBar
-                  active={filter}
-                  onChange={setFilter}
-                  missingCount={counts.missing}
-                  repeatedCount={counts.repeated}
-                />
-              </div>
-              <button
-                onClick={areAllCollapsed ? expandAll : collapseAll}
-                className="flex-shrink-0 px-3 py-2.5 text-xs font-bold text-gray-500 hover:text-gray-900 border-l border-gray-100 transition-colors bg-white h-full flex items-center gap-1"
-                title={areAllCollapsed ? 'Expandir tudo' : 'Recolher tudo'}
-              >
-                <ChevronDown className={`w-4 h-4 transition-transform ${areAllCollapsed ? '-rotate-90' : 'rotate-0'}`} />
-                <span className="hidden sm:inline">{areAllCollapsed ? 'Expandir' : 'Recolher'}</span>
-              </button>
-            </div>
+            {/* Status filters */}
+            <FilterBar
+              active={filter}
+              onChange={setFilter}
+              missingCount={counts.missing}
+              repeatedCount={counts.repeated}
+            />
           </div>
         )}
       </div>
