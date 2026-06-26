@@ -33,20 +33,100 @@ function roundRect(ctx: CanvasRenderingContext2D, x: number, y: number, w: numbe
   ctx.closePath();
 }
 
-function drawCrest(ctx: CanvasRenderingContext2D, cx: number, cy: number, w: number, h: number) {
-  const x = cx - w / 2;
-  const y = cy - h / 2;
-  const r = w * 0.22;
+// Shield paths — kept identical to src/components/Achievements.tsx so the
+// shareable card matches the in-app crest pixel-for-pixel (within scale).
+const SHIELD_PATH  = 'M50 4 L92 18 V54 C92 82 73 99 50 106 C27 99 8 82 8 54 V18 Z';
+const SHIELD_INNER = 'M50 14 L84 26 V53 C84 77 68 92 50 99 C32 92 16 77 16 53 V26 Z';
+
+function circle(ctx: CanvasRenderingContext2D, x: number, y: number, r: number) {
   ctx.beginPath();
-  ctx.moveTo(x + r, y);
-  ctx.lineTo(x + w - r, y);
-  ctx.quadraticCurveTo(x + w, y, x + w, y + r);
-  ctx.lineTo(x + w, y + h * 0.55);
-  ctx.bezierCurveTo(x + w, y + h * 0.82, cx + w * 0.18, y + h * 0.92, cx, y + h);
-  ctx.bezierCurveTo(cx - w * 0.18, y + h * 0.92, x, y + h * 0.82, x, y + h * 0.55);
-  ctx.lineTo(x, y + r);
-  ctx.quadraticCurveTo(x, y, x + r, y);
-  ctx.closePath();
+  ctx.arc(x, y, r, 0, Math.PI * 2);
+  ctx.fill();
+}
+
+// Render an "earned" achievement shield onto the canvas, matching the on-screen
+// Shield component (Achievements.tsx) — same gothic shape, fill / rim / shine
+// gradients, inner border, sparkle dots, and gold drop-shadow halo. The
+// share card only ships earned badges so we don't bother with the locked
+// variant; if that ever changes, mirror the grayscale branch from the SVG.
+function drawShield(
+  ctx: CanvasRenderingContext2D,
+  cx: number,
+  cy: number,
+  width: number,
+  emoji: string,
+) {
+  const height = width * 1.12;
+
+  ctx.save();
+  // Position the 100x110 viewBox so its center lands on (cx, cy).
+  ctx.translate(cx - width / 2, cy - height / 2);
+  ctx.scale(width / 100, height / 110);
+
+  const shield = new Path2D(SHIELD_PATH);
+  const inner  = new Path2D(SHIELD_INNER);
+
+  // 1) Body fill + warm gold halo. The shadow ride-alongs the fill so the
+  //    glow leaks out around the silhouette only.
+  ctx.shadowColor   = 'rgba(245,158,11,0.70)';
+  ctx.shadowBlur    = 14;
+  ctx.shadowOffsetY = 3;
+  const fillGrad = ctx.createLinearGradient(25, 0, 75, 110);
+  fillGrad.addColorStop(0.00, '#fff8c4');
+  fillGrad.addColorStop(0.42, '#f59e0b');
+  fillGrad.addColorStop(1.00, '#78350f');
+  ctx.fillStyle = fillGrad;
+  ctx.fill(shield);
+
+  // Drop the shadow for everything stacked on top.
+  ctx.shadowColor   = 'transparent';
+  ctx.shadowBlur    = 0;
+  ctx.shadowOffsetY = 0;
+
+  // 2) Rim — gradient stroke from light gold to dark bronze.
+  const rimGrad = ctx.createLinearGradient(0, 0, 100, 110);
+  rimGrad.addColorStop(0, '#fde68a');
+  rimGrad.addColorStop(1, '#92400e');
+  ctx.strokeStyle = rimGrad;
+  ctx.lineWidth   = 3.5;
+  ctx.lineJoin    = 'round';
+  ctx.stroke(shield);
+
+  // 3) Diagonal sheen overlay across the shield body.
+  const shineGrad = ctx.createLinearGradient(5, 0, 55, 82);
+  shineGrad.addColorStop(0.00, 'rgba(255,255,255,0.62)');
+  shineGrad.addColorStop(0.55, 'rgba(255,255,255,0.00)');
+  ctx.fillStyle = shineGrad;
+  ctx.fill(shield);
+
+  // 4) Inner border — quiet white outline a few pixels inside the rim.
+  ctx.strokeStyle = 'rgba(255,255,255,0.38)';
+  ctx.lineWidth   = 1.4;
+  ctx.stroke(inner);
+
+  // 5) Sparkle dots in the top-right quadrant.
+  ctx.globalAlpha = 0.95;
+  ctx.fillStyle   = '#fef08a';
+  circle(ctx, 88, 12, 2.6);
+  ctx.globalAlpha = 0.85;
+  ctx.fillStyle   = '#fffde7';
+  circle(ctx, 81,  6, 1.5);
+  ctx.globalAlpha = 0.80;
+  ctx.fillStyle   = '#fef08a';
+  circle(ctx, 94, 21, 1.8);
+  ctx.globalAlpha = 1;
+
+  ctx.restore();
+
+  // 6) Emoji in user space — sized to ~38% of width, shifted up to match the
+  //    in-app component's paddingBottom: 9% trick.
+  ctx.save();
+  ctx.font         = `${Math.round(width * 0.42)}px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif`;
+  ctx.textAlign    = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillStyle    = '#0b0b0b';
+  ctx.fillText(emoji, cx, cy - height * 0.045);
+  ctx.restore();
 }
 
 function loadImage(src: string): Promise<HTMLImageElement | null> {
@@ -133,71 +213,39 @@ export async function generateProgressCard(data: CardData): Promise<Blob | null>
   ctx.font = `800 24px ${SANS}`;
   ctx.fillText(`CONQUISTAS · ${data.badges} / ${data.badgesTotal}`, 344, badgesY + 32);
 
-  // Badge crest grid — all earned badges, up to 2 rows of 8, sized to fit
+  // Badge shield grid — same gothic crest as the in-app Achievements grid.
+  // Up to 2 rows of 8, sized to fit the banner with breathing room for the
+  // halo glow (which extends past the silhouette).
   const icons = data.badgeIcons;
   if (icons.length > 0) {
-    const PADDING_X = 28;
+    const PADDING_X = 32;
     const availableW = badgesW - PADDING_X * 2;
-    const GAP = 7;
-    const ROW_GAP = 8;
+    const GAP = 10;
+    const ROW_GAP = 10;
 
-    // Distribute into up to 2 rows of max 8
     const COLS = Math.min(icons.length, 8);
     const ROWS = Math.ceil(icons.length / COLS);
 
-    // Size crests to fit the available width and height
-    const cwByWidth = Math.floor((availableW - GAP * (COLS - 1)) / COLS);
-    // Available height for crests: banner height minus title area minus padding
-    const availableH = badgesH - 40 - (ROWS - 1) * ROW_GAP - 8;
-    const cwByHeight = Math.floor((availableH / ROWS) / 1.14); // CH = CW * 1.14
+    // Shield aspect is height = width * 1.12 (matches the SVG component).
+    const cwByWidth  = Math.floor((availableW - GAP * (COLS - 1)) / COLS);
+    const availableH = badgesH - 40 - (ROWS - 1) * ROW_GAP - 12;
+    const cwByHeight = Math.floor(availableH / ROWS / 1.12);
     const CW = Math.min(cwByWidth, cwByHeight, 72);
-    const CH = Math.round(CW * 1.14);
+    const CH = Math.round(CW * 1.12);
 
     const totalW = COLS * CW + (COLS - 1) * GAP;
     const startX = (W - totalW) / 2 + CW / 2;
-    // Vertically center the grid in the remaining space below the title
-    const gridH = ROWS * CH + (ROWS - 1) * ROW_GAP;
+    const gridH  = ROWS * CH + (ROWS - 1) * ROW_GAP;
     const gridAreaTop = badgesY + 40;
-    const gridAreaH = badgesH - 40 - 6;
+    const gridAreaH   = badgesH - 40 - 6;
     const startY = gridAreaTop + (gridAreaH - gridH) / 2 + CH / 2;
 
     for (let i = 0; i < icons.length; i++) {
       const col = i % COLS;
       const row = Math.floor(i / COLS);
-      const cx = startX + col * (CW + GAP);
-      const cy = startY + row * (CH + ROW_GAP);
-
-      // Glow + background
-      ctx.save();
-      ctx.shadowColor = 'rgba(244,198,74,0.55)';
-      ctx.shadowBlur = 10;
-      const bgGrad = ctx.createLinearGradient(cx - CW / 2, cy - CH / 2, cx + CW / 2, cy + CH / 2);
-      bgGrad.addColorStop(0, '#0d2235');
-      bgGrad.addColorStop(1, '#061520');
-      drawCrest(ctx, cx, cy, CW, CH);
-      ctx.fillStyle = bgGrad;
-      ctx.fill();
-      ctx.restore();
-
-      // Gold border
-      drawCrest(ctx, cx, cy, CW, CH);
-      ctx.strokeStyle = '#f4c64a';
-      ctx.lineWidth = 2.5;
-      ctx.stroke();
-
-      // Inner highlight ring
-      drawCrest(ctx, cx, cy, CW - 5, CH - 5);
-      ctx.strokeStyle = 'rgba(255,233,163,0.2)';
-      ctx.lineWidth = 1;
-      ctx.stroke();
-
-      // Emoji — scale font proportionally to crest size
-      ctx.save();
-      ctx.font = `${Math.round(CW * 0.47)}px sans-serif`;
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText(icons[i], cx, cy - CH * 0.04);
-      ctx.restore();
+      const cx  = startX + col * (CW + GAP);
+      const cy  = startY + row * (CH + ROW_GAP);
+      drawShield(ctx, cx, cy, CW, icons[i]);
     }
   }
 
