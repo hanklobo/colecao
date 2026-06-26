@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import type { Achievement } from '../utils/achievements';
+import { displayPct } from '../utils/percent';
 import { CloseIcon, CheckIcon } from './Icons';
 
 const SHIELD_PATH = 'M50 4 L92 18 V54 C92 82 73 99 50 106 C27 99 8 82 8 54 V18 Z';
@@ -143,7 +144,7 @@ function AchievementModal({
   albumPct: number;
   onClose: () => void;
 }) {
-  const pct = Math.min(100, Math.round((a.current / a.target) * 100));
+  const pct = displayPct(a.current, a.target);
   const remaining = Math.max(0, a.target - a.current);
 
   return (
@@ -232,7 +233,7 @@ export function AchievementsGrid({
     <>
       <div className="grid grid-cols-3 gap-2.5">
         {achievements.map((a) => {
-          const pct = Math.min(100, Math.round((a.current / a.target) * 100));
+          const pct = displayPct(a.current, a.target);
           return (
             <button
               key={a.id}

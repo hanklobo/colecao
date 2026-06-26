@@ -1,5 +1,6 @@
 import { TOTAL_STICKERS } from '../data/album2026';
 import { formatRelative } from '../utils/time';
+import { displayPct } from '../utils/percent';
 
 interface Props {
   have: number;
@@ -18,7 +19,7 @@ export function ProgressBar({ have, duplicates, lastSyncedAt, showSync }: Props)
         <span>
           <span className="font-bold text-white text-sm">{have}</span> / {TOTAL_STICKERS} figurinhas
         </span>
-        <span className="font-semibold text-copa-gold">{Math.round(pct)}%</span>
+        <span className="font-semibold text-copa-gold">{displayPct(have, TOTAL_STICKERS)}%</span>
       </div>
       <div className="h-2 bg-white/20 rounded-full overflow-hidden">
         <div

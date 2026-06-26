@@ -1,5 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import type { ComponentType } from 'react';
+import { TOTAL_STICKERS } from './data/album2026';
 import { useAlbum } from './hooks/useAlbum';
 import {
   useTradePartners,
@@ -10,9 +11,10 @@ import { ProgressBar } from './components/ProgressBar';
 import { AlbumView } from './views/AlbumView';
 import { TradingView } from './views/TradingView';
 import { StatsView } from './views/StatsView';
+import { ShoppingView } from './views/ShoppingView';
 import { LandingPage } from './components/LandingPage';
 import { SyncBadge } from './components/SyncBadge';
-import { AlbumIcon, StatsIcon, TradeIcon, LogoMark, HelpIcon } from './components/Icons';
+import { AlbumIcon, StatsIcon, TradeIcon, ShopIcon, LogoMark, HelpIcon } from './components/Icons';
 import { computeAchievements } from './utils/achievements';
 import { encodeTradeCode } from './utils/trading';
 import { Analytics } from '@vercel/analytics/react';
@@ -21,12 +23,13 @@ const ONBOARD_KEY = 'copa2026_onboarded';
 const BADGES_KEY = 'copa2026_badges';
 const BACKUP_META_KEY = 'copa2026_backupmeta';   // { firstShareNudgeSeen, lastBackupAt, nudgedMilestones }
 
-type Tab = 'album' | 'stats' | 'trading';
+type Tab = 'album' | 'stats' | 'trading' | 'shopping';
 
 const TABS: { id: Tab; label: string; Icon: ComponentType<{ className?: string; filled?: boolean }> }[] = [
-  { id: 'album',   label: 'Álbum',     Icon: AlbumIcon },
-  { id: 'stats',   label: 'Progresso', Icon: StatsIcon },
-  { id: 'trading', label: 'Troca',     Icon: TradeIcon },
+  { id: 'album',    label: 'Álbum',     Icon: AlbumIcon },
+  { id: 'stats',    label: 'Progresso', Icon: StatsIcon },
+  { id: 'trading',  label: 'Troca',     Icon: TradeIcon },
+  { id: 'shopping', label: 'Comprar',   Icon: ShopIcon },
 ];
 
 export interface BackupMeta {
@@ -168,10 +171,11 @@ export default function App() {
   // Milestones: first time the album crosses 50%, 75% or 100%, surface a nudge.
   useEffect(() => {
     const totalHave = Object.values(state).filter((s) => s.status !== 'missing').length;
-    const pct = (totalHave / 980) * 100;
+    const pct = (totalHave / TOTAL_STICKERS) * 100;
     const milestones = [50, 75, 100];
     const triggered = milestones.find(
-      (m) => pct >= m && !(backupMeta.nudgedMilestones ?? []).includes(m),
+      (m) => (m === 100 ? totalHave >= TOTAL_STICKERS : pct >= m) &&
+        !(backupMeta.nudgedMilestones ?? []).includes(m),
     );
     if (!triggered) return;
     const label = triggered === 100 ? 'Álbum completo!' : `${triggered}% do álbum`;
@@ -361,6 +365,7 @@ export default function App() {
             onShareSucceeded={markFirstShareSeen}
           />
         )}
+        {tab === 'shopping' && <ShoppingView />}
       </main>
 
       {/* Landing / help overlay */}
