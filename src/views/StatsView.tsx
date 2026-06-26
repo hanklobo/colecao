@@ -5,6 +5,7 @@ import type { MyAccount } from '../hooks/useUserSync';
 import { SECTIONS, TOTAL_STICKERS, STICKER_MAP } from '../data/album2026';
 import { getFlagUrl } from '../utils/flags';
 import { computeAchievements, specialOwned, TOTAL_SPECIAL } from '../utils/achievements';
+import { displayPct } from '../utils/percent';
 import { shareProgressCard } from '../utils/shareCard';
 import { exportAlbum, parseAlbumFile, type ImportResult } from '../utils/backup';
 import { AchievementsGrid } from '../components/Achievements';
@@ -126,7 +127,7 @@ export function StatsView({ state, myName, account, onImport, backupMeta, onBack
         {/* Percentage + fraction */}
         <div className="flex items-end gap-3 mb-4">
           <p className="font-display font-extrabold text-white tabular-nums leading-none" style={{ fontSize: '5rem' }}>
-            {Math.round(pct)}
+            {displayPct(totalHave, TOTAL_STICKERS)}
           </p>
           <div className="pb-2 leading-none">
             <span className="text-copa-gold font-black text-3xl leading-none">%</span>
@@ -189,7 +190,7 @@ export function StatsView({ state, myName, account, onImport, backupMeta, onBack
           </span>
         </div>
         <p className="text-gray-400 text-xs mb-3 -mt-1">Toque num brasão para ver os detalhes e sua evolução.</p>
-        <AchievementsGrid achievements={achievements} albumPct={Math.round(pct)} />
+        <AchievementsGrid achievements={achievements} albumPct={displayPct(totalHave, TOTAL_STICKERS)} />
       </div>
 
       {/* Per-section */}

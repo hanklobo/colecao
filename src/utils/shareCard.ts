@@ -3,6 +3,8 @@
 // same-origin so the canvas never taints. Canvas is the browser-native tool for
 // this kind of image compositing.
 
+import { displayPct } from './percent';
+
 export interface CardData {
   name: string;
   have: number;
@@ -145,7 +147,7 @@ export async function generateProgressCard(data: CardData): Promise<Blob | null>
   const ctx = canvas.getContext('2d');
   if (!ctx) return null;
 
-  const pct = Math.round((data.have / data.total) * 100);
+  const pct = displayPct(data.have, data.total);
 
   const base = await loadImage(TEMPLATE);
   if (base) {
@@ -292,7 +294,7 @@ export async function shareProgressCard(data: CardData): Promise<'shared' | 'dow
       await nav.share({
         files: [file],
         title: 'Meu progresso · Copa 2026',
-        text: `Já completei ${Math.round((data.have / data.total) * 100)}% do álbum da Copa 2026! Monte o seu: albumcopa.xyz`,
+        text: `Já completei ${displayPct(data.have, data.total)}% do álbum da Copa 2026! Monte o seu: albumcopa.xyz`,
       });
       return 'shared';
     } catch {
