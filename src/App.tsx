@@ -218,35 +218,54 @@ export default function App() {
         className="relative flex-shrink-0 z-30 shadow-card-lg overflow-hidden"
         style={{
           backgroundImage:
-            'radial-gradient(120% 80% at 0% 0%, #1a56b0 0%, transparent 55%),' +
+            'radial-gradient(120% 80% at 0% 0%, #1f5cc4 0%, transparent 55%),' +
             'radial-gradient(110% 80% at 100% 0%, #0b2e6b 0%, transparent 60%),' +
-            'linear-gradient(140deg, #0a1f4e 0%, #0b2e6b 45%, #133b8a 100%)',
+            'linear-gradient(140deg, #06184a 0%, #0b2e6b 45%, #133b8a 100%)',
         }}
       >
-        {/* Subtle gold band along the top — premium chrome cue */}
+        {/* Diagonal sheen — subtle premium texture */}
+        <div
+          aria-hidden
+          className="absolute inset-0 pointer-events-none opacity-30 mix-blend-overlay"
+          style={{
+            backgroundImage:
+              'repeating-linear-gradient(115deg, rgba(255,255,255,0.04) 0 1px, transparent 1px 14px)',
+          }}
+        />
+        {/* Gold hairline along the top */}
         <div
           aria-hidden
           className="absolute top-0 left-0 right-0 h-px"
-          style={{ background: 'linear-gradient(90deg, transparent 0%, #fcd34d 50%, transparent 100%)', opacity: 0.55 }}
+          style={{
+            background: 'linear-gradient(90deg, transparent 0%, #fcd34d 50%, transparent 100%)',
+            opacity: 0.7,
+          }}
         />
-        <div className="flex items-center gap-3 px-4 pt-4 pb-2">
+        <div className="relative flex items-center gap-3 px-4 pt-4 pb-2">
+          {/* Logo with gold halo + soft shadow */}
           <div className="relative flex-shrink-0">
-            <LogoMark className="w-12 h-12 rounded-2xl shadow-card-lg ring-1 ring-white/20" />
             <div
               aria-hidden
-              className="absolute -inset-0.5 rounded-2xl pointer-events-none"
-              style={{ boxShadow: 'inset 0 0 0 1px rgba(252,211,77,0.35)' }}
+              className="absolute -inset-1 rounded-2xl blur-md opacity-50"
+              style={{ background: 'radial-gradient(circle, rgba(252,211,77,0.55) 0%, transparent 70%)' }}
             />
+            <LogoMark className="relative w-14 h-14 rounded-2xl shadow-card-lg ring-1 ring-white/25" />
           </div>
+
+          {/* Title block */}
           <div className="min-w-0 flex-1">
             <h1 className="font-display font-extrabold leading-none tracking-tight">
               <span className="text-white text-[15px]">Coleção</span>
-              <span className="text-copa-gold text-lg ml-1.5">Copa 2026</span>
+              <span className="text-copa-gold text-lg ml-1.5 drop-shadow-[0_1px_2px_rgba(0,0,0,0.25)]">
+                Copa 2026
+              </span>
             </h1>
-            <p className="text-white/55 text-[9.5px] font-bold leading-none mt-1.5 uppercase tracking-[0.18em]">
+            <p className="text-white/55 text-[9.5px] font-bold leading-none mt-1.5 uppercase tracking-[0.2em]">
               Álbum Panini · FIFA World Cup
             </p>
           </div>
+
+          {/* Right cluster */}
           <div className="flex-shrink-0 flex items-center gap-1.5 self-start">
             <SyncBadge
               status={syncStatus}
@@ -257,19 +276,21 @@ export default function App() {
             <button
               onClick={() => setShowHelp(true)}
               aria-label="Como funciona"
-              className="flex items-center gap-1.5 text-white/85 hover:text-white bg-white/10 hover:bg-white/20 rounded-full pl-2.5 pr-3 py-1.5 text-[11px] font-semibold transition-colors"
+              className="flex items-center gap-1.5 text-white/85 hover:text-white bg-white/10 hover:bg-white/15 rounded-full pl-2.5 pr-3 py-1.5 text-[11px] font-semibold transition-colors ring-1 ring-white/10"
             >
               <HelpIcon className="w-3.5 h-3.5" />
               Ajuda
             </button>
           </div>
         </div>
-        <ProgressBar
-          have={stats.have}
-          duplicates={stats.duplicateCount}
-          lastSyncedAt={lastSyncedAt}
-          showSync={!!account.id}
-        />
+        <div className="relative">
+          <ProgressBar
+            have={stats.have}
+            duplicates={stats.duplicateCount}
+            lastSyncedAt={lastSyncedAt}
+            showSync={!!account.id}
+          />
+        </div>
       </header>
 
       {/* Toast notification */}

@@ -324,9 +324,9 @@ export function LogoMark({ className }: IconProps) {
     <img
       src="/logo-packs.png"
       alt="Coleção Copa 2026"
-      width={48}
-      height={48}
-      className={`${base(className)} object-cover bg-white`}
+      width={56}
+      height={56}
+      className={`${base(className)} object-cover`}
     />
   );
 }
