@@ -7,16 +7,18 @@ interface Props {
   repeatedCount: number;
 }
 
-const FILTERS: { value: Filter; label: string; activeColor: string }[] = [
-  { value: 'all',      label: 'Todas',      activeColor: 'bg-copa-ink text-white shadow-card' },
-  { value: 'missing',  label: 'Faltam',     activeColor: 'bg-red-500 text-white shadow-card' },
-  { value: 'repeated', label: 'Repetidas',  activeColor: 'bg-amber-500 text-white shadow-card' },
+// Active palette per filter. Soft tinted background + saturated text, so the
+// segmented control reads as a refined chip rather than a heavy solid block.
+const FILTERS: { value: Filter; label: string; activeBg: string; activeText: string; badgeBg: string }[] = [
+  { value: 'all',      label: 'Todas',     activeBg: 'bg-copa-blue',  activeText: 'text-white', badgeBg: 'bg-white/25 text-white' },
+  { value: 'missing',  label: 'Faltam',    activeBg: 'bg-rose-500',   activeText: 'text-white', badgeBg: 'bg-white/25 text-white' },
+  { value: 'repeated', label: 'Repetidas', activeBg: 'bg-amber-500',  activeText: 'text-white', badgeBg: 'bg-white/25 text-white' },
 ];
 
 export function FilterBar({ active, onChange, missingCount, repeatedCount }: Props) {
   return (
-    <div className="flex gap-2 px-4 py-2.5 overflow-x-auto scrollbar-hide">
-      {FILTERS.map(({ value, label, activeColor }) => {
+    <div className="flex gap-1.5 px-4 py-2.5">
+      {FILTERS.map(({ value, label, activeBg, activeText, badgeBg }) => {
         const badge =
           value === 'missing' ? missingCount :
           value === 'repeated' ? repeatedCount : null;
@@ -25,15 +27,18 @@ export function FilterBar({ active, onChange, missingCount, repeatedCount }: Pro
           <button
             key={value}
             onClick={() => onChange(value)}
-            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all active:scale-95 ${
-              isActive ? activeColor : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+            aria-pressed={isActive}
+            className={`flex-1 min-w-0 flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all active:scale-95 ring-1 ${
+              isActive
+                ? `${activeBg} ${activeText} shadow-card ring-transparent`
+                : 'bg-white text-gray-600 hover:bg-gray-50 ring-gray-200'
             }`}
           >
-            {label}
+            <span className="truncate">{label}</span>
             {badge !== null && badge > 0 && (
               <span
-                className={`text-[9px] px-1.5 py-0.5 rounded-full font-bold leading-none tabular-nums ${
-                  isActive ? 'bg-white/25 text-white' : 'bg-white text-gray-500'
+                className={`text-[9px] px-1.5 py-0.5 rounded-full font-bold leading-none tabular-nums flex-shrink-0 ${
+                  isActive ? badgeBg : 'bg-gray-100 text-gray-500'
                 }`}
               >
                 {badge}

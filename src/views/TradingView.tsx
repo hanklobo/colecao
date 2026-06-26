@@ -1,14 +1,15 @@
-import { Fragment, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import type { AlbumState, Section } from '../types';
 import type { TradePartner } from '../hooks/useTradePartners';
+import { parsePartnerInput } from '../hooks/useTradePartners';
+import type { MyAccount, AccountStatus, SyncStatus, UseUserSyncReturn } from '../hooks/useUserSync';
 import { STICKER_MAP } from '../data/album2026';
 import {
-  encodeTradeCode,
   calculateTrade,
   getPartnerStats,
   generateShareUrl,
-  decodeTradeCode,
 } from '../utils/trading';
+import { formatRelative } from '../utils/time';
 import { getFlagUrl } from '../utils/flags';
 import {
   ShareIcon,
@@ -24,11 +25,18 @@ import {
 interface Props {
   state: AlbumState;
   myName: string;
-  onUpdateMyName: (name: string) => void;
+  account: MyAccount;
+  accountStatus: AccountStatus;
+  onUpdateMyName: UseUserSyncReturn['updateName'];
   partners: TradePartner[];
-  onAddPartner: (name: string, code: string) => boolean;
+  onAddPartnerById: (id: string, fallbackName?: string) => Promise<TradePartner | null>;
   onRemovePartner: (id: string) => void;
+  onRefreshPartner: (id: string) => Promise<void>;
   onGoToAlbum: () => void;
+  syncStatus: SyncStatus;
+  isDirty: boolean;
+  onForceSync: () => Promise<boolean>;
+  onShareSucceeded: () => void;
 }
 
 const totalHave = (state: AlbumState) =>
@@ -45,11 +53,18 @@ const SHARE_STEPS = [
 export function TradingView({
   state,
   myName,
+  account,
+  accountStatus,
   onUpdateMyName,
   partners,
-  onAddPartner,
+  onAddPartnerById,
   onRemovePartner,
+  onRefreshPartner,
   onGoToAlbum,
+  syncStatus,
+  isDirty,
+  onForceSync,
+  onShareSucceeded,
 }: Props) {
   const [selectedPartnerId, setSelectedPartnerId] = useState<string | null>(
     partners[0]?.id ?? null,
@@ -58,27 +73,57 @@ export function TradingView({
   const [nameInput, setNameInput] = useState(myName);
   const [shared, setShared] = useState(false);
   const [showAddForm, setShowAddForm] = useState(false);
-  const [addName, setAddName] = useState('');
-  const [addCode, setAddCode] = useState('');
+  const [addInput, setAddInput] = useState('');
   const [addError, setAddError] = useState('');
+  const [adding, setAdding] = useState(false);
 
-  const myCode = encodeTradeCode(state);
   const myHave = totalHave(state);
 
   // Keep selection valid as partners change
   const selectedPartner =
     partners.find((p) => p.id === selectedPartnerId) ?? partners[0] ?? null;
 
-  function saveName() {
+  // Refresh the selected partner whenever it changes — SWR-style: the cached
+  // code stays visible while the fresh one is fetched in the background.
+  useEffect(() => {
+    if (selectedPartner?.id) {
+      void onRefreshPartner(selectedPartner.id);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedPartner?.id]);
+
+  async function saveName() {
     if (!nameInput.trim()) return;
-    onUpdateMyName(nameInput.trim());
+    await onUpdateMyName(nameInput.trim());
     setEditingName(false);
   }
 
   async function shareLink() {
     const name = myName || nameInput.trim();
     if (!name) { setEditingName(true); return; }
-    const url = generateShareUrl(name, myCode);
+    // Close the inline name editor on the success path so the UI doesn't
+    // keep the "preencha seu nome" hint visible after a share goes out.
+    setEditingName(false);
+
+    // Ensure we have an account before sharing — updateName creates one
+    // lazily on first call. The hook returns the resolved account so we
+    // don't have to wait for React state to flush.
+    let currentId = account.id;
+    let justCreated = false;
+    if (!currentId) {
+      const created = await onUpdateMyName(name);
+      currentId = created.id;
+      if (!currentId) return; // creation failed
+      justCreated = true;
+    }
+    // Push the current code to the server before sharing the link so the
+    // friend's first GET returns real data, not the empty `code: null` that
+    // a fresh account ships with. The same goes for any pending edits.
+    if (justCreated || isDirty) {
+      const ok = await onForceSync();
+      if (!ok) return;
+    }
+    const url = generateShareUrl(currentId);
     try {
       if (navigator.share) {
         await navigator.share({
@@ -91,23 +136,30 @@ export function TradingView({
         setShared(true);
         setTimeout(() => setShared(false), 2500);
       }
+      onShareSucceeded();
     } catch {
       // user cancelled share — ignore
     }
   }
 
-  function submitAddPartner() {
-    const name = addName.trim();
-    const code = addCode.trim();
-    if (!name) { setAddError('Digite o nome do amigo.'); return; }
-    if (!code) { setAddError('Cole o código do amigo.'); return; }
-    if (!decodeTradeCode(code)) { setAddError('Código inválido. Verifique e tente novamente.'); return; }
-    onAddPartner(name, code);
-    setShowAddForm(false);
-    setAddName('');
-    setAddCode('');
+  async function submitAddPartner() {
+    const id = parsePartnerInput(addInput);
+    if (!id) { setAddError('Link ou ID inválido. Cole o link que seu amigo enviou.'); return; }
+    setAdding(true);
     setAddError('');
+    const partner = await onAddPartnerById(id);
+    setAdding(false);
+    if (!partner) {
+      setAddError('Não encontramos esse parceiro. Verifique o link.');
+      return;
+    }
+    setShowAddForm(false);
+    setAddInput('');
+    setSelectedPartnerId(partner.id);
   }
+
+  const accountBusy  = accountStatus === 'creating';
+  const accountError = accountStatus === 'error';
 
   return (
     <div className="h-full overflow-y-auto bg-gray-50 pb-24">
@@ -177,25 +229,29 @@ export function TradingView({
 
         {/* Share button — only after the name is filled */}
         {myName && !editingName ? (
-          <>
-            <button
-              onClick={shareLink}
-              className={`w-full py-3.5 rounded-2xl font-bold text-sm transition-all active:scale-95 flex items-center justify-center gap-2 ${
-                shared
-                  ? 'bg-emerald-500 text-white'
-                  : 'bg-copa-gold text-copa-navy hover:brightness-110 shadow-card'
-              }`}
-            >
-              {shared ? (
-                <><CheckIcon className="w-4 h-4" /> Link copiado!</>
-              ) : (
-                <><ShareIcon className="w-4 h-4" /> Compartilhar meu link</>
-              )}
-            </button>
-            <p className="text-white/50 text-[11px] text-center mt-2.5 leading-snug">
-              Envie para um amigo. Quando ele abrir, vira parceiro de troca aqui.
-            </p>
-          </>
+          <button
+            onClick={shareLink}
+            disabled={accountBusy || syncStatus === 'syncing'}
+            className={`w-full py-3.5 rounded-2xl font-bold text-sm transition-all active:scale-95 flex items-center justify-center gap-2 ${
+              shared
+                ? 'bg-emerald-500 text-white'
+                : 'bg-copa-gold text-copa-navy hover:brightness-110 shadow-card disabled:opacity-50'
+            }`}
+          >
+            {shared ? (
+              <><CheckIcon className="w-4 h-4" /> Link copiado!</>
+            ) : accountBusy ? (
+              <>⏳ Criando seu link...</>
+            ) : syncStatus === 'syncing' ? (
+              <>⟳ Sincronizando...</>
+            ) : accountError ? (
+              <><ShareIcon className="w-4 h-4" /> Tentar de novo</>
+            ) : isDirty ? (
+              <><ShareIcon className="w-4 h-4" /> Sincronizar e compartilhar</>
+            ) : (
+              <><ShareIcon className="w-4 h-4" /> Compartilhar meu link</>
+            )}
+          </button>
         ) : (
           <p className="text-white/60 text-[11px] text-center leading-snug">
             ☝️ Preencha seu nome para gerar e compartilhar seu link de troca.
@@ -226,26 +282,28 @@ export function TradingView({
         {/* Manual add form */}
         {showAddForm && (
           <div className="bg-white rounded-2xl shadow-card p-4 mb-4 space-y-3 animate-slide-down">
-            <p className="text-sm font-bold text-gray-800">Adicionar amigo manualmente</p>
+            <p className="text-sm font-bold text-gray-800">Adicionar amigo pelo ID</p>
             <input
-              value={addName}
-              onChange={(e) => setAddName(e.target.value)}
-              placeholder="Nome do amigo"
-              className="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm font-medium focus:outline-none focus:border-copa-blue focus:ring-2 focus:ring-copa-blue/15 transition"
+              value={addInput}
+              onChange={(e) => setAddInput(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Enter') void submitAddPartner(); }}
+              placeholder="ID do amigo"
+              autoCapitalize="off"
+              autoCorrect="off"
+              spellCheck={false}
+              className="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-sm font-mono focus:outline-none focus:border-copa-blue focus:ring-2 focus:ring-copa-blue/15 transition"
             />
-            <textarea
-              value={addCode}
-              onChange={(e) => setAddCode(e.target.value)}
-              placeholder="Cole aqui o link ou código de troca dele"
-              rows={3}
-              className="w-full px-3 py-2.5 border border-gray-200 rounded-xl text-xs font-mono resize-none focus:outline-none focus:border-copa-blue focus:ring-2 focus:ring-copa-blue/15 transition"
-            />
+            <p className="text-[11px] text-gray-400 leading-snug">
+              O ID tem 10 caracteres e fica depois do <span className="font-mono">?u=</span> no link do amigo.
+              Você também pode colar o link inteiro — vamos extrair o ID.
+            </p>
             {addError && <p className="text-rose-500 text-xs font-medium">{addError}</p>}
             <button
               onClick={submitAddPartner}
-              className="w-full py-2.5 bg-copa-ink text-white rounded-xl font-bold text-sm active:scale-95 transition"
+              disabled={adding}
+              className="w-full py-2.5 bg-copa-ink text-white rounded-xl font-bold text-sm active:scale-95 transition disabled:opacity-50"
             >
-              Adicionar parceiro
+              {adding ? 'Buscando...' : 'Adicionar parceiro'}
             </button>
           </div>
         )}
@@ -258,8 +316,8 @@ export function TradingView({
             </div>
             <p className="font-bold text-gray-800 text-sm">Nenhum parceiro ainda</p>
             <p className="text-gray-400 text-xs mt-1 leading-snug">
-              Compartilhe seu link acima. Quando um amigo abrir, ele aparece aqui e o app
-              mostra na hora o que vale a pena trocar.
+              Compartilhe seu link acima — e <strong>peça o link do seu amigo</strong> também.
+              Cada um precisa abrir o link do outro pra aparecerem como parceiros aqui.
             </p>
           </div>
         )}
@@ -269,7 +327,7 @@ export function TradingView({
           <>
             <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide -mx-4 px-4">
               {partners.map((p) => {
-                const trade = calculateTrade(state, p.code);
+                const trade = p.code ? calculateTrade(state, p.code) : null;
                 const tradeCount = (trade?.give.length ?? 0) + (trade?.receive.length ?? 0);
                 const isActive = p.id === selectedPartner?.id;
                 return (
@@ -313,6 +371,7 @@ export function TradingView({
                   const remaining = partners.filter((p) => p.id !== selectedPartner.id);
                   setSelectedPartnerId(remaining[0]?.id ?? null);
                 }}
+                onRefresh={() => onRefreshPartner(selectedPartner.id)}
                 onGoToAlbum={onGoToAlbum}
               />
             )}
@@ -323,6 +382,7 @@ export function TradingView({
   );
 }
 
+
 // ── Partner analysis card ───────────────────────────────────────────────────
 
 interface AnalysisProps {
@@ -330,18 +390,27 @@ interface AnalysisProps {
   myState: AlbumState;
   myHave: number;
   onRemove: () => void;
+  onRefresh: () => Promise<void>;
   onGoToAlbum: () => void;
 }
 
-function PartnerAnalysis({ partner, myState, myHave, onRemove, onGoToAlbum }: AnalysisProps) {
+function PartnerAnalysis({ partner, myState, myHave, onRemove, onRefresh, onGoToAlbum }: AnalysisProps) {
   const [confirmRemove, setConfirmRemove] = useState(false);
-  const trade = calculateTrade(myState, partner.code);
-  const stats = getPartnerStats(partner.code);
+  const [refreshing, setRefreshing] = useState(false);
+  const trade = partner.code ? calculateTrade(myState, partner.code) : null;
+  const stats = partner.code ? getPartnerStats(partner.code) : null;
 
   const give = trade?.give ?? [];
   const receive = trade?.receive ?? [];
   const hasTrade = give.length > 0 || receive.length > 0;
   const diff = give.length - receive.length;
+  const isLegacy = !!partner.legacy;
+  const noCodeYet = !partner.code;
+
+  async function handleRefresh() {
+    setRefreshing(true);
+    try { await onRefresh(); } finally { setRefreshing(false); }
+  }
 
   return (
     <div className="mt-3 space-y-3">
@@ -385,6 +454,26 @@ function PartnerAnalysis({ partner, myState, myHave, onRemove, onGoToAlbum }: An
           )}
         </div>
 
+        {/* Freshness chip */}
+        <div className="px-4 py-2 border-t border-gray-100 flex items-center justify-between text-[11px]">
+          <p className="text-gray-500">
+            {isLegacy
+              ? '⚠ Código antigo (sem atualização automática)'
+              : noCodeYet
+                ? 'Aguardando ele cadastrar figurinhas'
+                : `Atualizado ${formatRelative(partner.fetchedAt)}`}
+          </p>
+          {!isLegacy && (
+            <button
+              onClick={handleRefresh}
+              disabled={refreshing}
+              className="text-copa-blue font-bold hover:underline disabled:opacity-50"
+            >
+              {refreshing ? 'Buscando...' : 'Atualizar'}
+            </button>
+          )}
+        </div>
+
         {/* Onboarding nudge for users with no stickers */}
         {myHave === 0 && (
           <div className="px-4 py-4 bg-amber-50 border-t border-amber-100">
@@ -403,7 +492,13 @@ function PartnerAnalysis({ partner, myState, myHave, onRemove, onGoToAlbum }: An
       </div>
 
       {/* Trade result */}
-      {!trade ? (
+      {noCodeYet ? (
+        <EmptyCard
+          emoji="⏳"
+          title="Ele ainda não compartilhou figurinhas"
+          text="Quando seu amigo cadastrar o álbum, as trocas aparecem aqui."
+        />
+      ) : !trade ? (
         <EmptyCard text="Não foi possível calcular a troca." />
       ) : !hasTrade ? (
         <EmptyCard

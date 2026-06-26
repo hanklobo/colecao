@@ -14,7 +14,15 @@ interface Props {
   onToggle: () => void;
 }
 
-export function SectionBlock({ section, state, onCycle, onReset, filter, isCollapsed, onToggle }: Props) {
+export function SectionBlock({
+  section,
+  state,
+  onCycle,
+  onReset,
+  filter,
+  isCollapsed,
+  onToggle,
+}: Props) {
   const visibleStickers = section.stickers
     .map((st, i) => ({ ...st, sectionIndex: i + 1 }))
     .filter((st) => {

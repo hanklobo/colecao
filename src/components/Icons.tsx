@@ -321,27 +321,13 @@ export function TapIcon({ className }: IconProps) {
 
 export function LogoMark({ className }: IconProps) {
   return (
-    <svg viewBox="0 0 48 48" className={base(className)} role="img" aria-label="Coleção Copa 2026">
-      <defs>
-        <linearGradient id="logo-bg" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#f8d34d" />
-          <stop offset="1" stopColor="#e0890a" />
-        </linearGradient>
-      </defs>
-      <rect width="48" height="48" rx="13" fill="url(#logo-bg)" />
-      <rect x="1.2" y="1.2" width="45.6" height="45.6" rx="12" fill="none" stroke="#ffffff" strokeOpacity="0.35" strokeWidth="1.2" />
-      <g stroke="#0b2e6b" fill="none" strokeWidth="2.4" strokeLinejoin="round" strokeLinecap="round">
-        <circle cx="24" cy="24" r="13" />
-      </g>
-      <polygon points="24,18.8 28.95,22.4 27.06,28.2 20.94,28.2 19.05,22.4" fill="#0b2e6b" />
-      <g stroke="#0b2e6b" strokeWidth="2.1" strokeLinecap="round">
-        <line x1="24" y1="18.8" x2="24" y2="11" />
-        <line x1="28.95" y1="22.4" x2="36.36" y2="20" />
-        <line x1="27.06" y1="28.2" x2="31.64" y2="34.52" />
-        <line x1="20.94" y1="28.2" x2="16.36" y2="34.52" />
-        <line x1="19.05" y1="22.4" x2="11.64" y2="20" />
-      </g>
-    </svg>
+    <img
+      src="/logo-packs.png"
+      alt="Coleção Copa 2026"
+      width={56}
+      height={56}
+      className={`${base(className)} object-cover`}
+    />
   );
 }
 
