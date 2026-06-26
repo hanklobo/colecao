@@ -17,7 +17,7 @@ const FILTERS: { value: Filter; label: string; activeBg: string; activeText: str
 
 export function FilterBar({ active, onChange, missingCount, repeatedCount }: Props) {
   return (
-    <div className="flex gap-1.5 px-4 py-2.5 overflow-x-auto scrollbar-hide">
+    <div className="flex gap-1.5 px-4 py-2.5">
       {FILTERS.map(({ value, label, activeBg, activeText, badgeBg }) => {
         const badge =
           value === 'missing' ? missingCount :
@@ -28,16 +28,16 @@ export function FilterBar({ active, onChange, missingCount, repeatedCount }: Pro
             key={value}
             onClick={() => onChange(value)}
             aria-pressed={isActive}
-            className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all active:scale-95 ring-1 ${
+            className={`flex-1 min-w-0 flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all active:scale-95 ring-1 ${
               isActive
                 ? `${activeBg} ${activeText} shadow-card ring-transparent`
                 : 'bg-white text-gray-600 hover:bg-gray-50 ring-gray-200'
             }`}
           >
-            {label}
+            <span className="truncate">{label}</span>
             {badge !== null && badge > 0 && (
               <span
-                className={`text-[9px] px-1.5 py-0.5 rounded-full font-bold leading-none tabular-nums ${
+                className={`text-[9px] px-1.5 py-0.5 rounded-full font-bold leading-none tabular-nums flex-shrink-0 ${
                   isActive ? badgeBg : 'bg-gray-100 text-gray-500'
                 }`}
               >
