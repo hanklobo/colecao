@@ -7,12 +7,14 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
-      workbox: {
-        // The default Workbox navigation fallback sends EVERY unmatched
-        // navigation to the cached index.html — including sitemap.xml and
-        // robots.txt, which crawlers/tools fetch as a top-level navigation.
-        // Exclude those (and api/) so they always hit the network/server.
-        navigateFallbackDenylist: [/^\/api\//, /^\/sitemap\.xml$/, /^\/robots\.txt$/],
+      // Custom src/sw.ts (instead of the fully auto-generated service
+      // worker) so it can also handle Web Push — 'push'/'notificationclick'
+      // aren't something the generateSW strategy lets you hook into.
+      strategies: 'injectManifest',
+      srcDir: 'src',
+      filename: 'sw.ts',
+      injectManifest: {
+        globPatterns: ['**/*.{js,css,html}'],
       },
       manifest: {
         name: 'Coleção Copa 2026',

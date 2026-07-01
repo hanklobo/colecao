@@ -164,6 +164,7 @@ function shell({ path, title, description, bodyHtml, jsonLd = [], breadcrumbs = 
 <meta name="twitter:description" content="${esc(description)}">
 <meta name="twitter:image" content="${SITE}/og.png">
 <script type="application/ld+json">${JSON.stringify(ld)}</script>
+<script defer src="/_vercel/insights/script.js"></script>
 <style>${CSS}</style>
 </head>
 <body>
@@ -351,8 +352,8 @@ for (const t of teams) {
 <p class="lead">Elenco ${esc(withPrep(t))} convocado para a Copa 2026 e o número de cada figurinha no álbum
 Panini oficial — de #${t.firstId} a #${t.lastId} (escudo, foto do time e 18 jogadores).</p>
 
-<a class="cta" href="/?secao=${t.id}">✅ Marcar minhas figurinhas ${esc(withPrep(t))}</a>
-<a class="cta ghost" href="/?tab=shopping">🛒 Ver ofertas de álbum e figurinhas</a>
+<a class="cta" href="/?secao=${t.id}" onclick="window.va&&window.va('event',{name:'content_to_app',data:{cta:'secao',team:'${t.id}'}})">✅ Marcar minhas figurinhas ${esc(withPrep(t))}</a>
+<a class="cta ghost" href="/?tab=shopping" onclick="window.va&&window.va('event',{name:'content_to_app',data:{cta:'shopping'}})">🛒 Ver ofertas de álbum e figurinhas</a>
 
 <table class="roster">
   <thead><tr><th>Fig.</th><th>Figurinha</th><th>Tipo</th></tr></thead>
@@ -467,7 +468,8 @@ Canadá, México e Estados Unidos, com 48 seleções e 104 jogos — o maior for
     const priceStr = p.price.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     const oldStr = p.priceFull ? `<div class="old">R$ ${p.priceFull.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</div>` : '';
     return `
-  <a class="product" href="${p.url}" target="_blank" rel="noopener noreferrer nofollow sponsored">
+  <a class="product" href="${p.url}" target="_blank" rel="noopener noreferrer nofollow sponsored"
+     onclick="window.va&&window.va('event',{name:'affiliate_click',data:{id:'${p.id}',source:'seo-page'}})">
     <img src="${p.image}" alt="${esc(p.title)}" loading="lazy">
     <div>
       <div class="title">${esc(p.title)}</div>
@@ -485,7 +487,7 @@ envelopes com figurinhas e itens colecionáveis. Os links levam direto ao anúnc
 ${products}
 
 <a class="cta" href="/">📖 Organizar minha coleção no app</a>
-<a class="cta ghost" href="/?tab=shopping">Ver mais ofertas no app</a>
+<a class="cta ghost" href="/?tab=shopping" onclick="window.va&&window.va('event',{name:'content_to_app',data:{cta:'shopping'}})">Ver mais ofertas no app</a>
 
 <h2>Perguntas frequentes</h2>
 <div class="faq">

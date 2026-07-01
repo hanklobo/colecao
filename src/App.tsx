@@ -14,10 +14,12 @@ import { StatsView } from './views/StatsView';
 import { ShoppingView } from './views/ShoppingView';
 import { LandingPage } from './components/LandingPage';
 import { SyncBadge } from './components/SyncBadge';
-import { AlbumIcon, StatsIcon, TradeIcon, ShopIcon, LogoMark, HelpIcon } from './components/Icons';
+import { AlbumIcon, StatsIcon, TradeIcon, ShopIcon, LogoMark, HelpIcon, BellIcon } from './components/Icons';
+import { isPushSupported, pushPermission, subscribeToPush } from './utils/push';
 import { computeAchievements } from './utils/achievements';
 import { encodeTradeCode } from './utils/trading';
 import { Analytics } from '@vercel/analytics/react';
+import { track } from '@vercel/analytics';
 
 const ONBOARD_KEY = 'copa2026_onboarded';
 const BADGES_KEY = 'copa2026_badges';
@@ -83,6 +85,30 @@ export default function App() {
   const [showHelp, setShowHelp] = useState(false);
   const [firstTime, setFirstTime] = useState(false);
   const [backupMeta, setBackupMeta] = useState<BackupMeta>(loadBackupMeta);
+  const [pushState, setPushState] = useState<'idle' | 'subscribing' | 'subscribed' | 'denied' | 'unsupported'>(() => {
+    if (!isPushSupported()) return 'unsupported';
+    const perm = pushPermission();
+    return perm === 'granted' ? 'subscribed' : perm === 'denied' ? 'denied' : 'idle';
+  });
+
+  async function handleEnableNotifications() {
+    if (pushState !== 'idle') return;
+    setPushState('subscribing');
+    const result = await subscribeToPush();
+    setPushState(result === 'subscribed' ? 'subscribed' : result === 'denied' ? 'denied' : 'idle');
+    if (result === 'subscribed') {
+      track('push_subscribe');
+      pushToast('🔔 Notificações ativadas — vamos te avisar nos dias de jogo!');
+    }
+  }
+
+  // If the browser already granted permission in a past session, make sure
+  // the subscription is (still) registered on the server — silent, no
+  // permission prompt fires since it's already been granted.
+  useEffect(() => {
+    if (pushState === 'subscribed') void subscribeToPush();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Show landing page on first ever visit
   useEffect(() => {
@@ -134,6 +160,11 @@ export default function App() {
     window.history.replaceState({}, '', url.pathname + url.search);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Track shopping-tab views — the affiliate funnel's top of funnel.
+  useEffect(() => {
+    if (tab === 'shopping') track('shopping_tab_view');
+  }, [tab]);
 
   // Auto-dismiss the head of the toast queue.
   useEffect(() => {
@@ -326,6 +357,25 @@ export default function App() {
               enabled={!!account.id}
               onForceSync={() => { void forceSync(code); }}
             />
+            {pushState !== 'unsupported' && (
+              <button
+                onClick={handleEnableNotifications}
+                disabled={pushState !== 'idle'}
+                aria-label={pushState === 'subscribed' ? 'Notificações ativadas' : 'Ativar notificações de jogos'}
+                title={
+                  pushState === 'subscribed' ? 'Notificações ativadas'
+                  : pushState === 'denied' ? 'Notificações bloqueadas — habilite nas configurações do navegador'
+                  : 'Ativar notificações de jogos'
+                }
+                className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-colors ring-1 ring-white/10 disabled:opacity-60 ${
+                  pushState === 'subscribed'
+                    ? 'bg-copa-gold/20 text-copa-gold'
+                    : 'bg-white/10 text-white/85 hover:bg-white/15 hover:text-white'
+                }`}
+              >
+                <BellIcon className="w-4 h-4" />
+              </button>
+            )}
             <button
               onClick={() => setShowHelp(true)}
               aria-label="Como funciona"
