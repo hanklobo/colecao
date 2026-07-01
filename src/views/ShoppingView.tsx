@@ -1,6 +1,9 @@
 import { ExternalLinkIcon } from '../components/Icons';
+import FEATURED_JSON from '../data/featuredListings.json';
 
 // ── Featured listings (hardcoded ML ads) ────────────────────────────────────
+// Single source of truth shared with the static "onde comprar" SEO page
+// (scripts/gen-content.mjs reads the same JSON) so both stay in sync.
 interface FeaturedListing {
   id: string;
   title: string;
@@ -17,63 +20,7 @@ interface FeaturedListing {
   url: string;
 }
 
-const FEATURED: FeaturedListing[] = [
-  {
-    id: 'kit-10-env',
-    title: 'Kit 10 Envelopes Copa do Mundo 2026 — 70 figurinhas Panini',
-    image: '/kit-10-env.webp',
-    priceFull: 94.99,
-    price: 65.06,
-    discount: 31,
-    rating: 4.8,
-    reviews: 12757,
-    installments: '12x R$ 6,41',
-    badge: 'MAIS VENDIDO',
-    badgeColor: 'bg-orange-500',
-    tag: '1º em Figurinhas',
-    url: 'https://meli.la/2rFbrY2',
-  },
-  {
-    id: 'figurinha-personalizada',
-    title: 'Kit 2 Figurinhas da Copa do Mundo 2026 Personalizadas',
-    image: '/figurinha-personalizada.webp',
-    priceFull: 26.53,
-    price: 20.37,
-    discount: 23,
-    rating: 5.0,
-    reviews: 5,
-    badge: 'NOVO',
-    badgeColor: 'bg-copa-blue',
-    tag: '✨ Figurinha especial',
-    url: 'https://meli.la/1iYQjt6',
-  },
-  {
-    id: 'album-capa-dura',
-    title: 'Álbum Capa Dura Ouro — Copa do Mundo 2026 FIFA World Cup Panini',
-    image: '/album-capa-dura.webp',
-    priceFull: 59.99,
-    price: 39.53,
-    discount: 34,
-    rating: 4.9,
-    reviews: 360,
-    badge: 'MAIS VENDIDO',
-    badgeColor: 'bg-orange-500',
-    tag: '15º em Livros Físicos',
-    url: 'https://meli.la/1sopTpB',
-  },
-  {
-    id: 'box-estadio',
-    title: 'Box Estádio Copa do Mundo Numerado Exclusivo FIFA World Cup 2026',
-    image: '/box-estadio.webp',
-    price: 1829.90,
-    rating: 4.6,
-    reviews: 117,
-    badge: 'MAIS VENDIDO',
-    badgeColor: 'bg-orange-500',
-    tag: '16º em Livros Físicos Panini',
-    url: 'https://meli.la/33hs4gF',
-  },
-];
+const FEATURED: FeaturedListing[] = FEATURED_JSON;
 
 // ── View ─────────────────────────────────────────────────────────────────────
 
@@ -151,7 +98,7 @@ function FeaturedCard({ item }: { item: FeaturedListing }) {
     <a
       href={item.url}
       target="_blank"
-      rel="noopener noreferrer nofollow"
+      rel="noopener noreferrer nofollow sponsored"
       className="flex bg-white rounded-2xl shadow-card overflow-hidden active:scale-[0.98] transition-transform"
       aria-label={`Ver ${item.title} no Mercado Livre`}
     >

@@ -4,11 +4,14 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
+    "predev": "npm run content",
     "dev": "vite",
+    "prebuild": "npm run content",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "screenshots": "node scripts/capture-screenshots.mjs",
-    "assets": "node scripts/gen-assets.mjs"
+    "assets": "node scripts/gen-assets.mjs",
+    "content": "node scripts/gen-content.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
