@@ -25,6 +25,16 @@ const BACKUP_META_KEY = 'copa2026_backupmeta';   // { firstShareNudgeSeen, lastB
 
 type Tab = 'album' | 'stats' | 'trading' | 'shopping';
 
+const VALID_TABS: Tab[] = ['album', 'stats', 'trading', 'shopping'];
+
+// Static SEO/content pages (e.g. /copa-2026/onde-comprar-...) link back here
+// with ?tab=shopping so a reader lands directly on the affiliate offers
+// instead of the album, and ?secao=BRA to jump straight to a team.
+function initialTabFromUrl(): Tab {
+  const t = new URLSearchParams(window.location.search).get('tab');
+  return (VALID_TABS as string[]).includes(t ?? '') ? (t as Tab) : 'album';
+}
+
 const TABS: { id: Tab; label: string; Icon: ComponentType<{ className?: string; filled?: boolean }> }[] = [
   { id: 'album',    label: 'Álbum',     Icon: AlbumIcon },
   { id: 'stats',    label: 'Progresso', Icon: StatsIcon },
@@ -51,7 +61,7 @@ function saveBackupMeta(m: BackupMeta) {
 }
 
 export default function App() {
-  const [tab, setTab] = useState<Tab>('album');
+  const [tab, setTab] = useState<Tab>(initialTabFromUrl);
   const { state, cycleSticker, resetSticker, replaceState, stats } = useAlbum();
   const { partners, addPartnerById, refreshPartner, removePartner } = useTradePartners();
   const {
@@ -104,6 +114,24 @@ export default function App() {
         pushToast('Não foi possível carregar esse parceiro.');
       }
     })();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // ?secao=BRA (from a content page) jumps straight to that team in the album.
+  // The tab itself is already set from the URL in initialTabFromUrl().
+  useEffect(() => {
+    const url = new URL(window.location.href);
+    const secao = url.searchParams.get('secao');
+    if (!url.searchParams.has('tab') && !secao) return;
+    if (secao) {
+      setTab('album');
+      setTimeout(() => {
+        document.getElementById(`section-${secao.toUpperCase()}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 300);
+    }
+    url.searchParams.delete('tab');
+    url.searchParams.delete('secao');
+    window.history.replaceState({}, '', url.pathname + url.search);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

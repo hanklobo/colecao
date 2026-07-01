@@ -46,6 +46,13 @@ export async function setJSON<T>(key: string, value: T): Promise<void> {
   await call(['SET', key, JSON.stringify(value)]);
 }
 
+// Same as setJSON, but the key expires on its own after ttlSeconds — used
+// for response caches (e.g. worldcup fixtures) that should go stale rather
+// than live forever.
+export async function setJSONWithTTL<T>(key: string, value: T, ttlSeconds: number): Promise<void> {
+  await call(['SET', key, JSON.stringify(value), 'EX', ttlSeconds]);
+}
+
 // Atomic create-if-absent. Returns true when the key was set, false if it
 // already existed. Used to avoid clobbering on nanoid collisions.
 export async function setNXJSON<T>(key: string, value: T): Promise<boolean> {
