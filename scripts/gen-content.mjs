@@ -287,6 +287,7 @@ número da figurinha no álbum, a tabela de jogos e onde comprar — e organiza 
     <div class="group-teams">
       ${groups[g].map((t) => `<a href="/copa-2026/selecoes/${slugOf(t)}/">${flagImg(t.flagCode, t.name)} ${esc(t.name)}</a>`).join('\n      ')}
     </div>
+    <div class="wc-standings-mini" data-group="${g}"></div>
   </div>`).join('\n');
   const body = `
 <span class="badge">Fase de grupos</span>
@@ -295,6 +296,28 @@ número da figurinha no álbum, a tabela de jogos e onde comprar — e organiza 
 convocado e o número de cada figurinha no álbum.</p>
 ${groupBlocks}
 <a class="cta" href="/">📖 Marcar figurinhas no app</a>
+
+<script>
+(function () {
+  fetch('/api/worldcup/standings').then(function (r) { return r.json(); }).then(function (data) {
+    if (!data || data.configured === false || !data.standings || !data.standings.length) return;
+    var byGroup = {};
+    data.standings.forEach(function (s) {
+      (byGroup[s.group] = byGroup[s.group] || []).push(s);
+    });
+    document.querySelectorAll('.wc-standings-mini').forEach(function (el) {
+      var rows = byGroup[el.getAttribute('data-group')];
+      if (!rows || !rows.length) return;
+      var head = '<tr><th>#</th><th>Seleção</th><th>J</th><th>SG</th><th>Pts</th></tr>';
+      var body = rows.map(function (s) {
+        return '<tr><td class="num">' + s.rank + 'º</td><td>' + s.team + '</td><td class="num">' + s.played +
+          '</td><td class="num">' + (s.goalsDiff > 0 ? '+' : '') + s.goalsDiff + '</td><td class="num"><strong>' + s.points + '</strong></td></tr>';
+      }).join('');
+      el.innerHTML = '<table class="roster" style="margin-top:10px"><thead>' + head + '</thead><tbody>' + body + '</tbody></table>';
+    });
+  }).catch(function () { /* leave the plain team list if standings fail to load */ });
+})();
+</script>
 `;
   write(path, shell({
     path, title, description, bodyHtml: body,
