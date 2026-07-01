@@ -7,6 +7,13 @@ export default defineConfig({
     react(),
     VitePWA({
       registerType: 'autoUpdate',
+      workbox: {
+        // The default Workbox navigation fallback sends EVERY unmatched
+        // navigation to the cached index.html — including sitemap.xml and
+        // robots.txt, which crawlers/tools fetch as a top-level navigation.
+        // Exclude those (and api/) so they always hit the network/server.
+        navigateFallbackDenylist: [/^\/api\//, /^\/sitemap\.xml$/, /^\/robots\.txt$/],
+      },
       manifest: {
         name: 'Coleção Copa 2026',
         short_name: 'Copa 2026',
