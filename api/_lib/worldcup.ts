@@ -68,3 +68,53 @@ export function normalizeFixtures(raw: RawFixturesResponse): NormalizedFixture[]
 export function anyLive(fixtures: NormalizedFixture[]): boolean {
   return fixtures.some((f) => LIVE_STATUSES.has(f.status));
 }
+
+export interface NormalizedStanding {
+  group: string;
+  rank: number;
+  team: string;
+  played: number;
+  win: number;
+  draw: number;
+  lose: number;
+  goalsDiff: number;
+  points: number;
+}
+
+export interface RawStandingsResponse {
+  response: Array<{
+    league: {
+      standings: Array<
+        Array<{
+          rank: number;
+          team: { name: string };
+          points: number;
+          goalsDiff: number;
+          group: string;
+          all: { played: number; win: number; draw: number; lose: number };
+        }>
+      >;
+    };
+  }>;
+}
+
+// One flat list, sorted by group then rank — grouping by `.group` on the
+// client is a one-liner and keeps this normalizer trivial to keep in sync
+// with normalizeFixtures above.
+export function normalizeStandings(raw: RawStandingsResponse): NormalizedStanding[] {
+  const groups = raw.response[0]?.league?.standings ?? [];
+  return groups
+    .flat()
+    .map((s) => ({
+      group: (s.group ?? '').replace(/^Group\s+/i, ''),
+      rank: s.rank,
+      team: s.team.name,
+      played: s.all?.played ?? 0,
+      win: s.all?.win ?? 0,
+      draw: s.all?.draw ?? 0,
+      lose: s.all?.lose ?? 0,
+      goalsDiff: s.goalsDiff ?? 0,
+      points: s.points ?? 0,
+    }))
+    .sort((a, b) => (a.group < b.group ? -1 : a.group > b.group ? 1 : a.rank - b.rank));
+}
