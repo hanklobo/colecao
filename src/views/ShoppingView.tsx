@@ -1,3 +1,4 @@
+import { track } from '@vercel/analytics';
 import { ExternalLinkIcon } from '../components/Icons';
 import FEATURED_JSON from '../data/featuredListings.json';
 
@@ -99,6 +100,7 @@ function FeaturedCard({ item }: { item: FeaturedListing }) {
       href={item.url}
       target="_blank"
       rel="noopener noreferrer nofollow sponsored"
+      onClick={() => track('affiliate_click', { id: item.id, source: 'app' })}
       className="flex bg-white rounded-2xl shadow-card overflow-hidden active:scale-[0.98] transition-transform"
       aria-label={`Ver ${item.title} no Mercado Livre`}
     >

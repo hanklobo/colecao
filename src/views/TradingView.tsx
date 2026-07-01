@@ -1,4 +1,5 @@
 import { Fragment, useEffect, useMemo, useState } from 'react';
+import { track } from '@vercel/analytics';
 import type { AlbumState, Section } from '../types';
 import type { TradePartner } from '../hooks/useTradePartners';
 import { parsePartnerInput } from '../hooks/useTradePartners';
@@ -13,6 +14,7 @@ import { formatRelative } from '../utils/time';
 import { getFlagUrl } from '../utils/flags';
 import {
   ShareIcon,
+  WhatsAppIcon,
   CheckIcon,
   PlusIcon,
   EditIcon,
@@ -98,9 +100,12 @@ export function TradingView({
     setEditingName(false);
   }
 
-  async function shareLink() {
+  // Ensure we have an account + a fresh synced code before sharing, then
+  // return the share URL. Shared by both the native-share button and the
+  // explicit WhatsApp button below.
+  async function ensureShareUrl(): Promise<string | null> {
     const name = myName || nameInput.trim();
-    if (!name) { setEditingName(true); return; }
+    if (!name) { setEditingName(true); return null; }
     // Close the inline name editor on the success path so the UI doesn't
     // keep the "preencha seu nome" hint visible after a share goes out.
     setEditingName(false);
@@ -113,7 +118,7 @@ export function TradingView({
     if (!currentId) {
       const created = await onUpdateMyName(name);
       currentId = created.id;
-      if (!currentId) return; // creation failed
+      if (!currentId) return null; // creation failed
       justCreated = true;
     }
     // Push the current code to the server before sharing the link so the
@@ -121,25 +126,46 @@ export function TradingView({
     // a fresh account ships with. The same goes for any pending edits.
     if (justCreated || isDirty) {
       const ok = await onForceSync();
-      if (!ok) return;
+      if (!ok) return null;
     }
-    const url = generateShareUrl(currentId);
+    return generateShareUrl(currentId);
+  }
+
+  function shareMessage(name: string, url: string): string {
+    return `🏆 ${name} quer trocar figurinhas da Copa 2026 com você! Abre esse link — ele já mostra na hora o que dá pra trocar (grátis, sem cadastro): ${url}`;
+  }
+
+  async function shareLink() {
+    const name = myName || nameInput.trim();
+    const url = await ensureShareUrl();
+    if (!url) return;
     try {
       if (navigator.share) {
         await navigator.share({
           title: 'Troca de figurinhas · Copa 2026',
-          text: `${name} quer trocar figurinhas da Copa com você! Clique para ver o que podemos trocar.`,
+          text: shareMessage(name, ''), // url goes in its own field below
           url,
         });
+        track('trade_share', { method: 'native' });
       } else {
         await navigator.clipboard.writeText(url);
         setShared(true);
         setTimeout(() => setShared(false), 2500);
+        track('trade_share', { method: 'clipboard' });
       }
       onShareSucceeded();
     } catch {
       // user cancelled share — ignore
     }
+  }
+
+  async function shareToWhatsApp() {
+    const name = myName || nameInput.trim();
+    const url = await ensureShareUrl();
+    if (!url) return;
+    window.open(`https://wa.me/?text=${encodeURIComponent(shareMessage(name, url))}`, '_blank', 'noopener');
+    track('trade_share', { method: 'whatsapp' });
+    onShareSucceeded();
   }
 
   async function submitAddPartner() {
@@ -227,31 +253,40 @@ export function TradingView({
           ))}
         </div>
 
-        {/* Share button — only after the name is filled */}
+        {/* Share buttons — only after the name is filled */}
         {myName && !editingName ? (
-          <button
-            onClick={shareLink}
-            disabled={accountBusy || syncStatus === 'syncing'}
-            className={`w-full py-3.5 rounded-2xl font-bold text-sm transition-all active:scale-95 flex items-center justify-center gap-2 ${
-              shared
-                ? 'bg-emerald-500 text-white'
-                : 'bg-copa-gold text-copa-navy hover:brightness-110 shadow-card disabled:opacity-50'
-            }`}
-          >
-            {shared ? (
-              <><CheckIcon className="w-4 h-4" /> Link copiado!</>
-            ) : accountBusy ? (
-              <>⏳ Criando seu link...</>
-            ) : syncStatus === 'syncing' ? (
-              <>⟳ Sincronizando...</>
-            ) : accountError ? (
-              <><ShareIcon className="w-4 h-4" /> Tentar de novo</>
-            ) : isDirty ? (
-              <><ShareIcon className="w-4 h-4" /> Sincronizar e compartilhar</>
-            ) : (
-              <><ShareIcon className="w-4 h-4" /> Compartilhar meu link</>
-            )}
-          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={shareToWhatsApp}
+              disabled={accountBusy || syncStatus === 'syncing'}
+              className="flex-1 py-3.5 rounded-2xl font-bold text-sm transition-all active:scale-95 flex items-center justify-center gap-2 bg-[#25D366] text-white hover:brightness-105 shadow-card disabled:opacity-50"
+            >
+              <WhatsAppIcon className="w-4 h-4" /> WhatsApp
+            </button>
+            <button
+              onClick={shareLink}
+              disabled={accountBusy || syncStatus === 'syncing'}
+              className={`flex-1 py-3.5 rounded-2xl font-bold text-sm transition-all active:scale-95 flex items-center justify-center gap-2 ${
+                shared
+                  ? 'bg-emerald-500 text-white'
+                  : 'bg-copa-gold text-copa-navy hover:brightness-110 shadow-card disabled:opacity-50'
+              }`}
+            >
+              {shared ? (
+                <><CheckIcon className="w-4 h-4" /> Copiado!</>
+              ) : accountBusy ? (
+                <>⏳ Criando...</>
+              ) : syncStatus === 'syncing' ? (
+                <>⟳ Sincronizando...</>
+              ) : accountError ? (
+                <><ShareIcon className="w-4 h-4" /> Tentar de novo</>
+              ) : isDirty ? (
+                <><ShareIcon className="w-4 h-4" /> Sincronizar</>
+              ) : (
+                <><ShareIcon className="w-4 h-4" /> Outro app</>
+              )}
+            </button>
+          </div>
         ) : (
           <p className="text-white/60 text-[11px] text-center leading-snug">
             ☝️ Preencha seu nome para gerar e compartilhar seu link de troca.

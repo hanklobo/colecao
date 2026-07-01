@@ -60,6 +60,17 @@ export async function setNXJSON<T>(key: string, value: T): Promise<boolean> {
   return r === 'OK';
 }
 
+export async function delKey(key: string): Promise<void> {
+  await call(['DEL', key]);
+}
+
+// Upstash supports KEYS on small keyspaces without issue; fine for our scale
+// (push subscriptions, rate-limit counters) — would need SCAN if this ever
+// grew into the tens of thousands of keys.
+export async function keysMatching(pattern: string): Promise<string[]> {
+  return call<string[]>(['KEYS', pattern]);
+}
+
 // Increment a counter and ensure it has a TTL. Returns the new count.
 // The TTL is only set on the first increment (when INCR returns 1), so the
 // window is a true fixed-window starting at the first hit.
