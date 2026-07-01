@@ -1,5 +1,6 @@
 {
   "rewrites": [
+    { "source": "/troca/:id", "destination": "/api/share/:id" },
     { "source": "/((?!api/|copa-2026/|.*\\..*).*)", "destination": "/index.html" }
   ],
   "functions": {
