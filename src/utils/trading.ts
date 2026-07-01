@@ -128,6 +128,10 @@ export function getPartnerStats(code: string): PartnerStats | null {
   return { have, missing: decoded.missing.length, duplicates };
 }
 
+// Routes through /troca/:id (see api/share/[id].ts) instead of linking
+// straight to /?u=:id — that lets WhatsApp/social link previews show the
+// sharer's actual name instead of the generic homepage card. It redirects
+// into the real app (?u=:id) instantly for anyone who opens it.
 export function generateShareUrl(userId: string): string {
-  return `${window.location.origin}/?u=${userId}`;
+  return `${window.location.origin}/troca/${userId}`;
 }

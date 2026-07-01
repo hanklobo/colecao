@@ -119,11 +119,15 @@ export function useTradePartners() {
 
 // Extract a user id from a pasted share link or raw id. Accepts:
 //   - bare id like "abc12XYZ_-"
-//   - full URL "https://.../?u=abc12XYZ_-"
+//   - full URL "https://.../?u=abc12XYZ_-" (legacy share links)
+//   - full URL "https://.../troca/abc12XYZ_-" (current share links, see
+//     generateShareUrl in utils/trading.ts + api/share/[id].ts)
 //   - just the query "?u=abc12XYZ_-" or "u=abc12XYZ_-"
 // Uses URLSearchParams to avoid substring collisions like `?au=1&u=real`,
 // where the previous indexOf('u=') match would pull the wrong value.
 const ID_RE = /^[A-Za-z0-9_-]{6,40}$/;
+const TROCA_PATH_RE = /\/troca\/([A-Za-z0-9_-]{6,40})(?:[/?#]|$)/;
+
 export function parsePartnerInput(input: string): string | null {
   const s = input.trim();
   if (!s) return null;
@@ -141,6 +145,9 @@ export function parsePartnerInput(input: string): string | null {
       if (id && ID_RE.test(id)) return id;
     } catch { /* fall through */ }
   }
+
+  const trocaMatch = s.match(TROCA_PATH_RE);
+  if (trocaMatch) return trocaMatch[1];
 
   // Treat the whole thing as a bare id.
   if (ID_RE.test(s)) return s;
